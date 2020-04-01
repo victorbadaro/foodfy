@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #111;
+}
+
+.container {
+    margin: 0 auto 50px;
+    width: 100%;
+    max-width: 940px;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    align-items: center;
+    gap: 120px;
+    padding: 36px 0;
+}
+
+.menu a {
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 19px;
+    color: #111;
+}
+
+.menu a.active {
+    font-weight: bold;
+}
+
+.menu a + a {
+    margin-left: 30px;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 366px;
+    margin-bottom: 50px;
+    padding-left: 60px;
+    border-radius: 30px;
+    background-color: #FBDFDB;
+}
+
+header div {
+    align-self: center;
+    width: 316px;
+}
+
+header div h1 {
+    font-size: 32px;
+    line-height: 38px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+header div p {
+    font-size: 18px;
+    line-height: 28px;
+    color: #000;
+    opacity: 0.7;
+}
+
+header img {
+    justify-self: center;
+    align-self: flex-end;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+}
+
+.recipes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+    row-gap: 30px;
+    margin-top: 20px;
+}
+
+.recipes .recipe {
+    width: 300px;
+}
+
+.recipe .recipe-img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.recipe .recipe-title {
+    margin: 20px 0 5px;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.recipe .recipe-author {
+    font-size: 14px;
+    line-height: 16px;
+    color: #777;
+}
+
+footer {
+    text-align: center;
+    padding: 23px 0;
+    background-color: #EEE;
+}
+
+footer span {
+    font-size: 14px;
+    line-height: 16px;
+    color: #999;
+}
+
+/* ABOUT */
+.text-title {
+    margin: 20px 0;
+}
+
+h2.text-title {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: bold;
+}
+
+.text {
+    margin-bottom: 30px;
+}
+
+.text p {
+    font-size: 18px;
+    line-height: 28px;
+    color: #444;
+}
+
+.text p + p {
+    margin-top: 30px;
+}
+
+h3.text-title {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+}
