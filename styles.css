@@ -8,6 +8,7 @@
 }
 
 body {
+    position: relative;
     font-family: 'Roboto', sans-serif;
     color: #111;
 }
@@ -151,4 +152,63 @@ h3.text-title {
     font-size: 20px;
     line-height: 24px;
     font-weight: bold;
+}
+
+/* Modal */
+.modal {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal.hide {
+    display: none;
+}
+
+.modal .modal-container {
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 660px;
+    border-radius: 16px;
+    padding: 30px;
+    background-color: #FFF;
+}
+
+.modal-container .recipe {
+    width: 600px;
+}
+
+.modal-container .recipe .recipe-img {
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.modal-container .recipe .recipe-title {
+    font-size: 24px;
+    line-height: 28px;
+    text-align: center;
+}
+
+.modal-container .recipe .recipe-author {
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+}
+
+.modal-container .modal-footer {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.modal-footer a {
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 19px;
+    color: #999;
 }
