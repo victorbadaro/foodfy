@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Foodfy - Receitas</title>
+{% endblock title %}
+
+{% block content %}
+<section class="recipes">
+    {% for recipe in recipes %}
+    <div class="recipe">
+        <a href="#">
+            <img class="recipe-img" src="{{ recipe.image }}" alt="Imagem do burger">
+        </a>
+        <p class="recipe-title">{{ recipe.title }}</p>
+        <p class="recipe-author">por {{ recipe.author }}</p>
+    </div>
+    {% endfor %}
+</section>
+{% endblock content %}
+
+{% block script %}
+<script src="/script.js"></script>
+{% endblock script %}

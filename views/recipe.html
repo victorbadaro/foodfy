@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+<title>Foodfy - </title>
+{% endblock title %}
+
+{% block content %}
+<div id="recipe" class="recipe">
+    <div class="recipe-img" style="background-image: url('{{ recipe.image }}')"></div>
+    <p class="recipe-title">{{ recipe.title }}</p>
+    <p class="recipe-author">por {{ recipe.author }}</p>
+</div>
+
+<section id="recipe-part-ingredients" class="recipe-part">
+    <div class="text-title">
+        <h2 class="text-title">Ingredientes</h2>
+        <a href="#recipe-part-ingredients">ESCONDER</a>
+    </div>
+    <ul id="recipe-ingredients" class="recipe-part-content">
+        {% for ingredient in recipe.ingredients %}
+        <li>{{ ingredient }};</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section id="recipe-part-preparation" class="recipe-part">
+    <div class="text-title">
+        <h2 class="text-title">Modo de preparo</h2>
+        <a href="#recipe-part-preparation">ESCONDER</a>
+    </div>
+    <ol id="recipe-preparation" class="recipe-part-content">
+        {% for preparationStep in recipe.preparation %}
+        <li>{{ preparationStep }}.</li>
+        {% endfor %}
+    </ol>
+</section>
+
+<section id="recipe-part-information" class="recipe-part">
+    <div class="text-title">
+        <h2 class="text-title">Informações adicionais</h2>
+        <a href="#recipe-part-information">ESCONDER</a>
+    </div>
+    <section id="recipe-information" class="text recipe-part-content">
+        <p>{{ recipe.information }}</p>
+    </section>
+</section>
+{% endblock content %}
+
+{% block script %}
+<script src="/script.js""></script>
+{% endblock script %}
