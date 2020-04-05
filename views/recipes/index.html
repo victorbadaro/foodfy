@@ -1,0 +1,21 @@
+{% extends "recipes/layout.html" %}
+
+{% block title %}
+<title>Foodfy - Receitas</title>
+{% endblock title %}
+
+{% block content %}
+<h2 class="text-title">Gerenciar receitas</h2>
+<section class="recipes">
+    {% for recipe in recipes %}
+    <div class="recipe">
+        <div class="recipe-img" style="background-image: url('{{ recipe.image }}');"></div>
+        <div>
+            <p class="recipe-title">{{ recipe.title }}</p>
+            <p class="recipe-author">por {{ recipe.author }}</p>
+            <a href="#" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock content %}

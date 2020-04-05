@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+:root {
+    --color-black: #000;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +14,7 @@
 body {
     position: relative;
     font-family: 'Roboto', sans-serif;
-    color: #111;
+    color: var(--color-black);
 }
 
 .container {
@@ -261,4 +265,138 @@ div.text-title a {
     font-size: 18px;
     line-height: 28px;
     color: #444;
+}
+
+/* ADMIN */
+#admin nav {
+    display: block;
+    margin-bottom: 50px;
+    padding: 24px 0;
+    background-color: var(--color-black);
+}
+
+#admin nav .container {
+    margin-bottom: 0;
+}
+
+#admin h2.text-title {
+    margin: 50px 0 30px;
+}
+
+#admin .recipes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px
+}
+
+#admin .recipes .recipe {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 172px 1fr;
+    column-gap: 20px;
+    align-items: start;
+}
+
+#admin .recipes .recipe .recipe-img {
+    height: 80px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+#admin .recipes .recipe div .recipe-title {
+    margin: 0;
+}
+
+#admin .recipes .recipe div .recipe-author {
+    margin: 5px 0 10px;
+}
+
+#admin .recipes .recipe div a {
+    text-decoration: none;
+    font-size: 14px 16px;
+    font-weight: bold;
+    color: #6558C3;
+}
+
+#admin .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+#admin .header div.forms {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#admin .header .text-title {
+    margin: 0;
+}
+
+#admin .header div button {
+    padding: 9px 20px;
+    border-radius: 4px;
+    background-color: #6558C3;
+    color: #FFF;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#admin .header div button + button {
+    margin-left: 10px;
+}
+
+#admin .header div button[type='button'] {
+    background-color: #DC4747;
+}
+
+#admin .fields {
+    margin: 26px 0;
+}
+
+#admin .fields .add-item {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    color: #6558C3;
+    text-align: right;
+}
+
+#admin .fields .form-item  {
+    margin-top: 30px;
+}
+
+#admin .fields .form-item label {
+    display: block;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#admin .fields .form-item input,
+#admin .fields .form-item textarea {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: #FFF;
+    margin-bottom: 10px;
+}
+
+#admin .fields .form-item textarea {
+    font-family: 'Roboto', sans-serif;
+    min-height: 257px;
+    line-height: 24px;
+    resize: vertical;
 }

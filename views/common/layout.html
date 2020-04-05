@@ -5,13 +5,13 @@
             <title>Foodfy</title>
         {% endblock title %}
         <meta charset=utf-8>
-        <link rel="stylesheet" href="/styles.css">
+        <link rel="stylesheet" href="/common/styles.css">
     </head>
     <body>
         <div class="container">
-            <nav>
+            <nav id="menuBar">
                 <a href="/home">
-                    <img src="/assets/logo.png" alt="Imagem da logo">
+                    <img src="/assets/common/logo.png" alt="Imagem da logo">
                 </a>
                 <div class="menu">
                     <a href="/about">Sobre</a>
@@ -25,7 +25,6 @@
 
         <footer><span>Todos direitos reservados, receitas Foodfy.</span></footer>
 
-        {% block script %}
-        {% endblock script %}
+        <script src="/common/script.js"></script>
     </body>
 </html>

@@ -1,0 +1,18 @@
+{% extends "recipes/layout.html" %}
+
+{% block title %}
+<title>Foodfy - Criar receita</title>
+{% endblock title %}
+
+{% block content %}
+<form action="/admin/recipes" method="POST">
+<div class="header">
+    <h2 class="text-title">Criando receita</h2>
+    <div>
+        <button type="submit">Salvar receita</button>
+    </div>
+</div>
+
+{% include "recipes/fields.html" %}
+</form>
+{% endblock content %}

@@ -4,7 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "dev": "npm-run-all -p nodemon browsersync",
+    "nodemon": "nodemon server.js",
+    "browsersync": "browser-sync start --proxy http://localhost:3000 --files 'views, public'"
   },
   "repository": {
     "type": "git",
@@ -19,9 +22,12 @@
   "homepage": "https://github.com/victorbadaro/foodfy#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "method-override": "^3.0.0",
     "nunjucks": "^3.2.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "browser-sync": "^2.26.7",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5"
   }
 }

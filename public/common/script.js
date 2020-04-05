@@ -1,8 +1,16 @@
+const currentPage = window.location.pathname
+const menus = document.querySelectorAll('nav#menuBar .menu a')
+
+for (menu of menus) {
+    if(currentPage.includes(menu.getAttribute('href')))
+        menu.classList.add('active')
+}
+
 // FOR INDEX AND RECIPES PAGES
 const recipes = document.querySelectorAll('.recipes .recipe')
 
 for (let i = 0; i < recipes.length; i++) {
-    recipes[i].querySelector('a').addEventListener('click', function(event) {
+    recipes[i].querySelector('a.recipe-link').addEventListener('click', function(event) {
         event.preventDefault()
         window.location.href = `/recipe/${i}`
     })
