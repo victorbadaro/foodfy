@@ -1,5 +1,5 @@
 const currentPage = window.location.pathname
-const menus = document.querySelectorAll('nav#menuBar .menu a')
+const menus = document.querySelectorAll('nav.menuBar .menu a')
 
 for (menu of menus) {
     if(currentPage.includes(menu.getAttribute('href')))

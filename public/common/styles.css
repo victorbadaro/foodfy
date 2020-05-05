@@ -276,7 +276,32 @@ div.text-title a {
 }
 
 #admin nav .container {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 50px;
+    align-items: center;
     margin-bottom: 0;
+}
+
+#admin nav .container div {
+    text-align: left;
+}
+
+#admin nav .container div a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: bold;
+    color: #999;
+}
+
+#admin nav .container div a.active {
+    color: #FFF;
+}
+
+#admin nav .container div a + a {
+    margin-left: 30px;
 }
 
 #admin h2.text-title {
@@ -287,6 +312,11 @@ div.text-title a {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px
+}
+
+#admin .chefs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 #admin .recipes .recipe {

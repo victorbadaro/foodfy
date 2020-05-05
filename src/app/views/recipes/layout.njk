@@ -8,11 +8,15 @@
         <link rel="stylesheet" href="/common/styles.css">
     </head>
     <body id="admin">
-        <nav>
+        <nav class="menuBar">
             <div class="container">
                 <a href="/admin/recipes">
                     <img src="/assets/admin/logo.png" alt="Imagem da logo">
                 </a>
+                <div class="menu">
+                    <a href="/admin/recipes">Receitas</a>
+                    <a href="/admin/chefs">Chefs</a>
+                </div>
             </div>
         </nav>
         <div class="container">
@@ -20,6 +24,6 @@
             {% endblock content %}
         </div>
 
-        <script src="/admin/script.js"></script>
+        <script src="/common/script.js"></script>
     </body>
 </html>
