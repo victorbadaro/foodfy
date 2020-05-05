@@ -1,6 +1,6 @@
 const express = require('express')
-const recipes = require('./app/controllers/recipes')
-const chefs = require('./app/controllers/chefs')
+const adminRecipes = require('./app/controllers/admin/recipes')
+const adminChefs = require('./app/controllers/admin/chefs')
 const data = require('../data')
 const routes = express.Router()
 
@@ -26,17 +26,22 @@ routes.get('/recipe/:id', function(req, res) {
     return res.render('common/recipe', { recipe: data[id] })
 })
 
+// ADMIN ROUTES [RECIPES and CHEFS]
 routes.get('/admin', function(req, res) {
     return res.redirect('/admin/recipes')
 })
-routes.get('/admin/recipes', recipes.index) // Mostrar a lista de receitas
-routes.post('/admin/recipes', recipes.post) // Cadastrar nova receita
-routes.put('/admin/recipes', recipes.put) // Editar uma receita
-routes.delete('/admin/recipes', recipes.delete) // Deletar uma receita
-routes.get('/admin/recipes/create', recipes.create) // Mostrar formulário de nova receita
-routes.get('/admin/recipes/:id', recipes.show) // Exibir detalhes de uma receita
-routes.get('/admin/recipes/:id/edit', recipes.edit) // Mostrar formulário de edição de receita
 
-routes.get('/admin/chefs', chefs.index)
+// ADMIN [RECIPES]
+routes.get('/admin/recipes', adminRecipes.index)
+routes.post('/admin/recipes', adminRecipes.post)
+routes.put('/admin/recipes', adminRecipes.put)
+routes.delete('/admin/recipes', adminRecipes.delete)
+routes.get('/admin/recipes/create', adminRecipes.create)
+routes.get('/admin/recipes/:id', adminRecipes.show)
+routes.get('/admin/recipes/:id/edit', adminRecipes.edit)
+
+// ADMIN [CHEFS]
+routes.get('/admin/chefs', adminChefs.index)
+routes.get('/admin/chefs/:id', adminChefs.show)
 
 module.exports = routes

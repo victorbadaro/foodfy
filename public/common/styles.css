@@ -317,6 +317,65 @@ div.text-title a {
 #admin .chefs {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 30px;
+    column-gap: 25px;
+}
+
+#admin .chef {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    column-gap: 20px;
+    align-items: center;
+}
+
+#admin .chef .chef-img,
+#admin .chef-info .chef-info-img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+}
+
+#admin .chef-info {
+    margin-top: 50px;
+}
+
+#admin .chef-info .chef-info-img {
+    margin: 0 auto 30px;
+    width: 200px;
+    height: 200px;
+}
+
+#admin .chef-info h1 {
+    margin-bottom: 4px;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 42px;
+    text-align: center;
+    color: #111;
+}
+#admin .chef-info p {
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #777;
+}
+
+#admin .chef .chef-name {
+    font-size: 18px;
+    line-height: 21px;
+    color: #111;
+}
+
+#admin .chef .chef-link {
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    color:#6558C3;
 }
 
 #admin .recipes .recipe {
@@ -365,7 +424,8 @@ div.text-title a {
     margin: 0;
 }
 
-#admin .header div button {
+#admin .header div button, .redirect {
+    text-decoration: none;
     padding: 9px 20px;
     border-radius: 4px;
     background-color: #6558C3;
