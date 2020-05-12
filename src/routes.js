@@ -42,6 +42,8 @@ routes.get('/admin/recipes/:id/edit', adminRecipes.edit)
 
 // ADMIN [CHEFS]
 routes.get('/admin/chefs', adminChefs.index)
+routes.get('/admin/chefs/create', adminChefs.create)
 routes.get('/admin/chefs/:id', adminChefs.show)
+routes.get('/admin/chefs/:id/edit', adminChefs.edit)
 
 module.exports = routes
