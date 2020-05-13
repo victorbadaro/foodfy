@@ -1,4 +1,4 @@
-{% extends "common/layout.njk" %}
+{% extends "public/layout.njk" %}
 
 {% block title %}
 <title>Foodfy - Home</title>
@@ -10,12 +10,12 @@
         <h1>As melhores receitas</h1>
         <p>Aprenda a construir os melhores pratos com receitas criadas por profissionais do mundo inteiro.</p>
     </div>
-    <img src="/assets/common/chef.png" alt="Imagem do chef">
+    <img src="/img/chef.png" alt="Imagem do chef">
 </header>
 <h2>Mais acessadas</h2>
 <section class="recipes">
     {% for recipe in mostAcessedRecipes %}
-    {% include "common/recipeLayout.njk" %}
+    {% include "public/recipeLayout.njk" %}
     {% endfor %}
 </section>
 {% endblock content %}

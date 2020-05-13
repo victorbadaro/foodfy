@@ -3,15 +3,15 @@ const data = require('../../../../data')
 
 module.exports = {
     index(req, res) {
-        return res.render('recipes/index', { recipes: data })
+        return res.render('admin/recipes/index', { recipes: data })
     },
     create(req, res) {
-        return res.render('recipes/create')
+        return res.render('admin/recipes/create')
     },
     show(req, res) {
         const { id } = req.params
     
-        return res.render('recipes/show', { recipe: data[id] })
+        return res.render('admin/recipes/show', { recipe: data[id] })
     },
     edit(req, res) {
         const { id } = req.params
@@ -20,7 +20,7 @@ module.exports = {
             ...data[id]
         }
         
-        return res.render('recipes/edit', { recipe })
+        return res.render('admin/recipes/edit', { recipe })
     },
     post(req, res) {
         const { image, title, author, ingredients, preparation, information } = req.body

@@ -1,4 +1,4 @@
-{% extends "common/layout.njk" %}
+{% extends "public/layout.njk" %}
 
 {% block title %}
 <title>Foodfy - Receitas</title>
@@ -7,7 +7,7 @@
 {% block content %}
 <section class="recipes">
     {% for recipe in recipes %}
-    {% include "common/recipeLayout.njk" %}
+    {% include "public/recipeLayout.njk" %}
     {% endfor %}
 </section>
 {% endblock content %}

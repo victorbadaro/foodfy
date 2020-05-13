@@ -1,10 +1,17 @@
-{% extends "common/layout.njk" %}
+{% extends "admin/layout.njk" %}
 
 {% block title %}
 <title>Foodfy - Receita</title>
 {% endblock title %}
 
 {% block content %}
+<div class="header">
+    <h2 class="text-title">Receita: {{ recipe.title }}</h2>
+    <div>
+        <button class="redirect">Editar receita</button>
+    </div>
+</div>
+
 <div id="recipe" class="recipe">
     <div class="recipe-img" style="background-image: url('{{ recipe.image }}')"></div>
     <p class="recipe-title">{{ recipe.title }}</p>

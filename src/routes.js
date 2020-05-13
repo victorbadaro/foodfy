@@ -1,32 +1,26 @@
 const express = require('express')
+const publicRecipes = require('./app/controllers/public/recipes')
+const publicChefs = require('./app/controllers/public/chefs')
 const adminRecipes = require('./app/controllers/admin/recipes')
 const adminChefs = require('./app/controllers/admin/chefs')
 const data = require('../data')
 const routes = express.Router()
 
+//* === PUBLIC ROUTES [RECIPES and CHEFS] === *//
 routes.get('/', function(req, res) {
     return res.redirect('/home')
 })
+routes.get('/home', publicRecipes.index)
+routes.get('/about', publicRecipes.about)
 
-routes.get('/home', function(req, res) {
-    const mostAcessedRecipes = data.slice(0, 6)
-    return res.render('common/index', { mostAcessedRecipes })
-})
+// PUBLIC [RECIPES]
+routes.get('/recipes', publicRecipes.showRecipes)
+routes.get('/recipe/:id', publicRecipes.show)
 
-routes.get('/about', function(req, res) {
-    return res.render('common/about')
-})
+// PUBLIC [CHEFS]
+// routes.get()
 
-routes.get('/recipes', function(req, res) {
-    return res.render('common/recipes', { recipes: data })
-})
-
-routes.get('/recipe/:id', function(req, res) {
-    const { id } = req.params
-    return res.render('common/recipe', { recipe: data[id] })
-})
-
-// ADMIN ROUTES [RECIPES and CHEFS]
+//* === ADMIN ROUTES [RECIPES and CHEFS] === *//
 routes.get('/admin', function(req, res) {
     return res.redirect('/admin/recipes')
 })
