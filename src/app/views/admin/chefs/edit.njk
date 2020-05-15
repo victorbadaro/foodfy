@@ -14,6 +14,8 @@
         </div>
     </div>
 
+    <input type="hidden" name="id" value="{{ chef.id }}">
+
     {% include "admin/chefs/fields.njk" %}
 </form>
 <form id="form-delete" action="/admin/chefs?_method=DELETE" method="POST">

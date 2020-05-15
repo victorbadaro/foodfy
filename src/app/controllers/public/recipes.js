@@ -1,4 +1,5 @@
-const data = require('../../../../data')
+const data = require('../../../../data') //! DEPRECATED
+const Recipe = require('../../models/public/Recipe')
 
 module.exports = {
     index(req, res) {
@@ -10,6 +11,10 @@ module.exports = {
     },
     showRecipes(req, res) {
         return res.render('public/recipes', { recipes: data })
+
+        Recipe.all(function(recipes) {
+            return res.render('public/recipes', { recipes })
+        })
     },
     show(req, res) {
         const { id } = req.params

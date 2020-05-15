@@ -1,12 +1,15 @@
-const fs = require('fs')
-const data = require('../../../../data')
+const Recipe = require('../../models/admin/Recipe')
 
 module.exports = {
     index(req, res) {
-        return res.render('admin/recipes/index', { recipes: data })
+        Recipe.all(function(recipes) {
+            return res.render('admin/recipes/index', { recipes })
+        })
     },
     create(req, res) {
-        return res.render('admin/recipes/create')
+        Recipe.getChefs(function(chefs) {
+            return res.render('admin/recipes/create', { chefs })
+        })
     },
     show(req, res) {
         const { id } = req.params
@@ -23,32 +26,22 @@ module.exports = {
         return res.render('admin/recipes/edit', { recipe })
     },
     post(req, res) {
-        const { image, title, author, ingredients, preparation, information } = req.body
-    
-        const filteredIngredients = [ingredients].filter(function(ingredient) {
-            return ingredient != ''
-        })
-    
-        const filteredSteps = [preparation].filter(function(step) {
-            return step != ''
-        })
-    
-        const newRecipe = {
-            image,
+        const { title, image, chef, ingredients, preparation, information } = req.body
+
+        if(!title || !chef || !ingredients || !preparation)
+            return res.send('Os campos: Nome da receita, Chef, Ingredientes e Modo de preparo são obrigatórios')
+        
+        const recipe = {
             title,
-            author,
-            ingredients: filteredIngredients,
-            preparation: filteredSteps,
+            image,
+            chef,
+            ingredients,
+            preparation,
             information
         }
-    
-        data.push(newRecipe)
-    
-        fs.writeFile('data.json', JSON.stringify(data, null, 4), function(err) {
-            if(err)
-                return res.send('Erro na gravação do arquivo!')
-            
-            return res.redirect('/admin/recipes')
+
+        Recipe.create(recipe, function(recipe) {
+            return res.send(recipe)
         })
     },
     put(req, res) {

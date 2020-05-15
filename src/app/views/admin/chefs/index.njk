@@ -3,61 +3,14 @@
 {% block content %}
 <h2 class="text-title">Gerenciar chefs</h2>
 <section class="chefs">
+    {% for chef in chefs %}
     <div class="chef">
-        <div class="chef-img" style="background-image: url('/img/julia_kinoto.jpg')"></div>
+        <div class="chef-img" style="background-image: url('{{ chef.avatar_url }}')"></div>
         <div>
-            <p class="chef-name">Júlia Kinoto</p>
-            <a href="#" class="chef-link">Visualizar</a>
+            <p class="chef-name">{{ chef.name }}</p>
+            <a href="/admin/chefs/{{ chef.id }}" class="chef-link">Visualizar</a>
         </div>
     </div>
-    <div class="chef">
-        <div class="chef-img" style="background-image: url('/img/bairam_frootan.jpg')"></div>
-        <div>
-            <p class="chef-name">Bairam Frootan</p>
-            <a href="#" class="chef-link">Visualizar</a>
-        </div>
-    </div>
-    <div class="chef">
-        <div class="chef-img" style="background-image: url('/img/filipa_gaspar.jpg')"></div>
-        <div>
-            <p class="chef-name">Filipa Gaspar</p>
-            <a href="#" class="chef-link">Visualizar</a>
-        </div>
-    </div>
-    <div class="chef">
-        <div class="chef-img" style="background-image: url('/img/marysa_labrone.jpg')"></div>
-        <div>
-            <p class="chef-name">Marysa Labrone</p>
-            <a href="#" class="chef-link">Visualizar</a>
-        </div>
-    </div>
-    <div class="chef">
-        <div class="chef-img" style="background-image: url('/img/mok_kwang.jpg')"></div>
-        <div>
-            <p class="chef-name">Mok Kwang</p>
-            <a href="#" class="chef-link">Visualizar</a>
-        </div>
-    </div>
-    <div class="chef">
-        <div class="chef-img" style="background-image: url('/img/kendasha_wood.jpg')"></div>
-        <div>
-            <p class="chef-name">Kendasha Wood</p>
-            <a href="#" class="chef-link">Visualizar</a>
-        </div>
-    </div>
-    <div class="chef">
-        <div class="chef-img" style="background-image: url('/img/thenjiwe_msutu.jpg')"></div>
-        <div>
-            <p class="chef-name">Thenjiwe Msutu</p>
-            <a href="#" class="chef-link">Visualizar</a>
-        </div>
-    </div>
-    <div class="chef">
-        <div class="chef-img" style="background-image: url('/img/uzoma_buchi.jpg')"></div>
-        <div>
-            <p class="chef-name">Uzoma Buchi</p>
-            <a href="#" class="chef-link">Visualizar</a>
-        </div>
-    </div>
+    {% endfor %}
 </section>
 {% endblock content %}

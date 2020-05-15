@@ -12,7 +12,11 @@ const recipes = document.querySelectorAll('.recipes .recipe')
 for (let i = 0; i < recipes.length; i++) {
     recipes[i].querySelector('a.recipe-link').addEventListener('click', function(event) {
         event.preventDefault()
-        window.location.href = `/recipe/${i}`
+
+        if(currentPage.includes('admin'))
+            window.location.href = `${currentPage}/${i}`
+        else
+            window.location.href = `/recipe/${i}`
     })
 }
 

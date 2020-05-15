@@ -1,10 +1,9 @@
-const express = require('express')
+const { Router } = require('express')
 const publicRecipes = require('./app/controllers/public/recipes')
 const publicChefs = require('./app/controllers/public/chefs')
 const adminRecipes = require('./app/controllers/admin/recipes')
 const adminChefs = require('./app/controllers/admin/chefs')
-const data = require('../data')
-const routes = express.Router()
+const routes = Router()
 
 //* === PUBLIC ROUTES [RECIPES and CHEFS] === *//
 routes.get('/', function(req, res) {
@@ -18,7 +17,7 @@ routes.get('/recipes', publicRecipes.showRecipes)
 routes.get('/recipe/:id', publicRecipes.show)
 
 // PUBLIC [CHEFS]
-// routes.get()
+routes.get('/chefs', publicChefs.index)
 
 //* === ADMIN ROUTES [RECIPES and CHEFS] === *//
 routes.get('/admin', function(req, res) {
@@ -36,6 +35,9 @@ routes.get('/admin/recipes/:id/edit', adminRecipes.edit)
 
 // ADMIN [CHEFS]
 routes.get('/admin/chefs', adminChefs.index)
+routes.post('/admin/chefs', adminChefs.post)
+routes.put('/admin/chefs', adminChefs.put)
+routes.delete('/admin/chefs', adminChefs.delete)
 routes.get('/admin/chefs/create', adminChefs.create)
 routes.get('/admin/chefs/:id', adminChefs.show)
 routes.get('/admin/chefs/:id/edit', adminChefs.edit)

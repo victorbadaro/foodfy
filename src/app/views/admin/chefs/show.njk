@@ -2,14 +2,14 @@
 
 {% block content %}
 <div class="header">
-    <h2 class="text-title">Chef: Júlia Kinoto</h2>
+    <h2 class="text-title">Chef: {{ chef.name }}</h2>
     <div>
-        <a href="/admin/chefs/1/edit" class="redirect">Editar Chef</a>
+        <a href="/admin/chefs/{{ chef.id }}/edit" class="redirect">Editar Chef</a>
     </div>
 </div>
 <div class="chef-info">
-    <div class="chef-info-img" style="background-image: url('/img/julia_kinoto.jpg')"></div>
-    <h1>Júlia Kinoto</h1>
+    <div class="chef-info-img" style="background-image: url('{{ chef.avatar_url }}')"></div>
+    <h1>{{ chef.name }}</h1>
     <p>4 receitas</p>
 </div>
 
