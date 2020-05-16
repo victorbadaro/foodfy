@@ -14,7 +14,9 @@ module.exports = {
     show(req, res) {
         const { id } = req.params
     
-        return res.render('admin/recipes/show', { recipe: data[id] })
+        Recipe.find(id, function(recipe) {
+            return res.render('admin/recipes/show', { recipe })
+        })
     },
     edit(req, res) {
         const { id } = req.params
@@ -41,7 +43,7 @@ module.exports = {
         }
 
         Recipe.create(recipe, function(recipe) {
-            return res.send(recipe)
+            return res.redirect(`/admin/recipes/${recipe.id}`)
         })
     },
     put(req, res) {

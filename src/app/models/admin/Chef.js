@@ -35,7 +35,11 @@ module.exports = {
     },
     find(id, callback) {
         const query = `
-            SELECT * FROM chefs WHERE id = ${id}`
+            SELECT chefs.*, count(recipes) AS total_recipes
+            FROM chefs
+            LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
+            GROUP BY chefs.id
+            WHERE chefs.id = ${id}`
         
         db.query(query, function(err, result) {
             if(err)
