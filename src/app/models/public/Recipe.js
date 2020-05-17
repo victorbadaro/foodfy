@@ -1,22 +1,32 @@
 const db = require('../../../config/db')
 
 module.exports = {
-    all(filter, callback) {
-        let query = `
-            SELECT recipes.*, chefs.name AS chef_name
-            FROM recipes
-            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)`
-        let filterQuery = ''
+    all(params, callback) {
+        const { filter, limit, offset } = params
 
-        if(filter)
+        let query = ''
+        let filterQuery = ''
+        let totalQuery = `(SELECT COUNT(*) FROM recipes) AS total`
+
+        if(filter) {
             filterQuery = `
                 WHERE title ILIKE '%${filter}%'`
+
+            totalQuery = `(
+                SELECT COUNT(*)
+                FROM recipes
+                ${filterQuery}
+            ) AS total`
+        }
         
         query = `
-            ${query}
-            ${filterQuery}`
+            SELECT recipes.*, chefs.name AS chef_name, ${totalQuery}
+            FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            ${filterQuery}
+            LIMIT $1 OFFSET $2`
 
-        db.query(query, function(err, result) {
+        db.query(query, [limit, offset], function(err, result) {
             if(err)
                 throw `DATABASE ERROR!\n${err}`
 

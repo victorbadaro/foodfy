@@ -19,3 +19,63 @@ for (let recipePart of recipeParts) {
 
     })
 }
+
+// PAGINATION
+const pagination = document.querySelector('.pagination')
+
+if(pagination)
+    createPagination(pagination)
+
+function createPagination(pagination) {
+    const selectedPage = +pagination.dataset.page
+    const total = +pagination.dataset.total
+    const filter = pagination.dataset.filter
+    const pages = paginate(selectedPage, total)
+
+    for(let page of pages) {
+        if(String(page).includes('...')) {
+            const spanElement = document.createElement('span')
+
+            spanElement.innerHTML = page
+            pagination.appendChild(spanElement)
+        } else {
+            const linkElement = document.createElement('a')
+
+            if(filter)
+                linkElement.href = `?page=${page}&filter=${filter}`
+            else
+                linkElement.href = `?page=${page}`
+
+            if(page == selectedPage)
+                linkElement.classList.add('selectedPage')
+
+            linkElement.innerHTML = page
+
+            pagination.appendChild(linkElement)
+        }
+    }
+}
+
+function paginate(selectedPage, totalPages) {
+    let pages = [],
+        oldPage
+    
+    for(let page = 1; page <= totalPages; page++) {
+        const firstOrLastPage = page == 1 || page == totalPages
+        const pagesBeforeSelectedPage = page >= selectedPage - 2
+        const pagesAfterSelectedPage = page <= selectedPage + 2
+
+        if(firstOrLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
+            if(oldPage && page - oldPage > 2)
+                pages.push('...')
+            
+            if(oldPage && page - oldPage == 2)
+                pages.push(oldPage + 1)
+            
+            pages.push(page)
+            oldPage = page
+        }
+    }
+
+    return pages
+}
