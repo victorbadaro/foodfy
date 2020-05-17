@@ -13,14 +13,27 @@
 
 body {
     position: relative;
+    min-height: 100vh;
     font-family: 'Roboto', sans-serif;
     color: var(--color-black);
 }
 
 .container {
-    margin: 0 auto 50px;
+    margin: 0 auto;
+    padding-bottom: 80px;
     width: 100%;
     max-width: 940px;
+}
+
+#admin .container {
+    margin-bottom: 50px;
+    padding-bottom: 0;
+}
+
+.container .not-found-info {
+    margin-top: 50px;
+    font-weight: 500;
+    color: #999;
 }
 
 nav {
@@ -29,6 +42,27 @@ nav {
     align-items: center;
     gap: 120px;
     padding: 36px 0;
+}
+
+.menuBar {
+    grid-template-columns: 90px 1fr 1fr;
+}
+
+.menuBar form {
+    display: grid;
+    grid-template-columns: 246px 1fr;
+    column-gap: 8px;
+}
+
+.menuBar form input {
+    padding: 10px 15px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 16px;
+    outline: 0;
+    background-color: #FFF;
+    color: #999;
 }
 
 .menu a {
@@ -100,7 +134,11 @@ h2 {
 
 .recipe .recipe-img {
     width: 100%;
+    height: 140px;
     border-radius: 15px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 }
 
 .recipe .recipe-title {
@@ -116,6 +154,9 @@ h2 {
 }
 
 footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     text-align: center;
     padding: 23px 0;
     background-color: #EEE;
@@ -138,8 +179,8 @@ h2.text-title {
     font-weight: bold;
 }
 
-.text {
-    margin-bottom: 30px;
+.text + .text {
+    margin-top: 30px;
 }
 
 .text p {

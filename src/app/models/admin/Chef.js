@@ -35,11 +35,9 @@ module.exports = {
     },
     find(id, callback) {
         const query = `
-            SELECT chefs.*, count(recipes) AS total_recipes
+            SELECT *, (SELECT COUNT(*) FROM recipes WHERE chef_id = ${id}) AS total_recipes
             FROM chefs
-            LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
-            GROUP BY chefs.id
-            WHERE chefs.id = ${id}`
+            WHERE id = ${id}`
         
         db.query(query, function(err, result) {
             if(err)
@@ -76,6 +74,19 @@ module.exports = {
                 throw `DATABASE ERROR!\n${err}`
             
             return callback()
+        })
+    },
+    getRecipesFromChef(id, callback) {
+        const query = `
+            SELECT *
+            FROM recipes
+            WHERE chef_id = ${id}`
+        
+        db.query(query, function(err, result) {
+            if(err)
+                throw `DATABASE ERROR!\n${err}`
+            
+            return callback(result.rows)
         })
     }
 }

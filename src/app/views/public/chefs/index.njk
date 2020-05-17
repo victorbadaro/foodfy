@@ -11,7 +11,7 @@
         <div class="chef-img" style="background-image: url('{{ chef.avatar_url }}')"></div>
         <div>
             <p class="chef-name">{{ chef.name }}</p>
-            <p class="chef-recipes">3 receitas</p>
+            <p class="chef-recipes">{{ chef.total_recipes }} receitas</p>
         </div>
     </div>
     {% endfor %}

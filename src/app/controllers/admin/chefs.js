@@ -10,7 +10,9 @@ module.exports = {
         const { id } = req.params
 
         Chef.find(id, function(chef) {
-            return res.render('admin/chefs/show', { chef })
+            Chef.getRecipesFromChef(chef.id, function(recipes) {
+                return res.render('admin/chefs/show', { chef, recipes })
+            })
         })
     },
     edit(req, res) {
@@ -57,8 +59,13 @@ module.exports = {
     delete(req, res) {
         const { id } = req.body
 
-        Chef.delete(id, function() {
-            return res.redirect('/admin/chefs')
+        Chef.getRecipesFromChef(id, function(recipes) {
+            if(recipes.length > 0)
+                return res.send('Chefs que possuem receitas não podem ser deletados')
+            else
+                Chef.delete(id, function() {
+                    return res.redirect('/admin/chefs')
+                })
         })
     }
 }

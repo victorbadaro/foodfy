@@ -1,5 +1,9 @@
 {% extends "admin/layout.njk" %}
 
+{% block title %}
+<title>Foodfy - Chef</title>
+{% endblock title %}
+
 {% block content %}
 <div class="header">
     <h2 class="text-title">Chef: {{ chef.name }}</h2>
@@ -13,40 +17,23 @@
     <p>{{ chef.total_recipes }} receitas</p>
 </div>
 
-<h2 class="text-title">Receitas</h2>
+{% if recipes | length > 0 %}
+    <h2 class="text-title">Receitas</h2>
+    
+    <section class="recipes">
+        {% for recipe in recipes %}
+        <div class="recipe">
+            <div class="recipe-img" style="background-image: url('{{ recipe.image }}')"></div>
+            <div>
+                <p class="recipe-title">{{ recipe.title }}</p>
+                <p class="recipe-author">por {{ chef.name }}</p>
+                <a href="#" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+{% else %}
+    <h3 class="not-found-info">Este Chef não possui nenhuma receita</h3>
+{% endif %}
 
-<section class="recipes">
-    <div class="recipe">
-        <div class="recipe-img" style="background-image: url('/img/espaguete.png')"></div>
-        <div>
-            <p class="recipe-title">Espaguete</p>
-            <p class="recipe-author">por Júlia Kinoto</p>
-            <a href="#" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
-        </div>
-    </div>
-    <div class="recipe">
-        <div class="recipe-img" style="background-image: url('/img/espaguete.png')"></div>
-        <div>
-            <p class="recipe-title">Espaguete</p>
-            <p class="recipe-author">por Júlia Kinoto</p>
-            <a href="#" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
-        </div>
-    </div>
-    <div class="recipe">
-        <div class="recipe-img" style="background-image: url('/img/espaguete.png')"></div>
-        <div>
-            <p class="recipe-title">Espaguete</p>
-            <p class="recipe-author">por Júlia Kinoto</p>
-            <a href="#" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
-        </div>
-    </div>
-    <div class="recipe">
-        <div class="recipe-img" style="background-image: url('/img/espaguete.png')"></div>
-        <div>
-            <p class="recipe-title">Espaguete</p>
-            <p class="recipe-author">por Júlia Kinoto</p>
-            <a href="#" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
-        </div>
-    </div>
-</section>
 {% endblock content %}

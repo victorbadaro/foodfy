@@ -1,0 +1,8 @@
+<div class="recipe">
+    <a href="/recipe/{{ recipe.id }}" class="recipe-link" title="Clique para ver a receita">
+        <div class="recipe-img" style="background-image: url('{{ recipe.image }}')"></div>
+        {# <img class="recipe-img" src="{{ recipe.image }}" alt="Imagem - {{ recipe.title }}"> #}
+    </a>
+    <p class="recipe-title">{{ recipe.title }}</p>
+    <p class="recipe-author">por {{ recipe.chef_name }}</p>
+</div>

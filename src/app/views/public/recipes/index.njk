@@ -4,6 +4,10 @@
 <title>Foodfy - Home</title>
 {% endblock title %}
 
+{% block form %}
+{% include "public/recipes/searchForm.njk" %}
+{% endblock form %}
+
 {% block content %}
 <header>
     <div>
@@ -15,7 +19,7 @@
 <h2>Mais acessadas</h2>
 <section class="recipes">
     {% for recipe in recipes %}
-    {% include "public/recipeLayout.njk" %}
+    {% include "public/recipes/recipeLayout.njk" %}
     {% endfor %}
 </section>
 {% endblock content %}

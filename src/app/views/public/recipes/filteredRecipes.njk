@@ -1,0 +1,24 @@
+{% extends "public/layout.njk" %}
+
+{% block title %}
+<title>Foodfy - Receitas</title>
+{% endblock title %}
+
+{% block form %}
+{% include "public/recipes/searchForm.njk" %}
+{% endblock form %}
+
+{% block content %}
+<h2 class="text-title">Buscando por "{{ filter }}"</h2>
+
+{% if recipes | length > 0 %}
+    <section class="recipes">
+        {% for recipe in recipes %}
+        {% include "public/recipes/recipeLayout.njk" %}
+        {% endfor %}
+    </section>
+{% else %}
+    <h3 class="not-found-info">Nenhuma receita encontrada...</h3>
+{% endif %}
+
+{% endblock content %}

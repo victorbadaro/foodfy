@@ -42,4 +42,8 @@ routes.get('/admin/chefs/create', adminChefs.create)
 routes.get('/admin/chefs/:id', adminChefs.show)
 routes.get('/admin/chefs/:id/edit', adminChefs.edit)
 
+routes.use((req, res) => {
+    return res.render('public/not-found')
+})
+
 module.exports = routes

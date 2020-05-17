@@ -18,12 +18,15 @@
                     <a href="/recipes">Receitas</a>
                     <a href="/chefs">Chefs</a>
                 </div>
+
+                {% block form %}
+                {% endblock form %}
             </nav>
 
             {% block content %}
             {% endblock content %}
         </div>
-
+        
         <footer><span>Todos direitos reservados, receitas Foodfy.</span></footer>
 
         <script src="/js/script.js"></script>

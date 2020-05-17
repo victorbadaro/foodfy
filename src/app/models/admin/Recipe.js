@@ -58,6 +58,44 @@ module.exports = {
             return callback(result.rows[0])
         })
     },
+    update(data, callback) {
+        const query = `
+            UPDATE recipes SET
+                chef_id = $1,
+                image = $2,
+                title = $3,
+                ingredients = $4,
+                preparation = $5,
+                information = $6
+            WHERE id = $7
+            RETURNING id`
+        const values = [
+            data.chef,
+            data.image,
+            data.title,
+            data.ingredients,
+            data.preparation,
+            data.information,
+            data.id
+        ]
+
+        db.query(query, values, function(err, result) {
+            if(err)
+                throw `DATABASE ERROR!\n${err}`
+            
+            return callback(result.rows[0])
+        })
+    },
+    delete(id, callback) {
+        const query = `DELETE FROM recipes WHERE id = ${id}`
+
+        db.query(query, function(err) {
+            if(err)
+                throw `DATABASE ERROR!\n${err}`
+            
+            return callback()
+        })
+    },
     getChefs(callback) {
         const query = `SELECT id, name FROM chefs ORDER BY id ASC`
 

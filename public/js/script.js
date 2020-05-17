@@ -6,20 +6,6 @@ for (menu of menus) {
         menu.classList.add('active')
 }
 
-// FOR INDEX AND RECIPES PAGES
-const recipes = document.querySelectorAll('.recipes .recipe')
-
-for (let i = 0; i < recipes.length; i++) {
-    recipes[i].querySelector('a.recipe-link').addEventListener('click', function(event) {
-        event.preventDefault()
-
-        if(currentPage.includes('admin'))
-            window.location.href = `${currentPage}/${i}`
-        else
-            window.location.href = `/recipe/${i}`
-    })
-}
-
 // FOR RECIPE PAGE
 const recipeParts = document.querySelectorAll('.recipe-part')
 
