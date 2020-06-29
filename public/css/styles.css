@@ -269,8 +269,32 @@ h3.text-title {
     background-size: cover;
 }
 
+#recipe .recipe-images {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+#recipe .recipe-images img {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 200ms;
+}
+
+#recipe .recipe-images img + img {
+    margin-left: 10px;
+}
+
+#recipe .recipe-images img.active,
+#recipe .recipe-images img:hover {
+    opacity: 1;
+}
+
 #recipe .recipe-title {
-    margin: 50px 0 4px;
+    margin: 0 0 4px;
     font-size: 36px;
     line-height: 42px;
     font-weight: bold;
@@ -517,6 +541,64 @@ div.text-title a {
     line-height: 19px;
     font-weight: bold;
     margin-bottom: 10px;
+}
+
+#admin .fields .form-item .images-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+}
+
+#admin .fields .form-item .images-container .image-upload,
+#admin .fields .form-item .images-container .image {
+    position: relative;
+}
+
+#admin .fields .form-item .images-container .image-upload input,
+#admin .fields .form-item .images-container .image img {
+    width: 100%;
+    height: 150px;
+    border-radius: 4px;
+}
+
+#admin .fields .form-item .images-container .image img {
+    object-fit: cover;
+    object-position: center center;
+}
+
+#admin .fields .form-item .images-container .image-upload input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#admin .fields .form-item .images-container .image-upload i,
+#admin .fields .form-item .images-container .image i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    font-size: 48px;
+    background-color: #fff;
+    color: #999;
+}
+
+#admin .fields .form-item .images-container .image i {
+    cursor: pointer;
+    opacity: 0;
+    background-color: rgb(221, 221, 221, 0.75);
+    color: #FF0000;
+    transition: opacity 200ms;
+}
+
+#admin .fields .form-item .images-container .image i:hover {
+    opacity: 1;
 }
 
 #admin .fields .form-item input,

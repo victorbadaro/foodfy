@@ -1,12 +1,44 @@
 <div class="fields">
     <div class="form-item">
-        <label for="title">Nome da receita</label>
-        <input type="text" name="title" id="title" required value="{{ recipe.title }}">
+        <label for="image">Imagem da receita</label>
+        <div class="images-container">
+            <div class="image-upload">
+                <i class="material-icons">add</i>
+                <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    value="{{ recipe.image }}"
+                    multiple
+                    onchange="ImagesUpload.handleFiles(event)"
+                >
+            </div>
+            {# <div class="image">
+                <img src="https://i2.wp.com/www.chucrutecomsalsicha.com/archives/2014/tomatoes-anchovies.jpg?resize=400%2C400" alt="Receitinha Bacaninha">
+                <i class="material-icons">close</i>
+            </div>
+            <div class="image">
+                <img src="https://i2.wp.com/www.chucrutecomsalsicha.com/archives/2014/tomatoes-anchovies.jpg?resize=400%2C400" alt="Receitinha Bacaninha">
+                <i class="material-icons">close</i>
+            </div>
+            <div class="image">
+                <img src="https://i2.wp.com/www.chucrutecomsalsicha.com/archives/2014/tomatoes-anchovies.jpg?resize=400%2C400" alt="Receitinha Bacaninha">
+                <i class="material-icons">close</i>
+            </div>
+            <div class="image">
+                <img src="https://i2.wp.com/www.chucrutecomsalsicha.com/archives/2014/tomatoes-anchovies.jpg?resize=400%2C400" alt="Receitinha Bacaninha">
+                <i class="material-icons">close</i>
+            </div>
+            <div class="image">
+                <img src="https://previews.123rf.com/images/alexis84/alexis841404/alexis84140400557/27773925-planet-earth-and-blue-human-eye-elements-of-this-image-furnished-by-nasa-.jpg" alt="Olho no mundo">
+                <i class="material-icons">close</i>
+            </div> #}
+        </div>
     </div>
 
     <div class="form-item">
-        <label for="image">Imagem da receita</label>
-        <input type="text" name="image" id="image" value="{{ recipe.image }}">
+        <label for="title">Nome da receita</label>
+        <input type="text" name="title" id="title" required value="{{ recipe.title }}">
     </div>
 
     <div class="form-item">
