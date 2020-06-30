@@ -549,6 +549,10 @@ div.text-title a {
     gap: 10px;
 }
 
+#admin .fields .form-item .images-container .image-upload {
+    height: 150px;
+}
+
 #admin .fields .form-item .images-container .image-upload,
 #admin .fields .form-item .images-container .image {
     position: relative;
