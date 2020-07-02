@@ -3,6 +3,8 @@ const publicRecipes = require('./app/controllers/public/recipes')
 const publicChefs = require('./app/controllers/public/chefs')
 const adminRecipes = require('./app/controllers/admin/recipes')
 const adminChefs = require('./app/controllers/admin/chefs')
+const multer = require('./app/middlewares/multer')
+const { array } = require('./app/middlewares/multer')
 const routes = Router()
 
 //* === PUBLIC ROUTES [RECIPES and CHEFS] === *//
@@ -26,7 +28,7 @@ routes.get('/admin', function(req, res) {
 
 // ADMIN [RECIPES]
 routes.get('/admin/recipes', adminRecipes.index)
-routes.post('/admin/recipes', adminRecipes.post)
+routes.post('/admin/recipes', multer.array('files', 5), adminRecipes.post)
 routes.put('/admin/recipes', adminRecipes.put)
 routes.delete('/admin/recipes', adminRecipes.delete)
 routes.get('/admin/recipes/create', adminRecipes.create)

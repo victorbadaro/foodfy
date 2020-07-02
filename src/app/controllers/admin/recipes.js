@@ -1,4 +1,5 @@
 const Recipe = require('../../models/admin/Recipe')
+const File = require('../../models/admin/File')
 
 module.exports = {
     index(req, res) {
@@ -27,24 +28,29 @@ module.exports = {
             })
         })
     },
-    post(req, res) {
-        const { title, image, chef, ingredients, preparation, information } = req.body
+    async post(req, res) {
+        const { title, chef, ingredients, preparation, information } = req.body
+        const files = req.files
+
+        if(files[0]) {
+            const filesPromises = files.map(file => File.create(file.filename, file.path))
+
+            await Promise.all(filesPromises)
+        }
 
         if(!title || !chef || !ingredients || !preparation)
             return res.send('Os campos: Nome da receita, Chef, Ingredientes e Modo de preparo são obrigatórios')
         
         const recipe = {
             title,
-            image,
             chef,
             ingredients,
             preparation,
             information
         }
 
-        Recipe.create(recipe, function(recipe) {
-            return res.redirect(`/admin/recipes/${recipe.id}`)
-        })
+        const result = await Recipe.create(recipe)
+        return res.redirect(`/admin/recipes/${result.rows[0]}`)
     },
     put(req, res) {
         const { id, title, image, chef, ingredients, preparation, information } = req.body
