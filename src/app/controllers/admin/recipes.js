@@ -68,7 +68,7 @@ module.exports = {
         const { title, chef, ingredients, preparation, information } = req.body
         const files = req.files
 
-        if(!files[0] || !title || !chef || !ingredients || !preparation)
+        if(!files[0] || !title || !chef || !ingredients || ingredients == '' || !preparation || preparation == '')
             return res.send('A receita deve ter ao menos uma imagem e os campos Nome da receita, Chef, Ingredientes e Modo de preparo são obrigatórios')
         
         const recipe = {
@@ -93,7 +93,7 @@ module.exports = {
         const { id, title, chef, ingredients, preparation, information } = req.body
         const files = req.files
 
-        if(!files[0] || !title || !chef || !ingredients || !preparation)
+        if(!files[0] || !title || !chef || !ingredients || ingredients == '' || !preparation || preparation == '')
             return res.send('A receita deve ter ao menos uma imagem e os campos Nome da receita, Chef, Ingredientes e Modo de preparo são obrigatórios')
         
         const recipe = {
@@ -130,11 +130,17 @@ module.exports = {
     },
     async delete(req, res) {
         const { id } = req.body
+        
         let result = await Recipe.getFiles(id)
         const filesToRemove = result.rows
 
-        console.log(filesToRemove)
-        // await Recipe.delete(id)
+        let filesToRemovePromises = filesToRemove.map(file => Recipe.removeFile(id, file.id))
+        await Promise.all(filesToRemovePromises)
+
+        filesToRemovePromises = filesToRemove.map(file => File.delete(file.id))
+        await Promise.all(filesToRemovePromises)
+
+        await Recipe.delete(id)
     
         return res.redirect('/admin/recipes')
     }
