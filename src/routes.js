@@ -29,7 +29,7 @@ routes.get('/admin', function(req, res) {
 // ADMIN [RECIPES]
 routes.get('/admin/recipes', adminRecipes.index)
 routes.post('/admin/recipes', multer.array('files', 5), adminRecipes.post)
-routes.put('/admin/recipes', adminRecipes.put)
+routes.put('/admin/recipes', multer.array('files', 5), adminRecipes.put)
 routes.delete('/admin/recipes', adminRecipes.delete)
 routes.get('/admin/recipes/create', adminRecipes.create)
 routes.get('/admin/recipes/:id', adminRecipes.show)

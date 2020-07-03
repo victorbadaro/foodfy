@@ -11,9 +11,17 @@
                     value="{{ recipe.image }}"
                     accept="image/*"
                     multiple
+                    required
                     onchange="ImagesUpload.handleFiles(event)"
                 >
+                <input type="hidden" name="removed_files">
             </div>
+            {% for file in files %}
+                <div class="image" id="{{ file.id }}">
+                    <img src="{{ file.src }}" alt="{{ file.name }}">
+                    <i class="material-icons" onclick="ImagesUpload.removeOldFile(event)">close</i>
+                </div>
+            {% endfor %}
         </div>
     </div>
 

@@ -168,6 +168,17 @@ const ImagesUpload = {
         ImagesUpload.files.splice(imagesContainerArray.indexOf(imageContainer), 1)
         ImagesUpload.input.files = ImagesUpload.getAllFiles()
         imageContainer.remove()
+    },
+    removeOldFile(event) {
+        const imageContainer = event.target.parentNode
+        
+        if(imageContainer.id) {
+            const removedFiles = ImagesUpload.imagesContainer.querySelector('input[name=removed_files]')
+
+            removedFiles.value += `${imageContainer.id},`
+        }
+
+        imageContainer.remove()
     }
 }
 

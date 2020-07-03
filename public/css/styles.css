@@ -626,7 +626,10 @@ label.button input[type='file'] {
     line-height: 19px;
     background-color: #FFF;
     color: #999;
-    /* margin-bottom: 10px; */
+}
+
+#admin .fields .form-item input + input {
+    margin-top: 10px;
 }
 
 #admin .fields .form-item input + button {
