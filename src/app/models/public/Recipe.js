@@ -1,7 +1,7 @@
 const db = require('../../../config/db')
 
 module.exports = {
-    all(params, callback) {
+    all(params) {
         const { filter, limit, offset } = params
 
         let query = ''
@@ -26,39 +26,33 @@ module.exports = {
             ${filterQuery}
             LIMIT $1 OFFSET $2`
 
-        db.query(query, [limit, offset], function(err, result) {
-            if(err)
-                throw `DATABASE ERROR!\n${err}`
-
-            return callback(result.rows)
-        })
+        return db.query(query, [limit, offset])
     },
-    mostAcessed(callback) {
+    mostAcessed() {
         const query = `
             SELECT recipes.*, chefs.name AS chef_name
             FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             LIMIT 6`
         
-        db.query(query, function(err, result) {
-            if(err)
-                throw `DATABASE ERROR!\n${err}`
-            
-            return callback(result.rows)
-        })
+        return db.query(query)
     },
-    find(id, callback) {
+    find(id) {
         const query = `
             SELECT recipes.*, chefs.name AS chef_name
             FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             WHERE recipes.id = ${id}`
 
-        db.query(query, function(err, result) {
-            if(err)
-                throw `DATABASE ERROR!\n${err}`
-            
-            return callback(result.rows[0])
-        })
+        return db.query(query)
+    },
+    getFiles(recipe_id) {
+        const query = `
+            SELECT files.*
+            FROM files
+            INNER JOIN recipe_files ON (files.id = recipe_files.file_id)
+            WHERE recipe_files.recipe_id = $1`
+
+        return db.query(query, [recipe_id])
     }
 }

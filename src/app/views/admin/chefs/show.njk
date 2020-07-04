@@ -27,7 +27,7 @@
             <div>
                 <p class="recipe-title">{{ recipe.title }}</p>
                 <p class="recipe-author">por {{ chef.name }}</p>
-                <a href="#" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
+                <a href="/admin/recipes/{{ recipe.id }}" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
             </div>
         </div>
         {% endfor %}

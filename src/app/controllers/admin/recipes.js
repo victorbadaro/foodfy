@@ -11,7 +11,7 @@ module.exports = {
             result = await Recipe.getFiles(recipe.id)
             const files = result.rows
 
-            if(files[0]) {
+            if(files.length > 0) {
                 settedRecipes.push({
                     ...recipe,
                     image: `${req.protocol}://${req.headers.host}/${files[0].path.replace('public\\', '')}`

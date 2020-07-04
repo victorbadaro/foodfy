@@ -1,20 +1,20 @@
 <div class="fields">
     <div class="form-item">
         <label for="name">Nome</label>
-        <input type="text" name="name" id="name" required value="{{ chef.name }}">
+        <input type="text" name="name" id="name" value="{{ chef.name }}" required>
     </div>
 
     <div class="form-item">
-        <label for="avatar_url">Avatar</label>
+        <label>Avatar</label>
         <input
-            type="text"
+            type="url"
+            {% if chef.avatar_url == null %}
+                class="hide"
+            {% endif %}
             name="avatar_url"
-            id="avatar_url"
             value="{{ chef.avatar_url }}"
         >
-        {# <label class="button">
-            Enviar Avatar
-            <input type="file" name="file">
-        </label> #}
+
+        <button type="button" class="button">Enviar Avatar</button>
     </div>
 </div>

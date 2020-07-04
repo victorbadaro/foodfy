@@ -279,6 +279,7 @@ h3.text-title {
     width: 50px;
     height: 50px;
     border-radius: 4px;
+    object-fit: cover;
     opacity: 0.5;
     cursor: pointer;
     transition: opacity 200ms;
@@ -500,6 +501,7 @@ div.text-title a {
     text-decoration: none;
     padding: 9px 20px;
     border-radius: 4px;
+    outline: 0;
     background-color: #6558C3;
     color: #FFF;
     font-size: 16px;
@@ -541,15 +543,6 @@ div.text-title a {
     line-height: 19px;
     font-weight: bold;
     margin-bottom: 10px;
-}
-
-label.button {
-    margin: 15px 0;
-    width: fit-content;
-}
-
-label.button input[type='file'] {
-    display: none;
 }
 
 #admin .fields .form-item .images-container {
@@ -632,8 +625,12 @@ label.button input[type='file'] {
     margin-top: 10px;
 }
 
-#admin .fields .form-item input + button {
-    margin-top: 15px;
+#admin .fields .form-item input[name='avatar_url'] {
+    margin-bottom: 15px;
+}
+
+#admin .fields .form-item input.hide {
+    margin: 0;
 }
 
 #admin .fields .form-item textarea {

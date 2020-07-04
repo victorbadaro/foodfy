@@ -47,3 +47,10 @@ if(deleteButton) {
         formDelete.submit()
     })
 }
+
+const sendAvatarButton = document.querySelector('input + button.button[type=button]')
+
+if(sendAvatarButton)
+    sendAvatarButton.addEventListener('click', function() {
+        document.querySelector('input[name=avatar_url]').classList.remove('hide')
+    })

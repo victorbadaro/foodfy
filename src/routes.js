@@ -16,7 +16,7 @@ routes.get('/about', publicRecipes.about)
 
 // PUBLIC [RECIPES]
 routes.get('/recipes', publicRecipes.showRecipes)
-routes.get('/recipe/:id', publicRecipes.show)
+routes.get('/recipes/:id', publicRecipes.show)
 
 // PUBLIC [CHEFS]
 routes.get('/chefs', publicChefs.index)

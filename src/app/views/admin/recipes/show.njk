@@ -13,10 +13,8 @@
 </div>
 
 <div id="recipe" class="recipe gallery">
-    {# <div class="recipe-img highlight" style="background-image: url('https://images.unsplash.com/photo-1570101278293-ab36975533f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')"></div> #}
     <div class="recipe-img highlight" style="background-image: url('{{ files[0].src }}')"></div>
     <div class="recipe-images previews">
-        {# <img class="active" src="{{ files[0].src }}" alt="1" title="{{ files[0].name }}" onclick="ImagesGallery.setImage(event)"> #}
         {% for file in files %}
             <img
                 src="{{ file.src }}"

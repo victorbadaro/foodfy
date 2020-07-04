@@ -6,7 +6,20 @@
 
 {% block content %}
 <div id="recipe" class="recipe">
-    <div class="recipe-img" style="background-image: url('{{ recipe.image }}')"></div>
+    <div class="recipe-img highlight" style="background-image: url('{{ files[0].src }}')"></div>
+    <div class="recipe-images previews">
+        {% for file in files %}
+            <img
+                src="{{ file.src }}"
+                alt="Imagem da receita {{ recipe.title }} - {{ file.name }}"
+                title="{{ file.name }}"
+                {% if loop.index0 == 0 %}
+                    class="active"
+                {% endif %}
+                onclick="ImagesGallery.setImage(event)"
+            >
+        {% endfor %}
+    </div>
     <p class="recipe-title">{{ recipe.title }}</p>
     <p class="recipe-author">por {{ recipe.chef_name }}</p>
 </div>
