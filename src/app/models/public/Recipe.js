@@ -7,6 +7,7 @@ module.exports = {
         let query = ''
         let filterQuery = ''
         let totalQuery = `(SELECT COUNT(*) FROM recipes) AS total`
+        let ordination = 'ORDER BY recipes.created_at DESC'
 
         if(filter) {
             filterQuery = `
@@ -17,6 +18,8 @@ module.exports = {
                 FROM recipes
                 ${filterQuery}
             ) AS total`
+
+            ordination = 'ORDER BY recipes.updated_at DESC'
         }
         
         query = `
@@ -24,6 +27,7 @@ module.exports = {
             FROM recipes
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             ${filterQuery}
+            ${ordination}
             LIMIT $1 OFFSET $2`
 
         return db.query(query, [limit, offset])
