@@ -1,4 +1,4 @@
-const { Router } = require('express')
+const routes = require('express').Router()
 const publicRecipes = require('../app/controllers/public/recipes')
 const publicChefs = require('../app/controllers/public/chefs')
 const adminRecipes = require('../app/controllers/admin/recipes')
@@ -6,7 +6,8 @@ const adminChefs = require('../app/controllers/admin/chefs')
 const ProfileController = require('../app/controllers/ProfileController')
 const UserController = require('../app/controllers/UserController')
 const multer = require('../app/middlewares/multer')
-const routes = Router()
+
+const { onlyUsers } = require('../app/middlewares/session')
 
 //* === PUBLIC ROUTES [RECIPES and CHEFS] === *//
 routes.get('/', function(req, res) {
@@ -50,10 +51,13 @@ routes.get('/admin/profile', ProfileController.index) // Mostrar o formulário c
 routes.put('/admin/profile', ProfileController.put)// Editar o usuário logado
 
 // Rotas que o administrador irá acessar para gerenciar usuários
-routes.get('/admin/users', UserController.list) //Mostrar a lista de usuários cadastrados
+routes.get('/admin/users', onlyUsers, UserController.list) //Mostrar a lista de usuários cadastrados
 routes.post('/admin/users', UserController.post) //Cadastrar um usuário
 routes.put('/admin/users', UserController.put) // Editar um usuário
 routes.delete('/admin/users', UserController.delete) // Deletar um usuário
+routes.get('/admin/users/create', UserController.create)
+
+routes.get('/admin/users/login', (req, res) => res.render('session/login'))
 
 routes.use((req, res) => {
     return res.render('public/not-found')

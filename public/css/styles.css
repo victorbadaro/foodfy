@@ -675,3 +675,128 @@ div.text-title a {
     background-color: #999;
     color: #fff;
 }
+
+/* SESSION */
+body#session main {
+    width: 100%;
+    height: 100vh;
+}
+
+#session main .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 0;
+}
+
+#session main .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 97px);
+}
+
+#session main .login-container form {
+    width: 500px;
+}
+
+#session main .login-container form .form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 35px 0;
+}
+
+#session main .login-container form .form-footer a {
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    color: #969696;
+}
+
+#session main .login-container form .form-item  {
+    margin-top: 30px;
+}
+
+#session main .login-container form .form-item label {
+    display: block;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#session main .login-container form .form-item input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: #FFF;
+    color: #999;
+}
+
+/* CREATE USER */
+.form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 64px;
+}
+
+.form-header .buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 16px;
+}
+
+.form-header button {
+    width: 139px;
+}
+
+.form-header .buttons .cancel {
+    background-color: #8A8A8A;
+}
+
+form.form-inline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+.form-inline .form-item label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: bold;
+}
+
+.form-inline .form-item input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
+    line-height: 19px;
+    background-color: #FFF;
+    color: #999;
+}
+
+.form-inline .form-item input[type='checkbox'] {
+    width: initial;
+}
+
+.form-inline .form-item input[type='checkbox'] + label {
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.form-header .buttons .delete {
+    background-color: #DC4747;
+}

@@ -1,0 +1,14 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+    <div class="form-header">
+        <h2>Criar Usuário</h2>
+        <div class="buttons">
+            <button class="button" type="submit" form="form-create-user">Salvar</button>
+            <button class="button cancel" type="reset" form="form-create-user">Cancelar</button>
+        </div>
+    </div>
+    <form id="form-create-user" class="form-inline" method="POST" action="/admin/users">
+        {% include "admin/users/fields.njk" %}
+    </form>
+{% endblock content %}

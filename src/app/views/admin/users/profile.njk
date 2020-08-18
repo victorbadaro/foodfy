@@ -1,0 +1,24 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+    <div class="form-header">
+        <h2>Bem vindo {{ user.name }}</h2>
+        <button class="button" type="submit" form="form-update-user">Salvar</button>
+    </div>
+    <form id="form-update-user" class="form-inline" method="POST" action="/admin/users">
+        <div class="form-item">
+            <label for="name">Nome</label>
+            <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="{{ user.name }}">
+        </div>
+
+        <div class="form-item">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Digite o email" value="{{ user.email }}">
+        </div>
+
+        <div class="form-item">
+            <label for="password">Senha</label>
+            <input type="password" name="password" id="password" placeholder="Digite a senha">
+        </div>
+    </form>
+{% endblock content %}
