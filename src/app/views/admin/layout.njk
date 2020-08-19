@@ -19,6 +19,11 @@
                     <a href="/admin/chefs">Chefs</a>
                     <a href="/admin/users">Usuários</a>
                 </div>
+                {% if session.userID %}
+                    <form method="POST" action="/admin/users/logout">
+                        <button>sair</button>
+                    </form>
+                {% endif %}
             </div>
         </nav>
         <div class="container">

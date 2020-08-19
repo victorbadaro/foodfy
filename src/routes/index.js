@@ -5,6 +5,9 @@ const adminRecipes = require('../app/controllers/admin/recipes')
 const adminChefs = require('../app/controllers/admin/chefs')
 const ProfileController = require('../app/controllers/ProfileController')
 const UserController = require('../app/controllers/UserController')
+const UserValidator = require('../app/validators/users')
+const SessionController = require('../app/controllers/SessionController')
+const SessionValidator = require('../app/validators/session')
 const multer = require('../app/middlewares/multer')
 
 const { onlyUsers } = require('../app/middlewares/session')
@@ -51,13 +54,15 @@ routes.get('/admin/profile', ProfileController.index) // Mostrar o formulário c
 routes.put('/admin/profile', ProfileController.put)// Editar o usuário logado
 
 // Rotas que o administrador irá acessar para gerenciar usuários
-routes.get('/admin/users', UserController.list) //Mostrar a lista de usuários cadastrados
+routes.get('/admin/users', onlyUsers, UserController.list) //Mostrar a lista de usuários cadastrados
 routes.post('/admin/users', UserController.post) //Cadastrar um usuário
-routes.put('/admin/users', UserController.put) // Editar um usuário
+routes.put('/admin/users', UserValidator.update, UserController.update) // Editar um usuário
 routes.delete('/admin/users', UserController.delete) // Deletar um usuário
 routes.get('/admin/users/create', UserController.create)
 
-routes.get('/admin/users/login', (req, res) => res.render('session/login'))
+routes.get('/admin/users/login', SessionController.loginForm)
+routes.post('/admin/users/login', SessionValidator.login, SessionController.login)
+routes.post('/admin/users/logout', SessionController.logout)
 
 routes.use((req, res) => {
     return res.render('public/not-found')

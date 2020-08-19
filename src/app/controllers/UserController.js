@@ -4,15 +4,17 @@ const crypto = require('crypto')
 const nodemailer = require('../../lib/nodemailer')
 
 module.exports = {
-    list(req, res) {
-        return res.render('admin/users/index')
+    async list(req, res) {
+        const users = await User.all()
+        return res.render('admin/users/index', { users })
     },
     create(req, res) {
         return res.render('admin/users/create')
     },
     async post(req, res) {
         const { name, email, is_admin } = req.body
-        const password = crypto.randomBytes(10).toString('hex')
+        const password = crypto.randomBytes(5).toString('hex')
+        const hashedPassword = await hash(password, 8)
         const reset_token = crypto.randomBytes(20).toString('hex')
         let reset_token_expires = new Date()
 
@@ -21,7 +23,7 @@ module.exports = {
         const userID = await User.create({
             name,
             email,
-            password,
+            password: hashedPassword,
             is_admin: is_admin ? true : false,
             reset_token,
             reset_token_expires
@@ -44,6 +46,18 @@ module.exports = {
 
         return
     },
-    put(req, res) {},
+    async update(req, res) {
+        const { id, name, email, password } = req.body
+        const hashedPassword = await hash(password, 8)
+
+        console.log('controller')
+        console.log({
+            id,
+            name,
+            email,
+            password: hashedPassword
+        })
+        return
+    },
     delete(req, res) {}
 }

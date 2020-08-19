@@ -5,7 +5,8 @@
         <h2>Bem vindo {{ user.name }}</h2>
         <button class="button" type="submit" form="form-update-user">Salvar</button>
     </div>
-    <form id="form-update-user" class="form-inline" method="POST" action="/admin/users">
+    <form id="form-update-user" class="form-inline" method="POST" action="/admin/users?_method=PUT">
+        <input type="hidden" name="id" value="{{ user.id }}">
         <div class="form-item">
             <label for="name">Nome</label>
             <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="{{ user.name }}">
