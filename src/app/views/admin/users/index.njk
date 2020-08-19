@@ -1,0 +1,90 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+    <div class="form-header">
+        <h2>Usuários</h2>
+        <a href="/admin/users/create" class="button">Novo</a>
+    </div>
+    <div class="users">
+        {% for user in users %}
+            <div class="user">
+                <p class="user-name">{{ user.name }}</p>
+                <p class="user-email">{{ user.email }}</p>
+                <div class="options-container">
+                    <a href="/admin/users/show">Editar</a>
+                    <form method="POST" action="/users?_method=DELETE">
+                        <input type="hidden" name="id" value="{{ user.id }}">
+                        <button>Remover</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="user">
+            <p class="user-name">Victor Badaró</p>
+            <p class="user-email">victor.badaro@fatec.sp.gov.br</p>
+            <div class="options-container">
+                <a href="/admin/users/show">Editar</a>
+                <form method="POST" action="/users?_method=DELETE">
+                    <input type="hidden" name="id" value="1">
+                    <button>Remover</button>
+                </form>
+            </div>
+        </div>
+        <div class="user">
+            <p class="user-name">Victor Badaró</p>
+            <p class="user-email">victor.badaro@fatec.sp.gov.br</p>
+            <div class="options-container">
+                <a href="/admin/users/show">Editar</a>
+                <form method="POST" action="/users?_method=DELETE">
+                    <input type="hidden" name="id" value="1">
+                    <button>Remover</button>
+                </form>
+            </div>
+        </div>
+        <div class="user">
+            <p class="user-name">Victor Badaró</p>
+            <p class="user-email">victor.badaro@fatec.sp.gov.br</p>
+            <div class="options-container">
+                <a href="/admin/users/show">Editar</a>
+                <form method="POST" action="/users?_method=DELETE">
+                    <input type="hidden" name="id" value="1">
+                    <button>Remover</button>
+                </form>
+            </div>
+        </div>
+        <div class="user">
+            <p class="user-name">Victor Badaró</p>
+            <p class="user-email">victor.badaro@fatec.sp.gov.br</p>
+            <div class="options-container">
+                <a href="/admin/users/show">Editar</a>
+                <form method="POST" action="/users?_method=DELETE">
+                    <input type="hidden" name="id" value="1">
+                    <button>Remover</button>
+                </form>
+            </div>
+        </div>
+        <div class="user">
+            <p class="user-name">Victor Badaró</p>
+            <p class="user-email">victor.badaro@fatec.sp.gov.br</p>
+            <div class="options-container">
+                <a href="/admin/users/show">Editar</a>
+                <form method="POST" action="/users?_method=DELETE">
+                    <input type="hidden" name="id" value="1">
+                    <button>Remover</button>
+                </form>
+            </div>
+        </div>
+        <div class="user">
+            <p class="user-name">Victor Badaró</p>
+            <p class="user-email">victor.badaro@fatec.sp.gov.br</p>
+            <div class="options-container">
+                <a href="/admin/users/show">Editar</a>
+                <form method="POST" action="/users?_method=DELETE">
+                    <input type="hidden" name="id" value="1">
+                    <button>Remover</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

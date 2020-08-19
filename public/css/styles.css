@@ -754,7 +754,8 @@ body#session main {
     column-gap: 16px;
 }
 
-.form-header button {
+.form-header .button {
+    text-align: center;
     width: 139px;
 }
 
@@ -799,4 +800,46 @@ form.form-inline {
 
 .form-header .buttons .delete {
     background-color: #DC4747;
+}
+
+.users {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 50px;
+
+}
+
+.user .user-name {
+    font-size: 18px;
+    line-height: 21px;
+    color: #111;
+}
+
+.user .user-email {
+    margin: 4px 0 16px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #777;
+}
+
+.user .options-container a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 17px;
+    color: #6558C3;
+}
+
+.user .options-container form {
+    display: inline;
+    margin-left: 16px;
+}
+
+.user .options-container form button {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 17px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #F55A5A;
 }

@@ -1,15 +1,15 @@
 {% extends "public/layout.njk" %}
 
 {% block title %}
-<title>Foodfy - Receitas</title>
+    <title>Foodfy - Receitas</title>
 {% endblock title %}
 
 {% block content %}
-<section class="recipes">
-    {% for recipe in recipes %}
-    {% include "public/recipes/recipeLayout.njk" %}
-    {% endfor %}
-</section>
+    <section class="recipes">
+        {% for recipe in recipes %}
+            {% include "public/recipes/recipeLayout.njk" %}
+        {% endfor %}
+    </section>
 
-{% include "pagination.njk" %}
+    {% include "pagination.njk" %}
 {% endblock content %}
