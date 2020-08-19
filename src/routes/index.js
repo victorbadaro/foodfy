@@ -64,6 +64,8 @@ routes.get('/admin/users/login', SessionController.loginForm)
 routes.post('/admin/users/login', SessionValidator.login, SessionController.login)
 routes.post('/admin/users/logout', SessionController.logout)
 
+routes.get('/admin/users/forgot-password', SessionController.forgotForm)
+
 routes.use((req, res) => {
     return res.render('public/not-found')
 })

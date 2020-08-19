@@ -353,13 +353,29 @@ div.text-title a {
     text-align: left;
 }
 
-#admin nav .container div a {
+#admin nav form {
+    display: inline;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+}
+
+#admin nav .container div a,
+#admin nav form button {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 15px;
     line-height: 18px;
     font-weight: bold;
     color: #999;
+}
+
+#admin nav form button {
+    width: fit-content;
+    cursor: pointer;
+    outline: 0;
+    background-color: transparent;
+    color: #FFF;
 }
 
 #admin nav .container div a.active {
@@ -689,7 +705,8 @@ body#session main {
     padding: 35px 0;
 }
 
-#session main .login-container {
+#session main .login-container,
+#session main .forgot-password-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -697,15 +714,21 @@ body#session main {
     height: calc(100% - 97px);
 }
 
-#session main .login-container form {
+#session main .login-container form,
+#session main .forgot-password-container form {
     width: 500px;
 }
 
-#session main .login-container form .form-footer {
+#session main .login-container form .form-footer,
+#session main .forgot-password-container form .form-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 35px 0;
+}
+
+#session main .forgot-password-container form .form-footer {
+    justify-content: flex-end;
 }
 
 #session main .login-container form .form-footer a {
@@ -716,11 +739,13 @@ body#session main {
     color: #969696;
 }
 
-#session main .login-container form .form-item  {
+#session main .login-container form .form-item,
+#session main .forgot-password-container form .form-item {
     margin-top: 30px;
 }
 
-#session main .login-container form .form-item label {
+#session main .login-container form .form-item label,
+#session main .forgot-password-container form .form-item label {
     display: block;
     font-size: 16px;
     line-height: 19px;
@@ -728,7 +753,8 @@ body#session main {
     margin-bottom: 10px;
 }
 
-#session main .login-container form .form-item input {
+#session main .login-container form .form-item input,
+#session main .forgot-password-container form .form-item input {
     width: 100%;
     padding: 15px 20px;
     border: 1px solid #DDD;

@@ -46,5 +46,24 @@ module.exports = {
         const result = await db.query(query)
 
         return result.rows[0]
+    },
+    async update(id, data) {
+        let query = `UPDATE users SET`
+
+        Object.keys(data).map((key, index, array) => {
+            if((index + 1 < array.length))
+                query = `${query} ${key} = '${data[key]}',`
+            else
+                query = `${query} ${key} = '${data[key]}'`
+        })
+
+        query = `
+            ${query}
+            WHERE id = $1
+            RETURNING id`
+        
+        const result = await db.query(query, [id])
+
+        return result.rows[0].id
     }
 }

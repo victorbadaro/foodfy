@@ -47,17 +47,25 @@ module.exports = {
         return
     },
     async update(req, res) {
-        const { id, name, email, password } = req.body
-        const hashedPassword = await hash(password, 8)
+        const { user } = req
+        const { name, email, password } = req.body
+        
+        if(password) {
+            const hashedPassword = await hash(password, 8)
 
-        console.log('controller')
-        console.log({
-            id,
-            name,
-            email,
-            password: hashedPassword
-        })
-        return
+            await User.update(user.id, {
+                name,
+                email,
+                password: hashedPassword
+            })
+        } else {
+            await User.update(user.id, {
+                name,
+                email
+            })
+        }
+
+        return res.redirect('/admin/profile')
     },
     delete(req, res) {}
 }

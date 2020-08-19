@@ -19,12 +19,12 @@
                     <a href="/admin/chefs">Chefs</a>
                     <a href="/admin/users">Usuários</a>
                 </div>
-                {% if session.userID %}
-                    <form method="POST" action="/admin/users/logout">
-                        <button>sair</button>
-                    </form>
-                {% endif %}
             </div>
+            {% if session.userID %}
+                <form method="POST" action="/admin/users/logout">
+                    <button>sair</button>
+                </form>
+            {% endif %}
         </nav>
         <div class="container">
             {% block content %}
