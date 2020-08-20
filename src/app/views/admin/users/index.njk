@@ -3,20 +3,35 @@
 {% block content %}
     <div class="form-header">
         <h2>Usuários</h2>
-        <a href="/admin/users/create" class="button">Novo</a>
+        {% if loggedUser.is_admin %}
+            <a href="/admin/users/create" class="button">Novo</a>
+        {% endif %}
     </div>
     <div class="users">
         {% for user in users %}
             <div class="user">
                 <p class="user-name">{{ user.name }}</p>
                 <p class="user-email">{{ user.email }}</p>
-                <div class="options-container">
-                    <a href="/admin/profile">Editar</a>
-                    <form method="POST" action="/users?_method=DELETE">
-                        <input type="hidden" name="id" value="{{ user.id }}">
-                        <button>Remover</button>
-                    </form>
-                </div>
+                {% if user.id == loggedUser.id or loggedUser.is_admin %}
+                    <div class="options-container">
+                        <a
+                            {% if loggedUser.id == user.id %}
+                                href="/admin/profile"
+                            {% else %}
+                                href="/admin/users/{{ user.id }}"
+                            {% endif %}
+                        >
+                            Editar
+                        </a>
+                        
+                        {% if user.id != loggedUser.id %}
+                            <form method="POST" action="/users?_method=DELETE">
+                                <input type="hidden" name="id" value="{{ user.id }}">
+                                <button>Remover</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

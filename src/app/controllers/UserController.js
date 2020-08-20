@@ -5,8 +5,10 @@ const nodemailer = require('../../lib/nodemailer')
 
 module.exports = {
     async list(req, res) {
+        const { userID } = req.session
         const users = await User.all()
-        return res.render('admin/users/index', { users })
+        const loggedUser = await User.find({ where: { id: userID }})
+        return res.render('admin/users/index', { users, loggedUser })
     },
     create(req, res) {
         return res.render('admin/users/create')
@@ -47,25 +49,12 @@ module.exports = {
         return
     },
     async update(req, res) {
-        const { user } = req
-        const { name, email, password } = req.body
         
-        if(password) {
-            const hashedPassword = await hash(password, 8)
+    },
+    async show(req, res) {
+        const { user } = req
 
-            await User.update(user.id, {
-                name,
-                email,
-                password: hashedPassword
-            })
-        } else {
-            await User.update(user.id, {
-                name,
-                email
-            })
-        }
-
-        return res.redirect('/admin/profile')
+        return res.render('admin/users/show', { user })
     },
     delete(req, res) {}
 }

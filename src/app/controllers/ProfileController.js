@@ -1,4 +1,5 @@
 const User = require('../models/admin/User')
+const { hash } = require('bcryptjs')
 
 module.exports = {
     async index(req, res) {
@@ -7,5 +8,25 @@ module.exports = {
 
         return res.render('admin/users/profile', { user })
     },
-    put(req, res) {}
+    async update(req, res) {
+        const { user } = req
+        const { name, email, password } = req.body
+        
+        if(password) {
+            const hashedPassword = await hash(password, 8)
+
+            await User.update(user.id, {
+                name,
+                email,
+                password: hashedPassword
+            })
+        } else {
+            await User.update(user.id, {
+                name,
+                email
+            })
+        }
+
+        return res.redirect('/admin/profile')
+    }
 }
