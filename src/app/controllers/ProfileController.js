@@ -27,6 +27,6 @@ module.exports = {
             })
         }
 
-        return res.redirect('/admin/profile')
+        return res.render('admin/users/profile', { success: 'Perfil alterado com sucesso! 😀', user: { name, email } })
     }
 }
