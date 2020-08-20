@@ -49,12 +49,24 @@ module.exports = {
         return
     },
     async update(req, res) {
-        
+        const { id, name, email, is_admin } = req.body
+        await User.update(id, {
+            name,
+            email,
+            is_admin: is_admin ? true : false
+        })
+
+        return res.render('admin/users/show', { success: 'Perfil alterado com sucesso! 😀', user: { id, name, email, is_admin } })
     },
     async show(req, res) {
         const { user } = req
 
         return res.render('admin/users/show', { user })
     },
-    delete(req, res) {}
+    async delete(req, res) {
+        const { id } = req.body
+
+        await User.delete(id)
+        return res.redirect('/admin/users')
+    }
 }

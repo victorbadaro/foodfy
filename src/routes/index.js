@@ -11,7 +11,7 @@ const SessionController = require('../app/controllers/SessionController')
 const SessionValidator = require('../app/validators/session')
 const multer = require('../app/middlewares/multer')
 
-const { onlyUsers, onlyAdmin } = require('../app/middlewares/session')
+const { onlyUsers, onlyAdmins } = require('../app/middlewares/session')
 
 //* === PUBLIC ROUTES [RECIPES and CHEFS] === *//
 routes.get('/', function(req, res) {
@@ -58,15 +58,15 @@ routes.put('/admin/profile', ProfileValidator.update, ProfileController.update)/
 routes.get('/admin/users', onlyUsers, UserController.list) //Mostrar a lista de usuários cadastrados
 routes.post('/admin/users', UserController.post) //Cadastrar um usuário
 routes.put('/admin/users', UserValidator.update, UserController.update) // Editar um usuário
-routes.delete('/admin/users', UserController.delete) // Deletar um usuário
-routes.get('/admin/users/create', onlyAdmin, UserController.create)
+routes.delete('/admin/users', UserValidator.delete, UserController.delete) // Deletar um usuário
+routes.get('/admin/users/create', onlyAdmins, UserController.create)
 
 routes.get('/admin/users/login', SessionController.loginForm)
 routes.post('/admin/users/login', SessionValidator.login, SessionController.login)
 routes.post('/admin/users/logout', SessionController.logout)
 
 routes.get('/admin/users/forgot-password', SessionController.forgotForm)
-routes.get('/admin/users/:id', UserValidator.show, UserController.show)
+routes.get('/admin/users/:id', onlyAdmins, UserValidator.show, UserController.show)
 
 routes.use((req, res) => {
     return res.render('public/not-found')

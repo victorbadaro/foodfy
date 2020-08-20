@@ -5,19 +5,21 @@ module.exports = {
         return next()
     },
     async update(req, res, next) {
-        const { id, name, email, password } = req.body
-        const user = await User.find({ where: {id} })
+        const { userID } = req.session
+        const { id, name, email } = req.body
+        let user = await User.find({ where: {id} })
 
         if(!name || !email)
-            return res.render('admin/users/profile', { error: 'Preencha todos os campos obrigatórios!', user: req.body })
+            return res.render('admin/users/show', { error: 'Preencha todos os campos obrigatórios!', user: req.body })
 
         if(!user)
-            return res.render('admin/users/profile', { error: 'Usuário não encontrado! Tente novamente', user: req.body })
+            return res.render('admin/users/show', { error: 'Usuário não encontrado! Tente novamente', user: req.body })
+        
+        user = await User.find({ where: { id: userID } })
 
-        if(id != req.session.userID && user.is_admin == false)
-            return res.render('admin/users/profile', { error: 'Você não pode alterar os dados de outro usuário', user: req.body })
+        if(!user.is_admin)
+            return res.render('admin/users/show', { error: 'Você não tem privilégios de administrador para alterar a conta de outro usuário', user: req.body })
 
-        req.user = user
         return next()
     },
     async show(req, res, next) {
@@ -28,6 +30,24 @@ module.exports = {
             return res.render('admin/users/index', { error: 'Este usuário não existe' })
 
         req.user = user
+        return next()
+    },
+    async delete(req, res, next) {
+        const { userID } = req.session
+        const { id } = req.body
+        let user = await User.find({ where: {id} })
+
+        if(!user)
+            return res.render('admin/users/show', { error: 'Usuário não encontrado. Tente novamente!', user: req.user })
+        
+        if(user.id == userID)
+            return res.render('admin/users/show', { error: 'Você não pode deletar a própria conta', user: req.body })
+        
+        user = await User.find({ where: {id: userID} })
+
+        if(!user.is_admin)
+            return res.render('admin/users', { error: 'Você não tem privilégios de administrador para deletar usuários', user: req.user })
+
         return next()
     }
 }

@@ -7,7 +7,7 @@ module.exports = {
         
         return next()
     },
-    async onlyAdmin(req, res, next) {
+    async onlyAdmins(req, res, next) {
         const { userID } = req.session
         const user = await User.find({ where: { id: userID } })
 

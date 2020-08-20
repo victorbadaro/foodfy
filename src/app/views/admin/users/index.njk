@@ -25,7 +25,7 @@
                         </a>
                         
                         {% if user.id != loggedUser.id %}
-                            <form method="POST" action="/users?_method=DELETE">
+                            <form method="POST" action="/admin/users?_method=DELETE">
                                 <input type="hidden" name="id" value="{{ user.id }}">
                                 <button>Remover</button>
                             </form>
