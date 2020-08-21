@@ -1,7 +1,17 @@
 const User = require('../models/admin/User')
 
 module.exports = {
-    post(req, res, next) {
+    async post(req, res, next) {
+        const { name, email } = req.body
+
+        if(!name || !email)
+            return res.render('admin/users/create', { error: 'Preencha todos os campos obrigatórios!', user: req.body })
+
+        const user = await User.find({ where: {email} })
+
+        if(user)
+            return res.render('admin/users/create', { error: 'Este email já está sendo utilizado por outro usuário. Por favor, digite outro endereço de email!', user: req.body })
+        
         return next()
     },
     async update(req, res, next) {

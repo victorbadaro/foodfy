@@ -25,7 +25,7 @@
                         </a>
                         
                         {% if user.id != loggedUser.id %}
-                            <form method="POST" action="/admin/users?_method=DELETE">
+                            <form method="POST" class="delete-form" action="/admin/users?_method=DELETE">
                                 <input type="hidden" name="id" value="{{ user.id }}">
                                 <button>Remover</button>
                             </form>
@@ -36,3 +36,7 @@
         {% endfor %}
     </div>
 {% endblock content %}
+
+{% block script %}
+    <script src="/js/admin/deleteConfirmation.js"></script>
+{% endblock script %}

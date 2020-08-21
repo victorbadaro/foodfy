@@ -4,6 +4,8 @@ const menus = document.querySelectorAll('nav.menuBar .menu a')
 for (menu of menus) {
     if(currentPage.includes(menu.getAttribute('href')))
         menu.classList.add('active')
+    else if (currentPage == '/admin/profile' && menu.getAttribute('href') == '/admin/users')
+        menu.classList.add('active')
 }
 
 // FOR RECIPE PAGE

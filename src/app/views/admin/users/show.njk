@@ -12,7 +12,11 @@
         <input type="hidden" name="id" value="{{ user.id }}">
         {% include "admin/users/fields.njk" %}
     </form>
-    <form id="form-delete-user" method="POST" action="/admin/users?_method=DELETE">
+    <form id="form-delete-user" class="delete-form" method="POST" action="/admin/users?_method=DELETE">
         <input type="hidden" name="id" value="{{ user.id }}">
     </form>
 {% endblock content %}
+
+{% block script %}
+    <script src="/js/admin/deleteConfirmation.js"></script>
+{% endblock script %}

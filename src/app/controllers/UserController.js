@@ -46,7 +46,7 @@ module.exports = {
                 <a href="http://localhost:3000/admin/users/login" target="_blank">Login</a>`
         })
 
-        return
+        return res.redirect(`/admin/users/${userID}`)
     },
     async update(req, res) {
         const { id, name, email, is_admin } = req.body
