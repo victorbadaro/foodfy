@@ -1,37 +1,38 @@
 const routes = require('express').Router()
 
-const adminRecipes = require('../app/controllers/admin/recipes')
-const adminChefs = require('../app/controllers/admin/chefs')
+const RecipeController = require('../app/controllers/admin/RecipeController')
+const ChefController = require('../app/controllers/admin/ChefController')
 const ProfileController = require('../app/controllers/ProfileController')
-const ProfileValidator = require('../app/validators/profiles')
 const UserController = require('../app/controllers/UserController')
+
+const RecipeValidator = require('../app/validators/recipes')
+const ChefValidator = require('../app/validators/chefs')
+const ProfileValidator = require('../app/validators/profiles')
 const UserValidator = require('../app/validators/users')
+
 const multer = require('../app/middlewares/multer')
 
 const { onlyAdmins } = require('../app/middlewares/session')
 
-//* === ADMIN ROUTES [RECIPES and CHEFS] === *//
 routes.get('/', function(req, res) {
     return res.redirect('admin/recipes')
 })
 
-// ADMIN [RECIPES]
-routes.get('/recipes', adminRecipes.index)
-routes.post('/recipes', multer.array('files', 5), adminRecipes.post)
-routes.put('/recipes', multer.array('files', 5), adminRecipes.put)
-routes.delete('/recipes', adminRecipes.delete)
-routes.get('/recipes/create', adminRecipes.create)
-routes.get('/recipes/:id', adminRecipes.show)
-routes.get('/recipes/:id/edit', adminRecipes.edit)
+routes.get('/recipes', RecipeController.index)
+routes.post('/recipes', multer.array('files', 5), RecipeValidator.post, RecipeController.post)
+routes.put('/recipes', multer.array('files', 5), RecipeValidator.update, RecipeController.update)
+routes.delete('/recipes', RecipeController.delete)
+routes.get('/recipes/create', RecipeController.create)
+routes.get('/recipes/:id', RecipeController.show)
+routes.get('/recipes/:id/edit', RecipeController.edit)
 
-// ADMIN [CHEFS]
-routes.get('/chefs', adminChefs.index)
-routes.post('/chefs', adminChefs.post)
-routes.put('/chefs', adminChefs.put)
-routes.delete('/chefs', adminChefs.delete)
-routes.get('/chefs/create', onlyAdmins, adminChefs.create)
-routes.get('/chefs/:id', adminChefs.show)
-routes.get('/chefs/:id/edit', onlyAdmins, adminChefs.edit)
+routes.get('/chefs', ChefController.index)
+routes.post('/chefs', ChefValidator.post, ChefController.post)
+routes.put('/chefs', ChefValidator.update, ChefController.update)
+routes.delete('/chefs', ChefValidator.delete, ChefController.delete)
+routes.get('/chefs/create', onlyAdmins, ChefController.create)
+routes.get('/chefs/:id', ChefController.show)
+routes.get('/chefs/:id/edit', onlyAdmins, ChefController.edit)
 
 // Rotas de perfil de um usuário logado
 routes.get('/profile', ProfileController.index) // Mostrar o formulário com dados do usuário logado

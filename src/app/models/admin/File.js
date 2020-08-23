@@ -2,7 +2,7 @@ const db = require('../../../config/db')
 const fs = require('fs')
 
 module.exports = {
-    create(name, path) {
+    async create(data) {
         const query = `
             INSERT INTO files (
                 name,
@@ -10,25 +10,63 @@ module.exports = {
             ) VALUES ($1, $2)
             RETURNING id`
         const values = [
-            name,
-            path
+            data.name,
+            data.path
         ]
 
-        return db.query(query, values)
+        const result = await db.query(query, values)
+        return result.rows[0].id
     },
-    find(id) {
-        return db.query('SELECT * FROM files WHERE id = $1', [id])
+    async find(data) {
+        let query = 'SELECT * FROM files'
+
+        Object.keys(data).map(key => {
+            query = `
+                ${query}
+                ${key}`
+            
+            Object.keys(data[key]).map(field => {
+                query = `${query} ${field} = '${data[key][field]}'`
+            })
+        })
+
+        const result = await db.query(query)
+
+        return result.rows[0]
+    },
+    async update(id, data) {
+        let query = 'UPDATE files SET'
+
+        Object.keys(data).map((key, index, array) => {
+            if((index + 1) < array.length)
+                query = `${query} ${key} = '${data[key]}',`
+            else
+                query = `${query} ${key} = '${data[key]}'`
+        })
+
+        query = `
+            ${query}
+            WHERE id = $1
+            RETURNING id`
+
+        const result = await db.query(query, [id])
+        return result.rows[0].id
     },
     async delete(id) {
         try {
-            const result = await this.find(id)
-            const file = result.rows[0]
+            const file = await this.find({ where: {id} })
+            const hasFile = fs.existsSync(file.path)
 
-            fs.unlinkSync(file.path)
+            if(hasFile)
+                this.deletePhysicalFile(file.path)
             
-            return db.query('DELETE FROM files WHERE id = $1', [id])
+            await db.query('DELETE FROM files WHERE id = $1', [id])
+            return
         } catch (error) {
             console.log(error)
         }
+    },
+    deletePhysicalFile(path) {
+        fs.unlinkSync(path)
     }
 }

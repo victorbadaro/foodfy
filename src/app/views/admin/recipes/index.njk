@@ -1,21 +1,24 @@
 {% extends "admin/layout.njk" %}
 
 {% block title %}
-<title>Foodfy - Receitas</title>
+    <title>Foodfy - Receitas</title>
 {% endblock title %}
 
 {% block content %}
-<h2 class="text-title">Gerenciar receitas</h2>
-<section class="recipes">
-    {% for recipe in recipes %}
-    <div class="recipe">
-        <div class="recipe-img" style="background-image: url('{{ recipe.image }}')"></div>
-        <div>
-            <p class="recipe-title">{{ recipe.title }}</p>
-            <p class="recipe-author">por {{ recipe.chef_name }}</p>
-            <a href="/admin/recipes/{{ recipe.id }}" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
-        </div>
+    <div class="form-header">
+        <h2>Gerenciar receitas</h2>
+        <a href="/admin/recipes/create" class="button">Nova</a>
     </div>
-    {% endfor %}
-</section>
+    <section class="recipes">
+        {% for recipe in recipes %}
+        <div class="recipe">
+            <div class="recipe-img" style="background-image: url('{{ recipe.image }}')"></div>
+            <div>
+                <p class="recipe-title">{{ recipe.title }}</p>
+                <p class="recipe-author">por {{ recipe.chef_name }}</p>
+                <a href="/admin/recipes/{{ recipe.id }}" class="recipe-link" title="Clique para ver a receita">Visualizar</a>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
 {% endblock content %}

@@ -175,7 +175,7 @@ const ImagesUpload = {
         const imageContainer = event.target.parentNode
         
         if(imageContainer.id) {
-            const removedFiles = ImagesUpload.imagesContainer.querySelector('input[name=removed_files]')
+            const removedFiles = document.querySelector('input[name=removed_files]')
 
             removedFiles.value += `${imageContainer.id},`
         }

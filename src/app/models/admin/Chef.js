@@ -2,16 +2,17 @@ const db = require('../../../config/db')
 const { date } = require('../../../lib/utils')
 
 module.exports = {
-    all() {
+    async all() {
         const query = `
             SELECT chefs.*, files.path AS avatar_url
             FROM chefs
             LEFT JOIN files ON (chefs.file_id = files.id)
             ORDER BY id ASC`
 
-        return db.query(query)
+        const result = await db.query(query)
+        return result.rows
     },
-    create(data) {
+    async create(data) {
         const query = `
             INSERT INTO chefs(
                 name,
@@ -25,36 +26,50 @@ module.exports = {
             date(Date.now()).isoDate
         ]
 
-        return db.query(query, values)
+        const result = await db.query(query, values)
+        return result.rows[0].id
     },
-    find(id) {
-        const query = `
-            SELECT chefs.*, (SELECT COUNT(*) FROM recipes WHERE chef_id = ${id}) AS total_recipes, files.path AS avatar_url
-            FROM chefs
-            LEFT JOIN files ON (chefs.file_id = files.id)
-            WHERE chefs.id = ${id}`
-        
-        return db.query(query)
-    },
-    update(data) {
-        const query = `
-            UPDATE chefs SET
-                name = $1,
-                file_id = $2
-            WHERE id = $3
-            RETURNING id`
-        const values = [
-            data.name,
-            data.file_id,
-            data.id
-        ]
+    async find(data) {
+        let query = 'SELECT * FROM chefs'
 
-        return db.query(query, values)
+        Object.keys(data).map(key => {
+            query = `
+                ${query}
+                ${key}`
+            
+            Object.keys(data[key]).map(field => {
+                query = `${query} ${field} = '${data[key][field]}'`
+            })
+        })
+
+        const result = await db.query(query)
+
+        return result.rows[0]
     },
-    delete(id) {
-        return db.query('DELETE FROM chefs WHERE id = $1', [id])
+    async update(id, data) {
+        let query = 'UPDATE chefs SET'
+
+        Object.keys(data).map((key, index, array) => {
+            if((index + 1) < array.length)
+                query = `${query} ${key} = '${data[key]}',`
+            else
+                query = `${query} ${key} = '${data[key]}'`
+        })
+
+        query = `
+            ${query}
+            WHERE id = $1
+            RETURNING id`
+
+        const result = await db.query(query, [id])
+        return result.rows[0].id
     },
-    getRecipesFromChef(id) {        
-        return db.query('SELECT * FROM recipes WHERE chef_id = $1 ORDER BY recipes.created_at DESC', [id])
+    async delete(id) {
+        await db.query('DELETE FROM chefs WHERE id = $1', [id])
+        return
+    },
+    async getRecipesFromChef(id) {        
+        const result = await db.query('SELECT * FROM recipes WHERE chef_id = $1 ORDER BY recipes.created_at DESC', [id])
+        return result.rows
     }
 }

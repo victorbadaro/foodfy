@@ -11,10 +11,11 @@
                     value="{{ recipe.image }}"
                     accept="image/*"
                     multiple
-                    required
+                    {% if not recipe.id %}
+                        required
+                    {% endif %}
                     onchange="ImagesUpload.handleFiles(event)"
                 >
-                <input type="hidden" name="removed_files">
             </div>
             {% for file in files %}
                 <div class="image" id="{{ file.id }}">
