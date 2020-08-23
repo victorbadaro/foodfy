@@ -63,8 +63,6 @@ module.exports = {
         const { userID } = req.session
         const { title, chef, ingredients, preparation, information } = req.body
 
-        console.log(ingredients)
-
         const files = req.files
         const recipeID = await Recipe.create({
             title,
@@ -89,14 +87,11 @@ module.exports = {
     async update(req, res) {
         const { id, title, chef, ingredients, preparation, information, removed_files } = req.body
 
-        console.log(ingredients)
-        // return
-
         const files = req.files
         const recipeID = await Recipe.update(id, {
             title,
             chef_id: chef,
-            ingredients: `ARRAY ${ingredients}`,
+            ingredients,
             preparation,
             information
         })
@@ -128,8 +123,7 @@ module.exports = {
     async delete(req, res) {
         const { id } = req.body
         
-        let result = await Recipe.getFiles(id)
-        const filesToRemove = result.rows
+        const filesToRemove = await Recipe.getFiles(id)
 
         let filesToRemovePromises = filesToRemove.map(file => Recipe.removeFile(id, file.id))
         await Promise.all(filesToRemovePromises)

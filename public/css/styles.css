@@ -706,7 +706,8 @@ body#session main {
 }
 
 #session main .login-container,
-#session main .forgot-password-container {
+#session main .forgot-password-container,
+#session main .reset-password-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -715,19 +716,22 @@ body#session main {
 }
 
 #session main .login-container form,
-#session main .forgot-password-container form {
+#session main .forgot-password-container form,
+#session main .reset-password-container form {
     width: 500px;
 }
 
 #session main .login-container form .form-footer,
-#session main .forgot-password-container form .form-footer {
+#session main .forgot-password-container form .form-footer,
+#session main .reset-password-container form .form-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 35px 0;
 }
 
-#session main .forgot-password-container form .form-footer {
+#session main .forgot-password-container form .form-footer,
+#session main .reset-password-container form .form-footer {
     justify-content: flex-end;
 }
 
@@ -740,12 +744,14 @@ body#session main {
 }
 
 #session main .login-container form .form-item,
-#session main .forgot-password-container form .form-item {
+#session main .forgot-password-container form .form-item,
+#session main .reset-password-container form .form-item {
     margin-top: 30px;
 }
 
 #session main .login-container form .form-item label,
-#session main .forgot-password-container form .form-item label {
+#session main .forgot-password-container form .form-item label,
+#session main .reset-password-container form .form-item label {
     display: block;
     font-size: 16px;
     line-height: 19px;
@@ -754,7 +760,8 @@ body#session main {
 }
 
 #session main .login-container form .form-item input,
-#session main .forgot-password-container form .form-item input {
+#session main .forgot-password-container form .form-item input,
+#session main .reset-password-container form .form-item input {
     width: 100%;
     padding: 15px 20px;
     border: 1px solid #DDD;

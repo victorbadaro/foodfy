@@ -27,8 +27,14 @@ routes.use('/admin', onlyUsers, admin)
 
 routes.get('/login', SessionController.loginForm)
 routes.post('/login', SessionValidator.login, SessionController.login)
+
 routes.post('/logout', SessionController.logout)
+
 routes.get('/forgot-password', SessionController.forgotForm)
+routes.post('/forgot-password', SessionValidator.forgot, SessionController.forgot)
+
+routes.get('/reset-password', SessionController.resetForm)
+routes.post('/reset-password', SessionValidator.reset, SessionController.reset)
 
 routes.use((req, res) => {
     return res.render('public/not-found')

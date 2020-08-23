@@ -47,5 +47,19 @@ module.exports = {
         }
 
         return next()
+    },
+    async delete(req, res, next) {
+        const { userID } = req.session
+        const loggedUser = User.find({ where: { id: userID }})
+        const { id } = req.body
+        const recipe = await Recipe.find({ where: {id} })
+
+        if(!recipe)
+            return res.render('admin/recipes/index', { error: 'Receita não encontrada!' })
+        
+        if(recipe.user_id != userID && !loggedUser.is_admin)
+            return res.render('admin/recipe/edit', { error: 'Você não tem privilégios de administrador para poder deletar uma receita de outro usuário', recipe: req.body })
+        
+        return next()
     }
 }

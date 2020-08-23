@@ -21,7 +21,7 @@ routes.get('/', function(req, res) {
 routes.get('/recipes', RecipeController.index)
 routes.post('/recipes', multer.array('files', 5), RecipeValidator.post, RecipeController.post)
 routes.put('/recipes', multer.array('files', 5), RecipeValidator.update, RecipeController.update)
-routes.delete('/recipes', RecipeController.delete)
+routes.delete('/recipes', RecipeValidator.delete, RecipeController.delete)
 routes.get('/recipes/create', RecipeController.create)
 routes.get('/recipes/:id', RecipeController.show)
 routes.get('/recipes/:id/edit', RecipeController.edit)
