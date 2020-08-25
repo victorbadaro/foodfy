@@ -13,7 +13,6 @@ module.exports = {
         return result.rows
     },
     async create(data) {
-        console.log(data)
         const query = `
             INSERT INTO recipes (
                 chef_id,

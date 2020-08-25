@@ -6,13 +6,14 @@ const User = require('../../models/admin/User')
 module.exports = {
     async index(req, res) {
         const { userID } = req.session
-        const result = await Chef.all()
-        const chefs = result.rows
         const loggedUser = await User.find({ where: { id: userID } })
+        const chefs = await Chef.all()
 
         return res.render('admin/chefs/index', { chefs, loggedUser })
     },
     async show(req, res) {
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID } })
         const { id } = req.params
         const settedRecipes = []
         const chef = await Chef.find({ where: {id} })
@@ -36,7 +37,8 @@ module.exports = {
                 ...chef,
                 avatar_url: chef_avatar.path
             },
-            recipes: settedRecipes
+            recipes: settedRecipes,
+            loggedUser
         })
     },
     async edit(req, res) {
