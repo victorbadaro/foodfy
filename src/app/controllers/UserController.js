@@ -20,7 +20,7 @@ module.exports = {
         const reset_token = crypto.randomBytes(20).toString('hex')
         let reset_token_expires = new Date()
 
-        reset_token_expires = reset_token_expires.setHours(reset_token_expires.getHours() + 1)
+        reset_token_expires = reset_token_expires.setHours(reset_token_expires.getHours() + 24)
 
         const userID = await User.create({
             name,
@@ -43,10 +43,10 @@ module.exports = {
                 <br>
                 <br>
                 <p>Por favor, pedimos que você altere essa senha assim que fizer o primeiro acesso à tua conta.</p>
-                <a href="http://localhost:3000/admin/users/login" target="_blank">Login</a>`
+                <a href="http://localhost:3000/login" target="_blank">Login</a>`
         })
 
-        return res.redirect(`/admin/users/${userID}`)
+        return res.render('admin/users/show', { success: 'Usuário criado com sucesso 😉', user: req.body })
     },
     async update(req, res) {
         const { id, name, email, is_admin } = req.body

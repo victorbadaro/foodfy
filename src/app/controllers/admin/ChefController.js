@@ -27,7 +27,7 @@ module.exports = {
             if(files.length > 0) {
                 settedRecipes.push({
                     ...recipe,
-                    image: `${req.protocol}://${req.headers.host}/${files[0].path.replace('public\\', '')}`
+                    image: `${req.protocol}://${req.headers.host}/${files[0].path.replace('public\\', '').replace('\\', '/')}`
                 })
             }
         }

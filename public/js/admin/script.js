@@ -39,14 +39,14 @@ if(addStep) {
     })
 }
 
-const deleteButton = document.querySelector('.header button[type=button]')
+// const deleteButton = document.querySelector('.header button[type=button]')
 
-if(deleteButton) {
-    deleteButton.addEventListener('click', function() {
-        const formDelete = document.querySelector('form#form-delete')
-        formDelete.submit()
-    })
-}
+// if(deleteButton) {
+//     deleteButton.addEventListener('click', function() {
+//         const formDelete = document.querySelector('form#form-delete')
+//         formDelete.submit()
+//     })
+// }
 
 const sendAvatarButton = document.querySelector('input + button.button[type=button]')
 

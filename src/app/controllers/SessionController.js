@@ -7,10 +7,14 @@ module.exports = {
     loginForm(req, res) {
         return res.render('session/login')
     },
-    login(req, res) {
+    async login(req, res) {
         const { user } = req
 
         req.session.userID = user.id
+        await User.update(user.id, {
+            reset_token: '',
+            reset_token_expires: ''
+        })
         return res.redirect('/admin/profile')
     },
     logout(req, res) {
@@ -50,7 +54,7 @@ module.exports = {
     },
     async reset(req, res) {
         const { user } = req
-        const { email, password } = req.body
+        const { password } = req.body
         const hashedPassword = await hash(password, 8)
 
         await User.update(user.id, {

@@ -13,7 +13,7 @@ module.exports = {
             if(files.length > 0) {
                 settedRecipes.push({
                     ...recipe,
-                    image: `${req.protocol}://${req.headers.host}/${files[0].path.replace('public\\', '')}`
+                    image: `${req.protocol}://${req.headers.host}/${files[0].path.replace('public\\', '').replace('\\','/')}`
                 })
             } else {
                 settedRecipes.push(recipe)
@@ -35,7 +35,7 @@ module.exports = {
 
         files = files.map(file => ({
             ...file,
-            src: `${req.protocol}://${req.headers.host}/${file.path.replace('public\\', '')}`
+            src: `${req.protocol}://${req.headers.host}/${file.path.replace('public\\', '').replace('\\', '/')}`
         }))
     
         return res.render('admin/recipes/show', {
@@ -54,7 +54,7 @@ module.exports = {
 
         files = files.map(file => ({
             ...file,
-            src: `${req.protocol}://${req.headers.host}/${file.path.replace('public\\', '')}`
+            src: `${req.protocol}://${req.headers.host}/${file.path.replace('public\\', '').replace('\\', '/')}`
         }))
 
         return res.render('admin/recipes/edit', { recipe, files, chefs })

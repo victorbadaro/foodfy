@@ -1,25 +1,28 @@
 {% extends "admin/layout.njk" %}
 
 {% block title %}
-<title>Foodfy - Editar receita</title>
+    <title>Foodfy - Editar receita</title>
 {% endblock title %}
 
 {% block content %}
-<form action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
-    <div class="header">
-        <h2 class="text-title">Editando receita</h2>
-        <div>
-            <button type="button">Deletar</button>
-            <button type="submit">Salvar receita</button>
+    <div class="form-header">
+        <h2>Editando receita</h2>
+        <div class="buttons">
+            <button class="button delete" type="submit" form="form-delete">Deletar</button>
+            <button class="button" type="submit" form="form-update-recipe" style="width: 150px">Salvar receita</button>
         </div>
     </div>
+    <form id="form-update-recipe" action="/admin/recipes?_method=PUT" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="removed_files">
+        <input type="hidden" name="id" value="{{ recipe.id }}">
 
-    <input type="hidden" name="removed_files">
-    <input type="hidden" name="id" value="{{ recipe.id }}">
-
-    {% include "admin/recipes/fields.njk" %}
-</form>
-<form id="form-delete" action="/admin/recipes?_method=DELETE" method="POST">
-    <input type="hidden" name="id" value="{{ recipe.id }}">
-</form>
+        {% include "admin/recipes/fields.njk" %}
+    </form>
+    <form id="form-delete" class="delete-form" action="/admin/recipes?_method=DELETE" method="POST">
+        <input type="hidden" name="id" value="{{ recipe.id }}">
+    </form>
 {% endblock content %}
+
+{% block script %}
+    <script src="/js/admin/deleteConfirmation.js"></script>
+{% endblock script %}
