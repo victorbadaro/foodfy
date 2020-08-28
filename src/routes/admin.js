@@ -24,7 +24,7 @@ routes.put('/recipes', multer.array('files', 5), RecipeValidator.update, RecipeC
 routes.delete('/recipes', RecipeValidator.delete, RecipeController.delete)
 routes.get('/recipes/create', RecipeController.create)
 routes.get('/recipes/:id', RecipeController.show)
-routes.get('/recipes/:id/edit', RecipeController.edit)
+routes.get('/recipes/:id/edit', RecipeValidator.edit, RecipeController.edit)
 
 routes.get('/chefs', ChefController.index)
 routes.post('/chefs', ChefValidator.post, ChefController.post)
@@ -39,7 +39,7 @@ routes.get('/profile', ProfileController.index) // Mostrar o formulário com dad
 routes.put('/profile', ProfileValidator.update, ProfileController.update)// Editar o usuário logado
 
 // Rotas que o administrador irá acessar para gerenciar usuários
-routes.get('/users', UserController.list) //Mostrar a lista de usuários cadastrados
+routes.get('/users', onlyAdmins, UserController.list) //Mostrar a lista de usuários cadastrados
 routes.post('/users', UserValidator.post, UserController.post) //Cadastrar um usuário
 routes.put('/users', UserValidator.update, UserController.update) // Editar um usuário
 routes.delete('/users', UserValidator.delete, UserController.delete) // Deletar um usuário

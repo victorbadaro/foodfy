@@ -7,9 +7,12 @@
 {% block content %}
 <div class="header">
     <h2 class="text-title">Receita: {{ recipe.title }}</h2>
-    <div>
-        <a href="/admin/recipes/{{ recipe.id }}/edit" class="redirect">Editar receita</a>
-    </div>
+
+    {% if loggedUser.is_admin or loggedUser.id == recipe.user_id %}
+        <div>
+            <a href="/admin/recipes/{{ recipe.id }}/edit" class="redirect">Editar receita</a>
+        </div>
+    {% endif %}
 </div>
 
 <div id="recipe" class="recipe gallery">

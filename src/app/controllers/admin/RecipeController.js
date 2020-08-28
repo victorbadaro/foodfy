@@ -1,10 +1,14 @@
 const Recipe = require('../../models/admin/Recipe')
 const Chef = require('../../models/admin/Chef')
 const File = require('../../models/admin/File')
+const User = require('../../models/admin/User')
 
 module.exports = {
     async index(req, res) {
-        const recipes = await Recipe.all()
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID }})
+        const user = await User.find({ where: { id: userID }})
+        const recipes = user.is_admin ? await Recipe.all() : await Recipe.allFromUser(user.id)
         const settedRecipes = []
 
         for(let recipe of recipes) {
@@ -20,14 +24,18 @@ module.exports = {
             }
         }
 
-        return res.render('admin/recipes/index', { recipes: settedRecipes })
+        return res.render('admin/recipes/index', { recipes: settedRecipes, loggedUser })
     },
     async create(req, res) {
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID }})
         const chefs = await Recipe.getChefs()
 
-        return res.render('admin/recipes/create', { chefs })
+        return res.render('admin/recipes/create', { chefs, loggedUser })
     },
     async show(req, res) {
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID }})
         const { id } = req.params
         const recipe = await Recipe.find({ where: {id} })
         const chef = await Chef.find({ where: { id: recipe.chef_id }})
@@ -43,10 +51,13 @@ module.exports = {
                 ...recipe,
                 chef_name: chef.name
             },
-            files
+            files,
+            loggedUser
         })
     },
     async edit(req, res) {
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID }})
         const { id } = req.params
         const recipe = await Recipe.find({ where: {id} })
         const chefs = await Recipe.getChefs()
@@ -57,7 +68,7 @@ module.exports = {
             src: `${req.protocol}://${req.headers.host}/${file.path.replace('public\\', '').replace('\\', '/')}`
         }))
 
-        return res.render('admin/recipes/edit', { recipe, files, chefs })
+        return res.render('admin/recipes/edit', { recipe, files, chefs, loggedUser })
     },
     async post(req, res) {
         const { userID } = req.session

@@ -6,12 +6,16 @@ const nodemailer = require('../../lib/nodemailer')
 module.exports = {
     async list(req, res) {
         const { userID } = req.session
-        const users = await User.all()
         const loggedUser = await User.find({ where: { id: userID }})
+        const users = await User.all()
+        
         return res.render('admin/users/index', { users, loggedUser })
     },
-    create(req, res) {
-        return res.render('admin/users/create')
+    async create(req, res) {
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID }})
+
+        return res.render('admin/users/create', { loggedUser })
     },
     async post(req, res) {
         const { name, email, is_admin } = req.body
@@ -60,8 +64,10 @@ module.exports = {
     },
     async show(req, res) {
         const { user } = req
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID }})
 
-        return res.render('admin/users/show', { user })
+        return res.render('admin/users/show', { user, loggedUser })
     },
     async delete(req, res) {
         const { id } = req.body

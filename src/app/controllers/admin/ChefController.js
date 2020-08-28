@@ -42,6 +42,8 @@ module.exports = {
         })
     },
     async edit(req, res) {
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID } })
         const { id } = req.params
         const chef = await Chef.find({ where: { id }})
         const chef_avatar = await File.find({ where: { id: chef.file_id }})
@@ -50,11 +52,15 @@ module.exports = {
             chef: {
                 ...chef,
                 avatar_url: chef_avatar.path
-            }
+            },
+            loggedUser
         })
     },
-    create(req, res) {
-        return res.render('admin/chefs/create')
+    async create(req, res) {
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID } })
+
+        return res.render('admin/chefs/create', { loggedUser })
     },
     async post(req, res) {
         const { name, avatar_url } = req.body

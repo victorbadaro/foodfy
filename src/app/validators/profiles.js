@@ -1,18 +1,23 @@
 const User = require('../models/admin/User')
+const { compare } = require('bcryptjs')
 
 module.exports = {
     async update(req, res, next) {
         const { userID } = req.session
-        const { id, name, email } = req.body
+        const { id, name, email, password } = req.body
         const loggedUser = await User.find({ where: { id: userID } })
         let user = await User.find({ where: {email} })
-
         
-        if(!name || !email)
+        if(!name || !email || !password)
             return res.render('admin/users/profile', { error: 'Preencha todos os campos obrigatórios!', user: req.body })
         
         if(user && user.id != userID)
             return res.render('admin/users/profile', { error: 'Este email já está sendo utilizado por outro usuário. Por favor, digite outro endereço de email!', user: req.body })
+        
+        const isPasswordMatched = await compare(password, user.password)
+
+        if(!isPasswordMatched)
+            return res.render('admin/users/profile', { error: 'Senha incorreta. Digite a tua senha corretamente para atualizar os dados do teu perfil!', user: req.body })
         
         user = await User.find({ where: {id} })
         

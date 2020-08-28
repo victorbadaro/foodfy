@@ -12,6 +12,17 @@ module.exports = {
         const result = await db.query(query)
         return result.rows
     },
+    async allFromUser(user_id) {
+        const query = `
+            SELECT recipes.*, chefs.name AS chef_name
+            FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            WHERE recipes.user_id = $1
+            ORDER BY recipes.created_at DESC`
+
+        const result = await db.query(query, [user_id])
+        return result.rows
+    },
     async create(data) {
         const query = `
             INSERT INTO recipes (
@@ -76,8 +87,9 @@ module.exports = {
         const result = await db.query(query, values)
         return result.rows[0].id
     },
-    delete(id) {
-        return db.query('DELETE FROM recipes WHERE id = $1', [id])
+    async delete(id) {
+        await db.query('DELETE FROM recipes WHERE id = $1', [id])
+        return
     },
     async getChefs() {
         const result = await db.query('SELECT id, name FROM chefs ORDER BY id ASC')

@@ -12,7 +12,7 @@ module.exports = {
         const user = await User.find({ where: { id: userID } })
 
         if(!user.is_admin)
-            return res.redirect('/admin/users')
+            return res.redirect('/admin/recipes')
             
         return next()
     }

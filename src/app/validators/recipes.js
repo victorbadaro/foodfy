@@ -23,6 +23,17 @@ module.exports = {
 
         return next()
     },
+    async edit(req, res, next) {
+        const { userID } = req.session
+        const { id } = req.params
+        const user = await User.find({ where: { id: userID }})
+        const recipe = await Recipe.find({ where: {id} })
+
+        if(recipe.user_id != user.id && !user.is_admin)
+            return res.redirect('/admin/recipes')
+
+        return next()
+    },
     async update(req, res, next) {
         const { userID } = req.session
         const { id, title, chef, ingredients, preparation } = req.body
