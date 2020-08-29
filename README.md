@@ -5,7 +5,7 @@
 <br>
 
 ## Indice
----
+
 * [Sobre](#-sobre)
 * [Tecnologias utilizadas](#-tecnologias-utilizadas)
 * [Como baixar o projeto](#-como-baixar-o-projeto)
@@ -14,14 +14,14 @@
 <br>
 
 ## 🧾 Sobre
----
+
 Aplicação WEB para apresentação de **receitas** elaboradas por diversos **chefs**.<br>
-_(Este é um projeto criado durante o Bootcamp Launchbase da [Rocketseat](https://rocketseat.com.br/))_.
+_(Este é um projeto criado durante o Bootcamp Launchbase da <a href="https://rocketseat.com.br/" target="_blank">Rocketseat</a>)_.
 <br>
 <br>
 
 ## 🚀 Tecnologias utilizadas
----
+
 Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 1. Back-end
@@ -42,7 +42,7 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 <br>
 
 ## 🔽 Como baixar o projeto
----
+
 ```bash
 $ git clone https://github.com/victorbadaro/foodfy.git
 ```
@@ -50,7 +50,7 @@ $ git clone https://github.com/victorbadaro/foodfy.git
 <br>
 
 ## 💻 Como executar o projeto
----
+
 Siga os passos abaixo:
 
 1. Entre no diretório do projeto
@@ -63,7 +63,7 @@ Siga os passos abaixo:
     $ npm install
     ```
 
-3. Execute um dos seguintes comandos no teu terminal<br>
+3. Execute um dos seguintes comandos no teu terminal<br><br>
     Para somente executar o projeto
     ```bash
     $ npm start
@@ -78,8 +78,11 @@ Siga os passos abaixo:
     # O endereço da tua aplicação estará disponível em http://localhost:3001
     ```
 
+---
 ✅ Pronto! Se você seguiu corretamente os passos acima o projeto já estará sendo executado localmente em tua máquina.
 <br>
 <br>
 
-Desenvolvido com ❤ por [Victor Badaró](https://github.com/victorbadaro)
+<footer align="center" style="background-color: #555">
+    Desenvolvido com ❤ por <a href="https://github.com/victorbadaro" target="_blank">Victor Badaró</a>
+</footer>
