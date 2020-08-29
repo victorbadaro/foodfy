@@ -1,8 +1,8 @@
 <img src="./public/img/logo.png">
 
-<h1 align="center">
+<p align="center">
     <img src="./public/img/chef.png">
-</h1>
+</p>
 <br>
 
 ## Indice
