@@ -1,7 +1,9 @@
 <h1 align="center">
     <img src="./public/img/logo.png">
 </h1>
-<br>
+<h1 align="center">
+    <img src="./public/img/chef.png">
+</h1>
 <br>
 
 ## Indice
@@ -11,13 +13,11 @@
 * [Como baixar o projeto](#-como-baixar-o-projeto)
 * [Como executar o projeto](#-como-executar-o-projeto)
 <br>
-<br>
 
 ## 🧾 Sobre
 
 Aplicação WEB para apresentação de **receitas** elaboradas por diversos **chefs**.<br>
 _(Este é um projeto criado durante o Bootcamp Launchbase da [Rocketseat](https://rocketseat.com.br/))_.
-<br>
 <br>
 
 ## 🚀 Tecnologias utilizadas
@@ -39,14 +39,12 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
     * Javascript
     * Nunjucks
 <br>
-<br>
 
 ## 🔽 Como baixar o projeto
 
 ```bash
 $ git clone https://github.com/victorbadaro/foodfy.git
 ```
-<br>
 <br>
 
 ## 💻 Como executar o projeto
@@ -83,8 +81,5 @@ Siga os passos abaixo:
 ---
 ✅ Pronto! Se você seguiu corretamente os passos acima o projeto já estará sendo executado localmente em tua máquina.
 <br>
-<br>
 
-<center>
-    Desenvolvido com ❤ por [Victor Badaró](https://github.com/victorbadaro)
-</center>
+Desenvolvido com ❤ por [Victor Badaró](https://github.com/victorbadaro)
