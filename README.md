@@ -85,5 +85,6 @@ Siga os passos abaixo:
 <br>
 <br>
 
-
-Desenvolvido com ❤ por [Victor Badaró](https://github.com/victorbadaro)
+<center>
+    Desenvolvido com ❤ por [Victor Badaró](https://github.com/victorbadaro)
+</center>
