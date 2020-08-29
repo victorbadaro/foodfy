@@ -1,4 +1,6 @@
-<img src="./public/img/logo.png">
+<p align="center">
+    <img src="./public/img/logo.png">
+</p>
 
 <p align="center">
     <img src="./public/img/chef.png">
