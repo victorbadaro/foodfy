@@ -71,8 +71,8 @@ Siga os passos abaixo:
 
     # O endereço da tua aplicação estará disponível em http://localhost:3000
     ```
-    
     <br>
+    
     Para executar o projeto e reiniciar o servidor automaticamente quando alguma alteração for realizada no código do projeto e também já atualizar as páginas quando alguma alteração for feita em sua estrutura ou estilização
     ```bash
     $ npm run dev
