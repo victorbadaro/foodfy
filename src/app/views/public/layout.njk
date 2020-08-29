@@ -5,6 +5,7 @@
             <title>Foodfy</title>
         {% endblock title %}
         <meta charset=utf-8>
+        <link rel="shortcut icon" href="/img/chef.png" type="image/x-icon">
         <link rel="stylesheet" href="/css/styles.css">
     </head>
     <body>
@@ -17,6 +18,11 @@
                     <a href="/about">Sobre</a>
                     <a href="/recipes">Receitas</a>
                     <a href="/chefs">Chefs</a>
+                    {% if session.userID %}
+                        <a href="/admin/profile" title="Meu perfil"><i data-feather="user"></i></a>
+                    {% else %}
+                        <a href="/login" title="Login"><i data-feather="log-in"></i></a>
+                    {% endif %}
                 </div>
 
                 {% block form %}
@@ -29,6 +35,7 @@
         
         <footer><span>Todos direitos reservados, receitas Foodfy.</span></footer>
 
+        <script src="https://unpkg.com/feather-icons"></script>
         <script src="/js/script.js"></script>
     </body>
 </html>

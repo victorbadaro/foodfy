@@ -197,3 +197,5 @@ const ImagesGallery = {
         ImagesGallery.highlight.style.backgroundImage = `url('${target.src}')`
     }
 }
+
+feather.replace()

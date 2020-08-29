@@ -80,6 +80,11 @@ nav {
     margin-left: 30px;
 }
 
+.menu a svg {
+    width: 15px;
+    height: 15px;
+}
+
 header {
     display: grid;
     grid-template-columns: 1fr 1fr;
