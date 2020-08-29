@@ -16,7 +16,7 @@
 ## 🧾 Sobre
 
 Aplicação WEB para apresentação de **receitas** elaboradas por diversos **chefs**.<br>
-_(Este é um projeto criado durante o Bootcamp Launchbase da <a href="https://rocketseat.com.br/" target="_blank">Rocketseat</a>)_.
+_(Este é um projeto criado durante o Bootcamp Launchbase da [Rocketseat](https://rocketseat.com.br/))_.
 <br>
 <br>
 
@@ -65,12 +65,14 @@ Siga os passos abaixo:
 
 3. Execute um dos seguintes comandos no teu terminal<br><br>
     Para somente executar o projeto
+    
     ```bash
     $ npm start
 
     # O endereço da tua aplicação estará disponível em http://localhost:3000
     ```
     
+    <br>
     Para executar o projeto e reiniciar o servidor automaticamente quando alguma alteração for realizada no código do projeto e também já atualizar as páginas quando alguma alteração for feita em sua estrutura ou estilização
     ```bash
     $ npm run dev
@@ -83,6 +85,5 @@ Siga os passos abaixo:
 <br>
 <br>
 
-<footer align="center" style="background-color: #555">
-    Desenvolvido com ❤ por <a href="https://github.com/victorbadaro" target="_blank">Victor Badaró</a>
-</footer>
+
+Desenvolvido com ❤ por [Victor Badaró](https://github.com/victorbadaro)
