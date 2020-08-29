@@ -83,4 +83,4 @@ Siga os passos abaixo:
 ✅ Pronto! Se você seguiu corretamente os passos acima o projeto já estará sendo executado localmente em tua máquina.
 <br>
 
-Desenvolvido com ❤ por [Victor Badaró](https://github.com/victorbadaro)
+<p align="center">Desenvolvido com ❤ por <a href="https://github.com/victorbadaro">Victor Badaró</a></p>
