@@ -26,19 +26,23 @@ _(Este é um projeto criado durante o Bootcamp Launchbase da [Rocketseat](https:
 Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 1. Back-end
-    * NodeJS
-    * express
-    * multer
-    * bcryptjs
-    * nodemailer
-    * express-session
-    * connect-pg-simple
-    * pg
+    * [NodeJS](https://nodejs.org/en/)
+    * [express](https://expressjs.com/)
+    * [multer](https://github.com/expressjs/multer)
+    * [bcryptjs](https://github.com/dcodeIO/bcrypt.js)
+    * [nodemailer](https://nodemailer.com/about/)
+    * [method-override](https://github.com/expressjs/method-override)
+    * [express-session](https://github.com/expressjs/session)
+    * [connect-pg-simple](https://github.com/voxpelli/node-connect-pg-simple)
+    * [pg](https://github.com/brianc/node-postgres)
+    * [browser-sync](https://www.browsersync.io/) (dependência de desenvolvimento)
+    * [nodemon](https://nodemon.io/) (dependência de desenvolvimento)
+    * [npm-run-all](https://github.com/mysticatea/npm-run-all) (dependência de desenvolvimento)
 2. Front-end
     * HTML
     * CSS
     * Javascript
-    * Nunjucks
+    * [nunjucks](https://mozilla.github.io/nunjucks/)
 <br>
 
 ## 🔽 Como baixar o projeto
