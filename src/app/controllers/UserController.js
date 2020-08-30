@@ -53,6 +53,8 @@ module.exports = {
         return res.render('admin/users/show', { success: 'Usuário criado com sucesso 😉', user: req.body })
     },
     async update(req, res) {
+        const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID }})
         const { id, name, email, is_admin } = req.body
         await User.update(id, {
             name,
@@ -60,7 +62,11 @@ module.exports = {
             is_admin: is_admin ? true : false
         })
 
-        return res.render('admin/users/show', { success: 'Perfil alterado com sucesso! 😀', user: { id, name, email, is_admin } })
+        return res.render('admin/users/show', {
+            success: 'Perfil alterado com sucesso! 😀',
+            user: { id, name, email, is_admin },
+            loggedUser
+        })
     },
     async show(req, res) {
         const { user } = req

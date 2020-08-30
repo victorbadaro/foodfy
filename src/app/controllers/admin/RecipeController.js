@@ -7,8 +7,7 @@ module.exports = {
     async index(req, res) {
         const { userID } = req.session
         const loggedUser = await User.find({ where: { id: userID }})
-        const user = await User.find({ where: { id: userID }})
-        const recipes = user.is_admin ? await Recipe.all() : await Recipe.allFromUser(user.id)
+        const recipes = loggedUser.is_admin ? await Recipe.all() : await Recipe.allFromUser(loggedUser.id)
         const settedRecipes = []
 
         for(let recipe of recipes) {
@@ -24,7 +23,10 @@ module.exports = {
             }
         }
 
-        return res.render('admin/recipes/index', { recipes: settedRecipes, loggedUser })
+        return res.render('admin/recipes/index', {
+            recipes: settedRecipes,
+            loggedUser
+        })
     },
     async create(req, res) {
         const { userID } = req.session

@@ -16,6 +16,10 @@ module.exports = {
             email
         })
 
-        return res.render('admin/users/profile', { success: 'Perfil alterado com sucesso! 😀', user: { name, email } })
+        return res.render('admin/users/profile', {
+            success: 'Perfil alterado com sucesso! 😀',
+            user: { name, email },
+            loggedUser: user
+        })
     }
 }

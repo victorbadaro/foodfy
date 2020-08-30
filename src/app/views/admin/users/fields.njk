@@ -1,11 +1,31 @@
 <div class="form-item">
     <label for="name">Nome</label>
-    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="{{ user.name }}" required>
+    <input
+        {% if fields_error.name %}
+            class="field-error"
+        {% endif %}
+        type="text"
+        name="name"
+        id="name"
+        placeholder="Digite o nome completo"
+        value="{{ user.name }}"
+        required
+    >
 </div>
 
 <div class="form-item">
     <label for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="Digite o email" value="{{ user.email }}" required>
+    <input
+        {% if fields_error.email %}
+            class="field-error"
+        {% endif %}
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Digite o email"
+        value="{{ user.email }}"
+        required
+    >
 </div>
 
 <div class="form-item">

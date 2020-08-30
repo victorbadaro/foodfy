@@ -11,11 +11,29 @@
         <form method="POST" action="/login">
             <div class="form-item">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Digite seu email">
+                <input
+                    {% if fields_error.email %}
+                        class="field-error"
+                    {% endif %}
+                    type="email" name="email"
+                    id="email"
+                    placeholder="Digite seu email"
+                    value="{{ user.email }}"
+                    required
+                >
             </div>
             <div class="form-item">
                 <label for="password">Senha</label>
-                <input type="password" name="password" id="password" placeholder="Digite sua senha">
+                <input
+                    {% if fields_error.password %}
+                        class="field-error"
+                    {% endif %}
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Digite sua senha"
+                    required
+                >
             </div>
 
             <div class="form-footer">

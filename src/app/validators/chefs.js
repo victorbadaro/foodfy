@@ -5,34 +5,53 @@ const File = require('../models/admin/File')
 module.exports = {
     async post(req, res, next) {
         const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID } })
         const { name } = req.body
 
         if(!name)
-            return res.render('admin/chefs/create', { error: 'Preencha todos os campos obrigatórios!', chef: req.body })
+            return res.render('admin/chefs/create', {
+                error: 'Por favor, preencha o campo de nome!',
+                chef: req.body,
+                loggedUser,
+                fields_error: { name: true }
+            })
         
         const user = await User.find({ where: { id: userID } })
 
         if(!user.is_admin)
-            return res.render('admin/chefs/index', { error: 'Somente administradores podem criar chefs' })
+            return res.render('admin/chefs/index', {
+                error: 'Somente administradores podem criar chefs',
+                loggedUser
+            })
 
         return next()
     },
     async update(req, res, next) {
         const { userID } = req.session
+        const loggedUser = await User.find({ where: { id: userID } })
         const { id, name } = req.body
 
         const chef = await Chef.find({ where: {id} })
 
         if(!chef)
-            return res.render('admin/chefs/index', { error: 'Este Chef já foi excluído do banco de dados' })
+            return res.render('admin/chefs/index', {
+                error: 'Este Chef já foi excluído do banco de dados',
+                loggedUser
+            })
 
         if(!name)
-            return res.render('admin/chefs/edit', { error: 'Preencha todos os campos obrigatórios!', chef: req.body } )
-        
-        const user = await User.find({ where: { id: userID }})
+            return res.render('admin/chefs/edit', {
+                error: 'Por favor, preencha o campo de nome!',
+                chef: req.body,
+                loggedUser,
+                fields_error: { name: true }
+            })
 
-        if(!user.is_admin)
-            return res.render('admin/chefs/index', { error: 'Somente administradores podem atualizar chefs' })
+        if(!loggedUser.is_admin)
+            return res.render('admin/chefs/index', {
+                error: 'Somente administradores podem atualizar chefs',
+                loggedUser
+            })
         
         req.chef = chef
         return next()

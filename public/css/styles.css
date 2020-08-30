@@ -81,8 +81,8 @@ nav {
 }
 
 .menu a svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
 }
 
 header {
@@ -642,6 +642,13 @@ div.text-title a {
     color: #999;
 }
 
+#admin .fields .form-item input.field-error,
+#admin .fields .form-item select.field-error,
+#admin .fields .form-item textarea.field-error {
+    border: 1px solid #FF3131;
+}
+
+
 #admin .fields .form-item input + input {
     margin-top: 10px;
 }
@@ -778,6 +785,12 @@ body#session main {
     color: #999;
 }
 
+#session main .login-container form .form-item input.field-error,
+#session main .forgot-password-container form .form-item input.field-error,
+#session main .reset-password-container form .form-item input.field-error {
+    border: 1px solid #FF3131;
+}
+
 /* CREATE USER */
 .form-header {
     display: flex;
@@ -825,6 +838,10 @@ form.form-inline {
     line-height: 19px;
     background-color: #FFF;
     color: #999;
+}
+
+.form-inline .form-item input.field-error {
+    border: 1px solid #FF3131;
 }
 
 .form-inline .form-item input[type='checkbox'] {

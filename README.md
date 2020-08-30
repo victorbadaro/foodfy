@@ -2,9 +2,9 @@
     <img src="./public/img/logo.png">
 </p>
 
-<p align="center">
-    <img src="./public/img/chef.png">
-</p>
+<h1 align="center">
+    <img src="./presentation.gif">
+</h1>
 <br>
 
 ## Indice

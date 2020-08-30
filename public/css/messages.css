@@ -10,12 +10,13 @@
     top: 15px;
     right: 15px;
     padding: 60px 35px;
-    height: 135px;
+    min-width: 300px;
     /* border: 1px solid #DDDDDD; */
     border-radius: 4px;
     font-size: 16px;
     font-weight: bold;
     line-height: 19px;
+    text-align: center;
     z-index: 9999;
     animation-name: hidemessage;
     animation-duration: 200ms;

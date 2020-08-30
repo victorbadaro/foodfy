@@ -1,14 +1,23 @@
 <div class="fields">
     <div class="form-item">
         <label for="name">Nome</label>
-        <input type="text" name="name" id="name" value="{{ chef.name }}" required>
+        <input
+            {% if fields_error.name %}
+                class="field-error"
+            {% endif %}
+            type="text"
+            name="name"
+            id="name"
+            value="{{ chef.name }}"
+            required
+        >
     </div>
 
     <div class="form-item">
         <label>Avatar</label>
         <input
             type="url"
-            {% if chef.avatar_url == null %}
+            {% if not chef.avatar_url or chef.avatar_url == null %}
                 class="hide"
             {% endif %}
             name="avatar_url"

@@ -1,60 +1,60 @@
 {% extends "public/layout.njk" %}
 
 {% block title %}
-<title>Foodfy - Receita</title>
+    <title>Foodfy - Receita</title>
 {% endblock title %}
 
 {% block content %}
-<div id="recipe" class="recipe">
-    <div class="recipe-img highlight" style="background-image: url('{{ files[0].src }}')"></div>
-    <div class="recipe-images previews">
-        {% for file in files %}
-            <img
-                src="{{ file.src }}"
-                alt="Imagem da receita {{ recipe.title }} - {{ file.name }}"
-                title="{{ file.name }}"
-                {% if loop.index0 == 0 %}
-                    class="active"
-                {% endif %}
-                onclick="ImagesGallery.setImage(event)"
-            >
-        {% endfor %}
+    <div id="recipe" class="recipe gallery">
+        <div class="recipe-img highlight" style="background-image: url('{{ files[0].src }}')"></div>
+        <div class="recipe-images previews">
+            {% for file in files %}
+                <img
+                    src="{{ file.src }}"
+                    alt="Imagem da receita {{ recipe.title }} - {{ file.name }}"
+                    title="{{ file.name }}"
+                    {% if loop.index0 == 0 %}
+                        class="active"
+                    {% endif %}
+                    onclick="ImagesGallery.setImage(event)"
+                >
+            {% endfor %}
+        </div>
+        <p class="recipe-title">{{ recipe.title }}</p>
+        <p class="recipe-author">por {{ recipe.chef_name }}</p>
     </div>
-    <p class="recipe-title">{{ recipe.title }}</p>
-    <p class="recipe-author">por {{ recipe.chef_name }}</p>
-</div>
 
-<section id="recipe-part-ingredients" class="recipe-part">
-    <div class="text-title">
-        <h2 class="text-title">Ingredientes</h2>
-        <a href="#recipe-part-ingredients">ESCONDER</a>
-    </div>
-    <ul id="recipe-ingredients" class="recipe-part-content">
-        {% for ingredient in recipe.ingredients %}
-        <li>{{ ingredient }};</li>
-        {% endfor %}
-    </ul>
-</section>
-
-<section id="recipe-part-preparation" class="recipe-part">
-    <div class="text-title">
-        <h2 class="text-title">Modo de preparo</h2>
-        <a href="#recipe-part-preparation">ESCONDER</a>
-    </div>
-    <ol id="recipe-preparation" class="recipe-part-content">
-        {% for preparationStep in recipe.preparation %}
-        <li>{{ preparationStep }}.</li>
-        {% endfor %}
-    </ol>
-</section>
-
-<section id="recipe-part-information" class="recipe-part">
-    <div class="text-title">
-        <h2 class="text-title">Informações adicionais</h2>
-        <a href="#recipe-part-information">ESCONDER</a>
-    </div>
-    <section id="recipe-information" class="text recipe-part-content">
-        <p>{{ recipe.information }}</p>
+    <section id="recipe-part-ingredients" class="recipe-part">
+        <div class="text-title">
+            <h2 class="text-title">Ingredientes</h2>
+            <a href="#recipe-part-ingredients">ESCONDER</a>
+        </div>
+        <ul id="recipe-ingredients" class="recipe-part-content">
+            {% for ingredient in recipe.ingredients %}
+            <li>{{ ingredient }};</li>
+            {% endfor %}
+        </ul>
     </section>
-</section>
+
+    <section id="recipe-part-preparation" class="recipe-part">
+        <div class="text-title">
+            <h2 class="text-title">Modo de preparo</h2>
+            <a href="#recipe-part-preparation">ESCONDER</a>
+        </div>
+        <ol id="recipe-preparation" class="recipe-part-content">
+            {% for preparationStep in recipe.preparation %}
+            <li>{{ preparationStep }}.</li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <section id="recipe-part-information" class="recipe-part">
+        <div class="text-title">
+            <h2 class="text-title">Informações adicionais</h2>
+            <a href="#recipe-part-information">ESCONDER</a>
+        </div>
+        <section id="recipe-information" class="text recipe-part-content">
+            <p>{{ recipe.information }}</p>
+        </section>
+    </section>
 {% endblock content %}

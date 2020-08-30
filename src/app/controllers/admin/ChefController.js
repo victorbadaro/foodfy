@@ -86,12 +86,10 @@ module.exports = {
         
         const chefID = await Chef.update(id, { name })
 
-        if(avatar_url) {
-            await File.update(chef.file_id, {
-                name: `Avatar - ${name}`,
-                path: avatar_url
-            })
-        }
+        await File.update(chef.file_id, {
+            name: `Avatar - ${name}`,
+            path: avatar_url ? avatar_url : ''
+        })
 
         return res.redirect(`/admin/chefs/${chefID}`)
     },

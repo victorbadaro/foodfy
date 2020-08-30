@@ -62,6 +62,6 @@ module.exports = {
             reset_token: '',
             reset_token_expires: ''
         })
-        return res.render('session/login', { success: 'Senha atualizada com sucesso! 😀' })
+        return res.render('session/login', { success: 'Senha atualizada com sucesso! 😀', user: { email: user.email } })
     }
 }
