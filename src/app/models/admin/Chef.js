@@ -68,7 +68,7 @@ module.exports = {
         await db.query('DELETE FROM chefs WHERE id = $1', [id])
         return
     },
-    async getRecipesFromChef(id) {        
+    async getRecipesFromChef(id) {
         const result = await db.query('SELECT * FROM recipes WHERE chef_id = $1 ORDER BY recipes.created_at DESC', [id])
         return result.rows
     }
