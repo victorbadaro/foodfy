@@ -63,23 +63,25 @@ async function createChefs() {
     chefsIDs = await Promise.all(chefsPromises)
 }
 
-async function createFile() {
+async function createFile(name) {
     // {
-    //     ata.name,
-    //     data.path
+    //     name,
+    //     path
     // }
 
-    await File.create({
-        
+    const fileID = await File.create({
+        name,
+        path: faker
     })
 }
 
 async function init() {
-    await createUsers()
-    await createChefs()
+    // await createUsers()
+    // await createChefs()
 
-    console.log(usersIDs)
-    console.log(chefsIDs)
+    // console.log(usersIDs)
+    // console.log(chefsIDs)
+    console.log(faker.image.avatar());
 }
 
 init()
