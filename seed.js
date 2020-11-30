@@ -4,11 +4,11 @@ const { hash } = require('bcryptjs')
 const User = require('./src/app/models/admin/User')
 const Chef = require('./src/app/models/admin/Chef')
 const File = require('./src/app/models/admin/File')
-
-const { date } = require('./src/lib/utils')
+const Recipe = require('./src/app/models/admin/Recipe')
 
 const totalUsers = 3
 const totalChefs = 13
+const totalRecipes = 12
 let usersIDs = []
 let chefsIDs = []
 
@@ -45,17 +45,13 @@ async function createUsers() {
 async function createChefs() {
     const chefs = []
 
-    // {
-    //     name,
-    //     file_id,
-    //     date(Date.now()).isoDate
-    // }
-
     while(chefs.length < totalChefs) {
+        const name = `${faker.name.firstName()} ${faker.name.lastName()}`
+        const fileID = await createFile(`Avatar - ${name}`)
+
         chefs.push({
-            name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-            file_id: null,
-            created_at: date(Date.now()).isoDate
+            name,
+            file_id: fileID
         })
     }
 
@@ -64,31 +60,59 @@ async function createChefs() {
 }
 
 async function createFile(name) {
-    // {
-    //     name,
-    //     path
-    // }
+    let path = 'http://placehold.it/500x500'
+
+    path += `?text=${name.replace('Avatar - ', '').replace(/\d/g, '').replace('-', '').replace(/-/g, ' ').replace('.jpg', '')}`
 
     const fileID = await File.create({
         name,
-        path: faker
+        path
     })
+
+    return fileID
+}
+
+async function createRecipes() {
+    for(let i = 0; i < totalRecipes; i++) {
+        const ingredients = []
+        const preparation = []
+        const recipeTitle = faker.commerce.productName()
+        
+        for(let i = 0; i <= faker.random.number({ min: 1, max: 8 }); i++)
+            ingredients.push(faker.lorem.slug())
+        
+        for(let i = 0; i <= faker.random.number({ min: 3, max: 5 }); i++)
+            preparation.push(faker.lorem.sentence())
+        
+        const recipe = {
+            chef: faker.random.arrayElement(chefsIDs),
+            user_id: faker.random.arrayElement(usersIDs),
+            title: recipeTitle,
+            ingredients,
+            preparation,
+            information: faker.lorem.paragraph()
+        }
+        
+        const recipeID = await Recipe.create(recipe)
+        const fileID = await createFile(`${faker.time.recent()}-${recipeTitle.replace(/ /g, '-')}.jpg`)
+
+        await Recipe.setFile(recipeID, fileID)
+    }
 }
 
 async function init() {
-    // await createUsers()
-    // await createChefs()
+    faker.locale = 'pt_BR'
 
-    // console.log(usersIDs)
-    // console.log(chefsIDs)
-    console.log(faker.image.avatar());
+    await createUsers()
+    await createChefs()
+    await createRecipes()
 }
 
 init()
 
 // Ordem de Criação:
 // 1. Users - OK
-// 2. Files - 
-// 3. Chefs - 
+// 2. Files - OK (for chefs)
+// 3. Chefs - OK
 // 4. Recipes - 
 // 5. Recipe Files - 
