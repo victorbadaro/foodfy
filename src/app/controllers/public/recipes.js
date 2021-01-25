@@ -1,26 +1,18 @@
-const Recipe = require('../../models/public/Recipe')
+// const Recipe = require('../../models/public/Recipe')
+const Recipe = require('../../models/Recipe')
 
 module.exports = {
     async index(req, res) {
-        let result = ''
-        const settedRecipes = []
+        let recipes = await Recipe.findRecipes({ limit: 6 })
+        const filesPromises = recipes.map(recipe => Recipe.getFiles({ recipe_id: recipe.id, limit: 1 }))
+        const files = await Promise.all(filesPromises)
 
-        result = await Recipe.mostAcessed()
-        const recipes = result.rows
+        recipes = recipes.map((recipe, index) => {
+            recipe.image = `${req.protocol}://${req.headers.host}/${files[index][0].path.replace('public\\', '').replace('\\', '/')}`
+            return recipe
+        })
 
-        for(let recipe of recipes) {
-            result = await Recipe.getFiles(recipe.id)
-            const files = result.rows
-
-            if(files.length > 0) {
-                settedRecipes.push({
-                    ...recipe,
-                    image: `${req.protocol}://${req.headers.host}/${files[0].path.replace('public\\', '').replace('\\', '/')}`
-                })
-            }
-        }
-
-        return res.render('public/recipes/index', { recipes: settedRecipes })
+        return res.render('public/recipes/index', { recipes })
     },
     about(req, res) {
         return res.render('public/about')
