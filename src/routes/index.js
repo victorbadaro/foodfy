@@ -5,6 +5,8 @@ const publicChefs = require('../app/controllers/public/chefs')
 const SessionController = require('../app/controllers/SessionController')
 const SessionValidator = require('../app/validators/session')
 
+const HomeController = require('../app/controllers/HomeController')
+
 const { onlyUsers } = require('../app/middlewares/session')
 
 const admin = require('./admin')
@@ -13,7 +15,8 @@ const admin = require('./admin')
 routes.get('/', function(req, res) {
     return res.redirect('/home')
 })
-routes.get('/home', publicRecipes.index)
+// routes.get('/home', publicRecipes.index)
+routes.get('/home', HomeController.index)
 routes.get('/about', publicRecipes.about)
 
 // PUBLIC [RECIPES]
