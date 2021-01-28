@@ -20,7 +20,7 @@ routes.get('/home', HomeController.index)
 routes.get('/about', publicRecipes.about)
 
 // PUBLIC [RECIPES]
-routes.get('/recipes', publicRecipes.showRecipes)
+routes.get('/recipes', publicRecipes.index)
 routes.get('/recipes/:id', publicRecipes.show)
 
 // PUBLIC [CHEFS]
