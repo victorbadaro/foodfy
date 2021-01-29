@@ -30,11 +30,8 @@ function find(filters, table) {
         offset = filters.offset;
     
     query += ` LIMIT ${limit} OFFSET ${offset}`;
-    console.log(query);
-    // return db.query(query);
+    return db.query(query);
 }
-
-find({ where: { name: ['victor', 'miryam', 'livia'] }, limit: 2, offset: 4 }, 'users');
 
 module.exports = {
     init({ table }) {

@@ -17,7 +17,7 @@ routes.get('/', function(req, res) {
 })
 // routes.get('/home', publicRecipes.index)
 routes.get('/home', HomeController.index)
-routes.get('/about', publicRecipes.about)
+routes.get('/about', HomeController.about)
 
 // PUBLIC [RECIPES]
 routes.get('/recipes', publicRecipes.index)

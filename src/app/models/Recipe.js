@@ -5,53 +5,58 @@ Base.init({ table: 'recipes' });
 
 module.exports = {
     ...Base,
-    async findRecipes(filters) {
-        let query = `
-            SELECT recipes.*, chefs.name AS chef_name
-            FROM recipes
-            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)`
+    async findRecipes(params) {
+        let { limit, offset } = params
+        let filterQuery = ``
 
-        let limit = null
-        let offset = null
-
-        if(filters)
-            Object.keys(filters).forEach(key => {
-                if(key != 'limit' && key != 'offset') {
-                    query += ` ${key}`
+        if(params)
+            Object.keys(params).forEach(key => {
+                if(key != 'search' && key != 'limit' && key != 'offset') {
+                    filterQuery += ` ${key}`
                     
-                    Object.keys(filters[key]).forEach(field => {
-                        let values = filters[key][field]
+                    Object.keys(params[key]).forEach(field => {
+                        let values = params[key][field]
                         
-                        if(Array.isArray(values))
+                        if(Array.isArray(values)) {
                             values = values.map(value => `'${value}'`)
-                        else
-                            values = `'${values}'`
-                        
-                        query += ` ${field} IN (${values})`
+                            filterQuery += ` ${field} IN (${values})`
+                        } else
+                            filterQuery += ` ${field} = '${values}'`
                     })
+                } else if(key == 'search' && params[key]) {
+                    if(!filterQuery)
+                        filterQuery += ` WHERE title ILIKE '%${params[key]}%'`
+                    else
+                        filterQuery += ` AND title ILIKE '%${params[key]}%'`
                 }
             })
     
-        if(filters.limit)
-            limit = filters.limit
+        if(!limit)
+            limit = null
         
-        if(filters.offset)
-            offset = filters.offset
+        if(!offset)
+            offset = null
         
-        query += ` LIMIT ${limit} OFFSET ${offset}`
+        const query = `
+            SELECT recipes.*, chefs.name AS chef_name, (SELECT COUNT(*) FROM recipes ${filterQuery}) AS total
+            FROM recipes
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            ${filterQuery}
+            ORDER BY recipes.created_at DESC
+            LIMIT ${limit} OFFSET ${offset}`
 
         const result = await db.query(query)
 
         return result.rows
     },
     async getFiles(params) {
-        let limit = null
+        let { limit } = params
 
-        if(params.limit)
-            limit = params.limit
+        if(!limit)
+            limit = null
         
         const query = `
-            SELECT files.*
+            SELECT files.*, recipe_files.recipe_id
             FROM files
             INNER JOIN recipe_files ON (files.id = recipe_files.file_id)
             WHERE recipe_files.recipe_id = ${params.recipe_id}
@@ -59,6 +64,9 @@ module.exports = {
 
         const result = await db.query(query)
 
+        if(limit === 1)
+            return result.rows[0]
+        
         return result.rows
     }
 }
