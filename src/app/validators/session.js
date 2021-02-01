@@ -1,51 +1,51 @@
-const User = require('../models/admin/User')
-const { compare } = require('bcryptjs')
+const User = require('../models/User');
+const { compare } = require('bcryptjs');
 
 module.exports = {
     async login(req, res, next) {
-        const { email, password } = req.body
+        const { email, password } = req.body;
 
         if(!email && !password)
             return res.render('session/login', {
                 error: 'Informe o teu email e senha para realizar o login!',
                 user: req.body,
                 fields_error: { email: true, password: true }
-            })
+            });
 
         if(!email)
             return res.render('session/login', {
                 error: 'Informe o teu email para realizar o login!',
                 user: req.body,
                 fields_error: { email: true }
-            })
+            });
         
         if(!password)
             return res.render('session/login', {
                 error: 'Informe a tua senha para realizar o login!',
                 user: req.body,
                 fields_error: { password: true }
-            })
+            });
         
-        const user = await User.find({ where: {email} })
+        const user = await User.findOne({ where: {email} });
 
         if(!user)
             return res.render('session/login', {
                 error: 'Não encontramos nenhum usuário com este email. Por favor, digite o teu email corretamente!',
                 user: req.body,
                 fields_error: { email }
-            })
+            });
         
-        const isPasswordMatched = await compare(password, user.password)
+        const isPasswordMatched = await compare(password, user.password);
 
         if(!isPasswordMatched)
             return res.render('session/login', {
                 error: 'Senha incorreta',
                 user: req.body,
                 fields_error: { password }
-            })
+            });
         
-        req.user = user
-        return next()
+        req.user = user;
+        return next();
     },
     async forgot(req, res, next) {
         const { email } = req.body

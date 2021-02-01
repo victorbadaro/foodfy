@@ -1,21 +1,21 @@
-const User = require('../models/admin/User')
-const nodemailer = require('../../lib/nodemailer')
-const crypto = require('crypto')
-const { hash } = require('bcryptjs')
+const User = require('../models/User');
+const nodemailer = require('../../lib/nodemailer');
+const crypto = require('crypto');
+const { hash } = require('bcryptjs');
 
 module.exports = {
     loginForm(req, res) {
         return res.render('session/login')
     },
     async login(req, res) {
-        const { user } = req
+        const { user } = req;
 
-        req.session.userID = user.id
+        req.session.userID = user.id;
         await User.update(user.id, {
             reset_token: '',
             reset_token_expires: ''
-        })
-        return res.redirect('/admin/profile')
+        });
+        return res.redirect('/admin/profile');
     },
     logout(req, res) {
         req.session.destroy()
