@@ -1,32 +1,33 @@
-const Recipe = require('../../models/admin/Recipe')
-const Chef = require('../../models/admin/Chef')
-const File = require('../../models/admin/File')
-const User = require('../../models/admin/User')
+// const Recipe = require('../../models/admin/Recipe')
+const Recipe = require('../../models/Recipe');
+const Chef = require('../../models/admin/Chef');
+const File = require('../../models/admin/File');
+const User = require('../../models/admin/User');
 
 module.exports = {
     async index(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID }})
-        const recipes = loggedUser.is_admin ? await Recipe.all() : await Recipe.allFromUser(loggedUser.id)
-        const settedRecipes = []
+        const { userID } = req.session;
+        const loggedUser = await User.find({ where: { id: userID }});
+        const recipes = loggedUser.is_admin ? await Recipe.findRecipes({}) : await Recipe.findRecipes({ where: { user_id: loggedUser.id } });
+        const settedRecipes = [];
 
         for(let recipe of recipes) {
-            const files = await Recipe.getFiles(recipe.id)
+            const files = await Recipe.getFiles(recipe.id);
 
             if(files.length > 0) {
                 settedRecipes.push({
                     ...recipe,
                     image: `${req.protocol}://${req.headers.host}/${files[0].path.replace('public\\', '').replace('\\','/')}`
-                })
+                });
             } else {
-                settedRecipes.push(recipe)
+                settedRecipes.push(recipe);
             }
         }
 
         return res.render('admin/recipes/index', {
             recipes: settedRecipes,
             loggedUser
-        })
+        });
     },
     async create(req, res) {
         const { userID } = req.session
