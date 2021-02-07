@@ -6,36 +6,36 @@ Base.init({ table: 'recipes' });
 module.exports = {
     ...Base,
     async findRecipes(params) {
-        let { limit, offset } = params
-        let filterQuery = ``
+        let { limit, offset } = params;
+        let filterQuery = ``;
 
         if(params)
             Object.keys(params).forEach(key => {
                 if(key != 'search' && key != 'limit' && key != 'offset') {
-                    filterQuery += ` ${key}`
+                    filterQuery += ` ${key}`;
                     
                     Object.keys(params[key]).forEach(field => {
-                        let values = params[key][field]
+                        let values = params[key][field];
                         
                         if(Array.isArray(values)) {
-                            values = values.map(value => `'${value}'`)
-                            filterQuery += ` ${field} IN (${values})`
+                            values = values.map(value => `'${value}'`);
+                            filterQuery += ` ${field} IN (${values})`;
                         } else
-                            filterQuery += ` ${field} = '${values}'`
+                            filterQuery += ` ${field} = '${values}'`;
                     })
                 } else if(key == 'search' && params[key]) {
                     if(!filterQuery)
-                        filterQuery += ` WHERE title ILIKE '%${params[key]}%'`
+                        filterQuery += ` WHERE title ILIKE '%${params[key]}%'`;
                     else
-                        filterQuery += ` AND title ILIKE '%${params[key]}%'`
+                        filterQuery += ` AND title ILIKE '%${params[key]}%'`;
                 }
-            })
+            });
     
         if(!limit)
-            limit = null
+            limit = null;
         
         if(!offset)
-            offset = null
+            offset = null;
         
         const query = `
             SELECT recipes.*, chefs.name AS chef_name, (SELECT COUNT(*) FROM recipes ${filterQuery}) AS total
@@ -43,11 +43,11 @@ module.exports = {
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
             ${filterQuery}
             ORDER BY recipes.created_at DESC
-            LIMIT ${limit} OFFSET ${offset}`
+            LIMIT ${limit} OFFSET ${offset}`;
 
-        const result = await db.query(query)
+        const result = await db.query(query);
 
-        return result.rows
+        return result.rows;
     },
     async getFiles(params) {
         let { limit } = params

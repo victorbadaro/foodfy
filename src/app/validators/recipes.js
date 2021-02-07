@@ -1,7 +1,9 @@
-const User = require('../models/admin/User')
+// const User = require('../models/admin/User')
+const User = require('../models/User');
 const File = require('../models/admin/File')
 const Chef = require('../models/admin/Chef')
-const Recipe = require('../models/admin/Recipe')
+// const Recipe = require('../models/admin/Recipe')
+const Recipe = require('../models/Recipe');
 
 module.exports = {
     async post(req, res, next) {
@@ -37,15 +39,15 @@ module.exports = {
         return next()
     },
     async edit(req, res, next) {
-        const { userID } = req.session
-        const { id } = req.params
-        const user = await User.find({ where: { id: userID }})
-        const recipe = await Recipe.find({ where: {id} })
+        const { userID } = req.session;
+        const { id } = req.params;
+        const user = await User.findOne({ where: { id: userID }});
+        const recipe = await Recipe.findOne({ where: {id} });
 
         if(recipe.user_id != user.id && !user.is_admin)
-            return res.redirect('/admin/recipes')
+            return res.redirect('/admin/recipes');
 
-        return next()
+        return next();
     },
     async update(req, res, next) {
         const { userID } = req.session
