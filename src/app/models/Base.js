@@ -14,9 +14,9 @@ function find(filters, table) {
                     let values = filters[key][field];
                     
                     if(Array.isArray(values))
-                    values = values.map(value => `'${value}'`);
+                        values = values.map(value => `'${value}'`);
                     else
-                    values = `'${values}'`;
+                        values = `'${values}'`;
                     
                     query += ` ${field} IN (${values})`;
                 });
@@ -47,7 +47,13 @@ module.exports = {
 
         Object.keys(data).forEach(field => {
             fields.push(field);
-            values.push(`'${data[field]}'`);
+            
+            if(Array.isArray(data[field])) {
+                const newArray = data[field].map(item => `'${item}'`);
+                values.push(`ARRAY[${newArray}]`);
+            }
+            else
+                values.push(`'${data[field]}'`);
         });
 
         const query = `INSERT INTO ${this.table} (${fields.join(', ')}) VALUES (${values.join(', ')}) RETURNING id`;
@@ -68,7 +74,13 @@ module.exports = {
     async update(id, data) {
         const fieldsSQL = [];
 
-        Object.keys(data).forEach(field => fieldsSQL.push(`${field} = '${data[field]}'`));
+        Object.keys(data).forEach(field => {
+            if(Array.isArray(data[field])) {
+                const newArray = data[field].map(item => `'${item}'`);
+                fieldsSQL.push(`${field} = ARRAY[${newArray}]`)
+            } else
+                fieldsSQL.push(`${field} = '${data[field]}'`)
+        });
 
         const query = `UPDATE ${this.table} SET ${fieldsSQL.join(', ')} WHERE id = ${id} RETURNING id`;
         const result = await db.query(query);

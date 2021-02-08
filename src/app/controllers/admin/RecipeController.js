@@ -1,10 +1,9 @@
-// const Recipe = require('../../models/admin/Recipe')
 const Recipe = require('../../models/Recipe');
-// const Chef = require('../../models/admin/Chef');
 const Chef = require('../../models/Chef');
-const File = require('../../models/admin/File');
-// const User = require('../../models/admin/User');
+const File = require('../../models/File');
 const User = require('../../models/User');
+
+const fs = require('fs');
 
 module.exports = {
     async index(req, res) {
@@ -27,11 +26,11 @@ module.exports = {
         return res.render('admin/recipes/index', { recipes, loggedUser });
     },
     async create(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID }})
-        const chefs = await Recipe.getChefs()
+        const { userID } = req.session;
+        const loggedUser = await User.findOne({ where: { id: userID }});
+        const chefs = await Chef.findAll({});
 
-        return res.render('admin/recipes/create', { chefs, loggedUser })
+        return res.render('admin/recipes/create', { chefs, loggedUser });
     },
     async show(req, res) {
         const { userID } = req.session;
@@ -71,29 +70,25 @@ module.exports = {
         return res.render('admin/recipes/edit', { recipe, files, chefs, loggedUser });
     },
     async post(req, res) {
-        const { userID } = req.session
-        const { title, chef, ingredients, preparation, information } = req.body
-
-        const files = req.files
+        const { userID } = req.session;
+        const files = req.files;
+        const { title, chef, ingredients, preparation, information } = req.body;
         const recipeID = await Recipe.create({
             title,
-            chef,
+            chef_id: chef,
             user_id: userID,
             ingredients,
             preparation,
             information
-        })
+        });
 
-        for(let file of files) {
-            const fileID = await File.create({
-                name: file.filename,
-                path: file.path
-            })
+        const newFilesPromises = files.map(file => File.create({ name: file.filename, path: file.path }));
+        const newFiles = await Promise.all(newFilesPromises);
 
-            await Recipe.setFile(recipeID, fileID)
-        }
+        const recipeFilesPromises = newFiles.map(file_id => Recipe.setFile({ recipe_id: recipeID, file_id }));
+        await Promise.all(recipeFilesPromises);
 
-        return res.redirect(`/admin/recipes/${recipeID}`)
+        return res.redirect(`/admin/recipes/${recipeID}`);
     },
     async update(req, res) {
         const { id, title, chef, ingredients, preparation, information, removed_files } = req.body;
@@ -106,43 +101,38 @@ module.exports = {
             information
         });
 
-        for(let file of files) {
-            const fileID = await File.create({
-                name: file.filename,
-                path: file.path
-            });
+        const newFilesPromises = files.map(file => File.create({ name: file.filename, path: file.path }));
+        const newFiles = await Promise.all(newFilesPromises);
 
-            await Recipe.setFile(recipeID, fileID);
-        }
+        const newRecipeFilesPromises = newFiles.map(file_id => Recipe.setFile({ recipe_id: recipeID, file_id }));
+        await Promise.all(newRecipeFilesPromises);
 
         if(removed_files) {
-            const removedFiles = removed_files.split(',');
-            const lastIndex = removedFiles.length - 1;
+            const removedIDFiles = removed_files.split(',');
+            const lastIndex = removedIDFiles.length - 1;
 
-            removedFiles.splice(lastIndex, 1);
+            removedIDFiles.splice(lastIndex, 1);
 
-            let removedFilesPromises = removedFiles.map(file_id => Recipe.removeFile(recipeID, file_id));
-            await Promise.all(removedFilesPromises);
+            const removedFiles = await File.findAll({ where: { id: removedIDFiles } });
 
-            removedFilesPromises = removedFiles.map(file_id => File.delete(file_id));
+            removedFiles.forEach(file => fs.unlinkSync(file.path));
+
+            const removedFilesPromises = removedFiles.map(file => File.delete(file.id));
             await Promise.all(removedFilesPromises);
         }
 
         return res.redirect(`/admin/recipes/${recipeID}`);
     },
     async delete(req, res) {
-        const { id } = req.body
-        
-        const filesToRemove = await Recipe.getFiles(id)
+        const { id } = req.body;
+        const filesToRemove = await Recipe.getFiles({ recipe_id: id });
 
-        let filesToRemovePromises = filesToRemove.map(file => Recipe.removeFile(id, file.id))
-        await Promise.all(filesToRemovePromises)
+        filesToRemove.forEach(file => fs.unlinkSync(file.path));
 
-        filesToRemovePromises = filesToRemove.map(file => File.delete(file.id))
-        await Promise.all(filesToRemovePromises)
+        const filesToRemovePromises = filesToRemove.map(file => File.delete(file.id));
 
-        await Recipe.delete(id)
-    
-        return res.redirect('/admin/recipes')
+        await Promise.all(filesToRemovePromises);
+        await Recipe.delete(id);
+        return res.redirect('/admin/recipes');
     }
 }
