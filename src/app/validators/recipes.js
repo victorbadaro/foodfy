@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const File = require('../models/admin/File');
 const Chef = require('../models/Chef');
 const Recipe = require('../models/Recipe');
 

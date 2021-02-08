@@ -1,15 +1,26 @@
-const Chef = require('../../models/admin/Chef')
-const File = require('../../models/admin/File')
-const Recipe = require('../../models/admin/Recipe')
-const User = require('../../models/admin/User')
+const Chef = require('../../models/Chef');
+const File = require('../../models/File');
+const Recipe = require('../../models/admin/Recipe');
+const User = require('../../models/User');
 
 module.exports = {
     async index(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID } })
-        const chefs = await Chef.all()
+        const { userID } = req.session;
+        const loggedUser = await User.findOne({ where: { id: userID } });
+        let chefs = await Chef.findAll({});
+        const filesPromises = chefs.map(chef => File.findOne({ where: { id: chef.file_id } }));
+        const files = await Promise.all(filesPromises);
 
-        return res.render('admin/chefs/index', { chefs, loggedUser })
+        chefs = chefs.map(chef => {
+            const file = files.find(file => file.id === chef.file_id);
+
+            if(file)
+                chef.avatar_url = file.path;
+            
+            return chef;
+        });
+
+        return res.render('admin/chefs/index', { chefs, loggedUser });
     },
     async show(req, res) {
         const { userID } = req.session
