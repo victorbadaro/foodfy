@@ -1,30 +1,28 @@
-const User = require('../models/admin/User')
-const Chef = require('../models/admin/Chef')
-const File = require('../models/admin/File')
+const User = require('../models/User');
+const Chef = require('../models/admin/Chef');
+const File = require('../models/admin/File');
 
 module.exports = {
     async post(req, res, next) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID } })
-        const { name } = req.body
+        const { userID } = req.session;
+        const { name } = req.body;
+        const user = await User.findOne({ where: { id: userID } });
 
         if(!name)
             return res.render('admin/chefs/create', {
                 error: 'Por favor, preencha o campo de nome!',
                 chef: req.body,
-                loggedUser,
+                loggedUser: user,
                 fields_error: { name: true }
-            })
-        
-        const user = await User.find({ where: { id: userID } })
+            });
 
         if(!user.is_admin)
             return res.render('admin/chefs/index', {
                 error: 'Somente administradores podem criar chefs',
-                loggedUser
-            })
+                loggedUser: user
+            });
 
-        return next()
+        return next();
     },
     async update(req, res, next) {
         const { userID } = req.session
