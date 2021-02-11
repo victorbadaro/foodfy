@@ -1,6 +1,6 @@
 const Chef = require('../../models/Chef');
 const File = require('../../models/File');
-const Recipe = require('../../models/admin/Recipe');
+const Recipe = require('../../models/Recipe');
 const User = require('../../models/User');
 
 module.exports = {
@@ -23,34 +23,36 @@ module.exports = {
         return res.render('admin/chefs/index', { chefs, loggedUser });
     },
     async show(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID } })
-        const { id } = req.params
-        const settedRecipes = []
-        const chef = await Chef.find({ where: {id} })
-        const recipes = await Chef.getRecipesFromChef(chef.id)
+        const { userID } = req.session;
+        const { id } = req.params;
+        const loggedUser = await User.findOne({ where: { id: userID } });
+        const chef = await Chef.findOne({ where: {id} });
+
+        console.log(chef);
+
+        const chef_avatar = await File.findOne({ where: { id: chef.file_id }});
         
-        const chef_avatar = await File.find({ where: { id: chef.file_id }})
+        let recipes = await Recipe.findAll({ where: { chef_id: chef.id } });
+        const filesPromises = recipes.map(recipe => Recipe.getFiles({ recipe_id: recipe.id, limit: 1 }));
+        const files = await Promise.all(filesPromises);
 
-        for(let recipe of recipes) {
-            const files = await Recipe.getFiles(recipe.id)
+        recipes = recipes.map(recipe => {
+            const image = files.find(file => file.recipe_id === recipe.id);
 
-            if(files.length > 0) {
-                settedRecipes.push({
-                    ...recipe,
-                    image: `${req.protocol}://${req.headers.host}/${files[0].path.replace('public\\', '').replace('\\', '/')}`
-                })
-            }
-        }
+            if(image)
+                recipe.image = image;
+
+            return recipe;
+        });
 
         return res.render('admin/chefs/show', {
             chef: {
                 ...chef,
                 avatar_url: chef_avatar.path
             },
-            recipes: settedRecipes,
+            recipes,
             loggedUser
-        })
+        });
     },
     async edit(req, res) {
         const { userID } = req.session
@@ -69,27 +71,33 @@ module.exports = {
     },
     async create(req, res) {
         const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID } })
+        const loggedUser = await User.findOne({ where: { id: userID } })
 
         return res.render('admin/chefs/create', { loggedUser })
     },
     async post(req, res) {
-        const { name, avatar_url } = req.body
-        let file_id
+        const { name, avatar_url } = req.body;
+        let file_id;
+        let chefID;
         
         if(avatar_url) {
             file_id = await File.create({
                 name:`Avatar - ${name}`,
                 path: avatar_url
-            })
+            });
+
+            chefID = await Chef.create({
+                name,
+                file_id
+            });
+        } else {
+            chefID = await Chef.create({
+                name,
+                file_id: null
+            });
         }
 
-        const chefID = await Chef.create({
-            name,
-            file_id
-        })
-
-        return res.redirect(`/admin/chefs/${chefID}`)
+        return res.redirect(`/admin/chefs/${chefID}`);
     },
     async update(req, res) {
         const { chef } = req

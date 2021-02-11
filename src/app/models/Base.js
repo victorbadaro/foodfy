@@ -12,11 +12,15 @@ function find(filters, table) {
                 
                 Object.keys(filters[key]).forEach(field => {
                     let values = filters[key][field];
-                    
+
                     if(Array.isArray(values))
                         values = values.map(value => `'${value}'`);
-                    else
-                        values = `'${values}'`;
+                    else {
+                        if(values !== null)
+                            values = `'${values}'`;
+                        else
+                            values = `${values}`;  
+                    }
                     
                     query += ` ${field} IN (${values})`;
                 });
@@ -52,8 +56,12 @@ module.exports = {
                 const newArray = data[field].map(item => `'${item}'`);
                 values.push(`ARRAY[${newArray}]`);
             }
-            else
-                values.push(`'${data[field]}'`);
+            else {
+                if(data[field] !== null)
+                    values.push(`'${data[field]}'`);
+                else
+                    values.push(`${data[field]}`);
+            }
         });
 
         const query = `INSERT INTO ${this.table} (${fields.join(', ')}) VALUES (${values.join(', ')}) RETURNING id`;
