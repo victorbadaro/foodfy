@@ -127,7 +127,13 @@ module.exports = {
         const { id } = req.body;
         const filesToRemove = await Recipe.getFiles({ recipe_id: id });
 
-        filesToRemove.forEach(file => fs.unlinkSync(file.path));
+        filesToRemove.forEach(file => {
+            try {
+                fs.unlinkSync(file.path);
+            } catch (error) {
+                console.log('Erro ao deletar o arquivo físico do projeto!');
+            }
+        });
 
         const filesToRemovePromises = filesToRemove.map(file => File.delete(file.id));
 

@@ -28,8 +28,6 @@ module.exports = {
         const loggedUser = await User.findOne({ where: { id: userID } });
         const chef = await Chef.findOne({ where: {id} });
 
-        console.log(chef);
-
         const chef_avatar = await File.findOne({ where: { id: chef.file_id }});
         
         let recipes = await Recipe.findAll({ where: { chef_id: chef.id } });
@@ -55,11 +53,11 @@ module.exports = {
         });
     },
     async edit(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID } })
-        const { id } = req.params
-        const chef = await Chef.find({ where: { id }})
-        const chef_avatar = await File.find({ where: { id: chef.file_id }})
+        const { userID } = req.session;
+        const { id } = req.params;
+        const loggedUser = await User.findOne({ where: { id: userID } });
+        const chef = await Chef.findOne({ where: { id }});
+        const chef_avatar = await File.findOne({ where: { id: chef.file_id }});
 
         return res.render('admin/chefs/edit', {
             chef: {
@@ -67,13 +65,13 @@ module.exports = {
                 avatar_url: chef_avatar.path
             },
             loggedUser
-        })
+        });
     },
     async create(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.findOne({ where: { id: userID } })
+        const { userID } = req.session;
+        const loggedUser = await User.findOne({ where: { id: userID } });
 
-        return res.render('admin/chefs/create', { loggedUser })
+        return res.render('admin/chefs/create', { loggedUser });
     },
     async post(req, res) {
         const { name, avatar_url } = req.body;
@@ -100,23 +98,24 @@ module.exports = {
         return res.redirect(`/admin/chefs/${chefID}`);
     },
     async update(req, res) {
-        const { chef } = req
-        const { id, name, avatar_url } = req.body
+        const { chef } = req;
+        const { id, name, avatar_url } = req.body;
         
-        const chefID = await Chef.update(id, { name })
+        const chefID = await Chef.update(id, { name });
 
         await File.update(chef.file_id, {
             name: `Avatar - ${name}`,
             path: avatar_url ? avatar_url : ''
-        })
+        });
 
-        return res.redirect(`/admin/chefs/${chefID}`)
+        return res.redirect(`/admin/chefs/${chefID}`);
     },
     async delete(req, res) {
-        const { chef } = req
+        const { chef } = req;
+        const chef_avatar = await File.findOne({ where: { id: chef.file_id } });
         
-        await Chef.delete(chef.id)
-        await File.delete(chef.file_id)
-        return res.redirect('/admin/chefs')
+        await Chef.delete(chef.id);
+        await File.delete(chef_avatar.id);
+        return res.redirect('/admin/chefs');
     }
 }
