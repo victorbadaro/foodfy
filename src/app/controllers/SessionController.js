@@ -5,7 +5,7 @@ const { hash } = require('bcryptjs');
 
 module.exports = {
     loginForm(req, res) {
-        return res.render('session/login')
+        return res.render('session/login');
     },
     async login(req, res) {
         const { user } = req;

@@ -1,30 +1,30 @@
-const User = require('../models/admin/User')
-const { hash } = require('bcryptjs')
-const crypto = require('crypto')
-const nodemailer = require('../../lib/nodemailer')
+const User = require('../models/User');
+const { hash } = require('bcryptjs');
+const crypto = require('crypto');
+const nodemailer = require('../../lib/nodemailer');
 
 module.exports = {
-    async list(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID }})
-        const users = await User.all()
+    async index(req, res) {
+        const { userID } = req.session;
+        const loggedUser = await User.findOne({ where: { id: userID }});
+        const users = await User.findAll({});
         
-        return res.render('admin/users/index', { users, loggedUser })
+        return res.render('admin/users/index', { users, loggedUser });
     },
     async create(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID }})
+        const { userID } = req.session;
+        const loggedUser = await User.findOne({ where: { id: userID }});
 
-        return res.render('admin/users/create', { loggedUser })
+        return res.render('admin/users/create', { loggedUser });
     },
     async post(req, res) {
-        const { name, email, is_admin } = req.body
-        const password = crypto.randomBytes(5).toString('hex')
-        const hashedPassword = await hash(password, 8)
-        const reset_token = crypto.randomBytes(20).toString('hex')
-        let reset_token_expires = new Date()
+        const { name, email, is_admin } = req.body;
+        const password = crypto.randomBytes(5).toString('hex');
+        const hashedPassword = await hash(password, 8);
+        const reset_token = crypto.randomBytes(20).toString('hex');
+        let reset_token_expires = new Date();
 
-        reset_token_expires = reset_token_expires.setHours(reset_token_expires.getHours() + 24)
+        reset_token_expires = reset_token_expires.setHours(reset_token_expires.getHours() + 24);
 
         const userID = await User.create({
             name,
@@ -33,7 +33,7 @@ module.exports = {
             is_admin: is_admin ? true : false,
             reset_token,
             reset_token_expires
-        })
+        });
 
         await nodemailer.sendMail({
             from: 'no-reply@foodfy.com.br',
@@ -48,37 +48,37 @@ module.exports = {
                 <br>
                 <p>Por favor, pedimos que você altere essa senha assim que fizer o primeiro acesso à tua conta.</p>
                 <a href="http://localhost:3000/login" target="_blank">Login</a>`
-        })
+        });
 
-        return res.render('admin/users/show', { success: 'Usuário criado com sucesso 😉', user: req.body })
+        return res.render('admin/users/show', { success: 'Usuário criado com sucesso 😉', user: req.body });
     },
     async update(req, res) {
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID }})
-        const { id, name, email, is_admin } = req.body
+        const { userID } = req.session;
+        const { id, name, email, is_admin } = req.body;
+        const loggedUser = await User.findOne({ where: { id: userID }});
         await User.update(id, {
             name,
             email,
             is_admin: is_admin ? true : false
-        })
+        });
 
         return res.render('admin/users/show', {
             success: 'Perfil alterado com sucesso! 😀',
             user: { id, name, email, is_admin },
             loggedUser
-        })
+        });
     },
     async show(req, res) {
-        const { user } = req
-        const { userID } = req.session
-        const loggedUser = await User.find({ where: { id: userID }})
+        const { user } = req;
+        const { userID } = req.session;
+        const loggedUser = await User.findOne({ where: { id: userID }});
 
         return res.render('admin/users/show', { user, loggedUser })
     },
     async delete(req, res) {
-        const { id } = req.body
+        const { id } = req.body;
 
-        await User.delete(id)
-        return res.redirect('/admin/users')
+        await User.delete(id);
+        return res.redirect('/admin/users');
     }
 }

@@ -1,12 +1,12 @@
-const User = require('../models/admin/User')
-const { compare } = require('bcryptjs')
+const User = require('../models/User');
+const { compare } = require('bcryptjs');
 
 module.exports = {
     async update(req, res, next) {
-        const { userID } = req.session
-        const { id, name, email, password } = req.body
-        const loggedUser = await User.find({ where: { id: userID } })
-        let user = await User.find({ where: {email} })
+        const { userID } = req.session;
+        const { id, name, email, password } = req.body;
+        const loggedUser = await User.findOne({ where: { id: userID } });
+        let user = await User.findOne({ where: {email} });
         
         if(!name || !email || !password)
             return res.render('admin/users/profile', {
@@ -14,16 +14,16 @@ module.exports = {
                 user: req.body,
                 loggedUser,
                 fields_error: { name: true, email: true, password: true }
-            })
+            });
         
         if(user && user.id != userID)
             return res.render('admin/users/profile', {
                 error: 'Este email já está sendo utilizado por outro usuário. Por favor, digite outro endereço de email!',
                 user: req.body,
                 loggedUser
-            })
+            });
         
-        const isPasswordMatched = await compare(password, loggedUser.password)
+        const isPasswordMatched = await compare(password, loggedUser.password);
 
         if(!isPasswordMatched)
             return res.render('admin/users/profile', {
@@ -31,18 +31,18 @@ module.exports = {
                 user: req.body,
                 loggedUser,
                 fields_error: { password }
-            })
+            });
         
-        user = await User.find({ where: {id} })
+        user = await User.findOne({ where: {id} });
         
         if(!user) {
-            const users = await User.all()
+            const users = await User.findAll({});
 
             return res.render('admin/users/index', {
                 error: 'Usuário não encontrado. Selecione o usuário novamente!',
                 users,
                 loggedUser
-            })
+            });
         }
         
         if(user.id != userID && !loggedUser.is_admin)
@@ -50,16 +50,16 @@ module.exports = {
                 error: 'Você não pode alterar o perfil de outro usuário',
                 user: req.body,
                 loggedUser
-            })
+            });
         
         if(user.id != userID)
             return res.render('admin/users/profile', {
                 error: 'Para alterar os dados de outro usuário, acesse o perfil dele!',
                 user: req.body,
                 loggedUser
-            })
+            });
         
-        req.user = user
-        return next()
+        req.user = user;
+        return next();
     }
 }

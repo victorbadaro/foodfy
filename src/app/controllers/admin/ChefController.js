@@ -27,7 +27,6 @@ module.exports = {
         const { id } = req.params;
         const loggedUser = await User.findOne({ where: { id: userID } });
         const chef = await Chef.findOne({ where: {id} });
-
         const chef_avatar = await File.findOne({ where: { id: chef.file_id }});
         
         let recipes = await Recipe.findAll({ where: { chef_id: chef.id } });
@@ -38,7 +37,7 @@ module.exports = {
             const image = files.find(file => file.recipe_id === recipe.id);
 
             if(image)
-                recipe.image = image;
+                recipe.image = `${req.protocol}://${req.headers.host}/${image.path.replace('public\\', '').replace('\\', '/')}`;
 
             return recipe;
         });
