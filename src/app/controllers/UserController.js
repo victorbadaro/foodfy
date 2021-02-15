@@ -50,7 +50,7 @@ module.exports = {
                 <a href="http://localhost:3000/login" target="_blank">Login</a>`
         });
 
-        return res.render('admin/users/show', { success: 'Usuário criado com sucesso 😉', user: req.body });
+        return res.render('admin/users/show', { success: 'Usuário criado com sucesso 😉', user: { ...req.body, id: userID } });
     },
     async update(req, res) {
         const { userID } = req.session;
@@ -81,4 +81,4 @@ module.exports = {
         await User.delete(id);
         return res.redirect('/admin/users');
     }
-}
+};

@@ -18,11 +18,10 @@ module.exports = {
         return res.redirect('/admin/profile');
     },
     logout(req, res) {
-        req.session.destroy()
-        return res.redirect('/home')
+        req.session.destroy(error => res.redirect('/home'));
     },
     forgotForm(req, res) {
-        return res.render('session/forgot-password')
+        return res.render('session/forgot-password');
     },
     async forgot(req, res) {
         const { user } = req;
@@ -49,8 +48,8 @@ module.exports = {
         return res.render('session/forgot-password', { success: 'Enviamos um email pra você. Verifique a tua caixa de entrada! 😉' });
     },
     resetForm(req, res) {
-        const { email, reset_token } = req.query
-        return res.render('session/reset-password', { user: { email, reset_token } })
+        const { email, reset_token } = req.query;
+        return res.render('session/reset-password', { user: { email, reset_token } });
     },
     async reset(req, res) {
         const { user } = req;
@@ -64,4 +63,4 @@ module.exports = {
         });
         return res.render('session/login', { success: 'Senha atualizada com sucesso! 😀', user: { email: user.email } });
     }
-}
+};

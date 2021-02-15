@@ -101,4 +101,4 @@ module.exports = {
         await db.query(query);
         return;
     }
-}
+};

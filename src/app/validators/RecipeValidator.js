@@ -16,7 +16,7 @@ module.exports = {
 
             return res.render('admin/recipes/create', {
                 error: 'A receita deve ter ao menos uma imagem',
-                recipe: req.body,
+                recipe: { ...req.body, chef_id: chef },
                 loggedUser,
                 chefs
             });
@@ -28,7 +28,7 @@ module.exports = {
             files.map(file => fs.unlinkSync(file.path));
             return res.render('admin/recipes/create', {
                 error: 'Os campos Nome da receita, Chef, Ingredientes e Modo de preparo são obrigatórios',
-                recipe: req.body,
+                recipe: { ...req.body, chef_id: chef },
                 loggedUser,
                 fields_error: { title: true, chef: true, ingredients: true, preparation: true },
                 chefs

@@ -1,7 +1,7 @@
 const routes = require('express').Router();
 
 const SessionController = require('../app/controllers/SessionController');
-const SessionValidator = require('../app/validators/session');
+const SessionValidator = require('../app/validators/SessionValidator');
 
 routes.get('/login', SessionController.loginForm);
 routes.post('/login', SessionValidator.login, SessionController.login);

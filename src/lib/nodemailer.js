@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
 
 module.exports = nodemailer.createTransport({
     host: "smtp.mailtrap.io",
@@ -7,4 +7,4 @@ module.exports = nodemailer.createTransport({
       user: "bf526c22246034",
       pass: "581bfa18945acf"
     }
-  })
+  });

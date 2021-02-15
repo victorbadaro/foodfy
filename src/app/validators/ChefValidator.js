@@ -73,7 +73,7 @@ module.exports = {
                 error: 'Chefs que possuem receitas não podem ser deletados',
                 chef: {
                     ...chef,
-                    avatar_url: chef_avatar.path
+                    avatar_url: chef_avatar ? chef_avatar.path : null
                 }
             });
         }
