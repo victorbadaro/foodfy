@@ -1,4 +1,5 @@
 const faker = require('faker');
+const axios = require('axios');
 const { hash } = require('bcryptjs');
 
 const User = require('./src/app/models/User');
@@ -44,9 +45,17 @@ async function createChefs() {
     const chefs = [];
 
     while(chefs.length < totalChefs) {
+        const firstName = faker.name.firstName();
+        const lastName = faker.name.lastName();
+
+        const fileID = {
+            name: `Avatar - ${firstName} ${lastName}`,
+            path: ''
+        };
+
         chefs.push({
-            name,
-            file_id
+            name: `${firstName} ${lastName}`,
+            file_id: fileID
         });
     }
 }
@@ -57,6 +66,12 @@ async function createRecipes() {
 
 async function init() {
     await createUsers();
+    // await createChefs();
+    // await createRecipes();
+    console.log('Database is ready to be used now');
+    console.log('Run one of the following commands in your terminal (without quotes):');
+    console.log('"npm run dev" (if you want to run the app on developer mode)');
+    console.log('"npm start" (if you want to run the app on production mode)');
 }
 
 init();
