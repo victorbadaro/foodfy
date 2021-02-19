@@ -44,6 +44,8 @@ async function createUsers() {
 async function createChefs() {
     let chefs = [];
     const files = [];
+    const unsplashCollections = ['1828614','90910022','2524063','11487784','1502261','1156865','1661892','3838904'];
+    let counter = 0;
 
     while(chefs.length < totalChefs) {
         const firstName = faker.name.firstName();
@@ -51,8 +53,10 @@ async function createChefs() {
 
         files.push({
             name: `Avatar - ${firstName} ${lastName}`,
-            path: 'https://source.unsplash.com/collection/9958682'
+            path: `https://source.unsplash.com/collection/${unsplashCollections[counter]}`
         });
+        
+        counter ++;
 
         chefs.push({
             name: `${firstName} ${lastName}`
