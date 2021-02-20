@@ -1,11 +1,11 @@
 -- STEP 1
-DROP DATABASE IF EXISTS foodfy_dois;
+DROP DATABASE IF EXISTS foodfy;
 
 -- STEP 2
-CREATE DATABASE foodfy_dois;
+CREATE DATABASE foodfy;
 
 -- STEP 3
--- Access foodfy_dois database and then execute the Step 4
+-- Access foodfy database and then execute the Step 4
 
 -- STEP 4
 CREATE TABLE files (
