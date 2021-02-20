@@ -18,6 +18,7 @@ module.exports = {
         return res.render('admin/users/create', { loggedUser });
     },
     async post(req, res) {
+        const loggedUser = await User.findOne({ where: { id: req.session.userID }});
         const { name, email, is_admin } = req.body;
         const password = crypto.randomBytes(5).toString('hex');
         const hashedPassword = await hash(password, 8);
@@ -50,7 +51,7 @@ module.exports = {
                 <a href="http://localhost:3000/login" target="_blank">Login</a>`
         });
 
-        return res.render('admin/users/show', { success: 'Usuário criado com sucesso 😉', user: { ...req.body, id: userID } });
+        return res.render('admin/users/show', { success: 'Usuário criado com sucesso 😉', user: { ...req.body, id: userID }, loggedUser });
     },
     async update(req, res) {
         const { userID } = req.session;
