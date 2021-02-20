@@ -1,9 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const session = require('./config/session');
 const nunjucks = require('nunjucks');
 const methodOverride = require('method-override');
 const routes = require('./routes');
-const PORT = 3333;
+const PORT = process.env.PORT || 3333;
 const app = express();
 
 app.use(session);
