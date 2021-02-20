@@ -58,11 +58,12 @@ module.exports = {
     async delete(req, res, next) {
         const { userID } = req.session;
         const { id } = req.body;
+        const loggedUser = await User.findOne({ where: { id: userID } });
 
         const chef = await Chef.findOne({ where: {id} });
 
         if(!chef)
-            return res.render('admin/chefs/index', { error: 'Este Chef já foi excluído do banco de dados' });
+            return res.render('admin/chefs/index', { error: 'Este Chef já foi excluído do banco de dados', loggedUser });
         
         const recipesFromChef = await Recipe.findAll({ where: { chef_id: chef.id } });
 
@@ -74,14 +75,13 @@ module.exports = {
                 chef: {
                     ...chef,
                     avatar_url: chef_avatar ? chef_avatar.path : null
-                }
+                },
+                loggedUser
             });
         }
-        
-        const user = await User.findOne({ where: { id: userID }});
 
-        if(!user.is_admin)
-            return res.render('admin/chefs/index', { error: 'Somente administradores podem deletar chefs' });
+        if(!loggedUser.is_admin)
+            return res.render('admin/chefs/index', { error: 'Somente administradores podem deletar chefs', loggedUser });
         
         req.chef = chef;
         return next();
