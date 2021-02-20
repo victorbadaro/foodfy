@@ -5,7 +5,7 @@ const chefs = require('./chefs');
 const users = require('./users');
 const profile = require('./profile');
 
-routes.get('/', (req, res) => res.redirect('admin/recipes'));
+routes.get('/', (req, res) => res.redirect('/admin/recipes'));
 
 routes.use('/recipes', recipes);
 routes.use('/chefs', chefs);
