@@ -81,7 +81,7 @@ Siga os passos abaixo:
     DB_PASSWORD=
     DB_HOST=
     DB_PORT=
-    DB_DATABASE=
+    DB_DATABASE=foodfy
 
     # MAILTRAP
     MAILTRAP_USER=
