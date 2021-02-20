@@ -35,6 +35,7 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
     * [express-session](https://github.com/expressjs/session)
     * [connect-pg-simple](https://github.com/voxpelli/node-connect-pg-simple)
     * [pg](https://github.com/brianc/node-postgres)
+    * [dotenv](https://www.npmjs.com/package/dotenv)
     * [browser-sync](https://www.browsersync.io/) (dependência de desenvolvimento)
     * [nodemon](https://nodemon.io/) (dependência de desenvolvimento)
     * [npm-run-all](https://github.com/mysticatea/npm-run-all) (dependência de desenvolvimento)
@@ -68,12 +69,31 @@ Siga os passos abaixo:
 
 3. Abra o arquivo `database.sql` e execute todos os comandos que estão nele dentro do teu banco de dados (Steps: 1, 2, 3 e 4)
 
-4. No terminal execute o seguinte comando para popular o banco de dados:
+4. Preencha as variáveis de ambiente contidas no arquivo .env na raíz do projeto
+    Para ter usuário e senha da aplicação **Mailtrap** (utilizada para testar o envio de emails da aplicação Foodfy) você precisa criar uma conta em [https://mailtrap.io/](https://mailtrap.io/) e dentro de um dos teus **inboxes** selecionar a integração com o **Nodemailer** como na imagem abaixo:
+    <img src="./mailtrap_integration.png">
+
+    ```bash
+    PORT=
+
+    # DATABASE
+    DB_USER=
+    DB_PASSWORD=
+    DB_HOST=
+    DB_PORT=
+    DB_DATABASE=
+
+    # MAILTRAP
+    MAILTRAP_USER=
+    MAILTRAP_PASSWORD=
+    ```
+
+5. No terminal execute o seguinte comando para popular o banco de dados:
     ```bash
     $ node seed
     ```
 
-5. Execute um dos seguintes comandos no teu terminal<br><br>
+6. Execute um dos seguintes comandos no teu terminal<br><br>
     Para somente executar o projeto
     
     ```bash
