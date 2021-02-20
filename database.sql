@@ -40,7 +40,7 @@ CREATE TABLE recipes (
   user_id INT NOT NULL REFERENCES users (id),
   title TEXT NOT NULL,
   ingredients TEXT[],
-  preparations TEXT[],
+  preparation TEXT[],
   information TEXT,
   created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW()),
   updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW())
