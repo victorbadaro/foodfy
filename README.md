@@ -66,21 +66,28 @@ Siga os passos abaixo:
     $ npm install
     ```
 
-3. Execute um dos seguintes comandos no teu terminal<br><br>
+3. Abra o arquivo `database.sql` e execute todos os comandos que estão nele dentro do teu banco de dados (Steps: 1, 2, 3 e 4)
+
+4. No terminal execute o seguinte comando para popular o banco de dados:
+    ```bash
+    $ node seed
+    ```
+
+5. Execute um dos seguintes comandos no teu terminal<br><br>
     Para somente executar o projeto
     
     ```bash
     $ npm start
 
-    # O endereço da tua aplicação estará disponível em http://localhost:3000
+    # O endereço da tua aplicação estará disponível em http://localhost:3333
     ```
     <br>
     
-    Para executar o projeto e reiniciar o servidor automaticamente quando alguma alteração for realizada no código do projeto e também já atualizar as páginas quando alguma alteração for feita em sua estrutura ou estilização
+    Para executar o projeto no mode desenvolvedor. Executando assim, o servidor reiniciará automaticamente quando alguma alteração for realizada no código do projeto e também já irá atualizar as páginas da aplicação quando alguma alteração for feita em sua estrutura ou estilização
     ```bash
     $ npm run dev
 
-    # O endereço da tua aplicação estará disponível em http://localhost:3001
+    # O endereço da tua aplicação estará disponível em http://localhost:3000
     ```
 <br>
 
