@@ -69,7 +69,7 @@ Siga os passos abaixo:
 
 3. Abra o arquivo `database.sql` e execute todos os comandos que estão nele dentro do teu banco de dados (Steps: 1, 2, 3 e 4)
 
-    _Você deve ter o banco de dados [PostgreSQL](https://www.postgresql.org/download/) instalado na tua máquina_
+    >_Você deve ter o banco de dados [PostgreSQL](https://www.postgresql.org/download/) instalado na tua máquina_
 
 4. Preencha as variáveis de ambiente contidas no arquivo .env na raíz do projeto
     Para ter usuário e senha da aplicação **Mailtrap** (utilizada para testar o envio de emails da aplicação Foodfy) você precisa criar uma conta em [https://mailtrap.io/](https://mailtrap.io/) e dentro de um dos teus **inboxes** selecionar a integração com o **Nodemailer** como na imagem abaixo:
