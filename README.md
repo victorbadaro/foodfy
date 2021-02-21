@@ -89,8 +89,23 @@ Siga os passos abaixo:
     ```
 
 5. No terminal execute o seguinte comando para popular o banco de dados:
+
     ```bash
     $ node seed
+    ```
+    ---
+    **Atenção**: especificamente para executar o `seed.js` você deve, antes de executá-lo, colocar os dados de conexão do banco de dados diretamente no arquivo `src/config/db.js`, pois as variáveis de ambiente (.env) só funcionarão com o servidor executando. Após a execução do `seed.js` você poderá retornar o código original no arquivo `src/config/db.js`:
+
+    ```javascript
+    const { Pool } = require('pg');
+
+    module.exports = new Pool({
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        database: process.env.DB_DATABASE
+    });
     ```
 
 6. Execute um dos seguintes comandos no teu terminal<br><br>
