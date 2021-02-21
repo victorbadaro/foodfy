@@ -93,6 +93,14 @@ Siga os passos abaixo:
     ```bash
     $ node seed
     ```
+    
+    Se tudo executar corretamente a seguinte mensagem será apresentada no terminal:
+    ```bash
+    Database is ready to be used now
+    Run one of the following commands on your terminal (without quotes):
+    "npm run dev" (if you want to run the app on developer mode)
+    "npm start" (if you want to run the app on production mode)
+    ```
     ---
     **Atenção**: especificamente para executar o `seed.js` você deve, antes de executá-lo, colocar os dados de conexão do banco de dados diretamente no arquivo `src/config/db.js`, pois as variáveis de ambiente (.env) só funcionarão com o servidor executando. Após a execução do `seed.js` você poderá retornar o código original no arquivo `src/config/db.js`:
 
