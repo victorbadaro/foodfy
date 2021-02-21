@@ -76,6 +76,7 @@ Siga os passos abaixo:
     <img src="./mailtrap_integration.png">
 
     ```bash
+    # SERVER (optional)
     PORT=
 
     # DATABASE
