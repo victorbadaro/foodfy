@@ -7,23 +7,25 @@
 </h1>
 <br>
 
-## Indice
+[![LEIAME.md](https://img.shields.io/badge/-Leia%20em%20Portugu%C3%AAs-brightgreen?style=for-the-badge)](./LEIAME.md)
 
-* [Sobre](#-sobre)
-* [Tecnologias utilizadas](#-tecnologias-utilizadas)
-* [Como baixar o projeto](#-como-baixar-o-projeto)
-* [Como executar o projeto](#-como-executar-o-projeto)
+## Summary
+
+* [About](#-about)
+* [Technologies](#-technologies)
+* [How to download the project](#-how-to-download-the-project)
+* [How to run the project](#-how-to-run-the-project)
 <br>
 
-## 🧾 Sobre
+## 🧾 About
 
-Aplicação WEB para apresentação de **receitas** elaboradas por diversos **chefs**.<br>
-_(Este é um projeto criado durante o Bootcamp Launchbase da [Rocketseat](https://rocketseat.com.br/))_.
+WEB application to show **recipes** made by several **chefs**.<br>
+_(This is a project created during the Launchbase Bootcamp of the [Rocketseat](https://rocketseat.com.br/))_.
 <br>
 
-## 🚀 Tecnologias utilizadas
+## 🚀 Technologies
 
-Este projeto foi desenvolvido utilizando as seguintes tecnologias:
+This project was developed using the following technologies:
 
 1. Back-end
     * [NodeJS](https://nodejs.org/en/)
@@ -36,9 +38,9 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
     * [connect-pg-simple](https://github.com/voxpelli/node-connect-pg-simple)
     * [pg](https://github.com/brianc/node-postgres)
     * [dotenv](https://www.npmjs.com/package/dotenv)
-    * [browser-sync](https://www.browsersync.io/) (dependência de desenvolvimento)
-    * [nodemon](https://nodemon.io/) (dependência de desenvolvimento)
-    * [npm-run-all](https://github.com/mysticatea/npm-run-all) (dependência de desenvolvimento)
+    * [browser-sync](https://www.browsersync.io/) (dev dependency)
+    * [nodemon](https://nodemon.io/) (dev dependency)
+    * [npm-run-all](https://github.com/mysticatea/npm-run-all) (dev dependency)
 2. Front-end
     * HTML
     * CSS
@@ -46,33 +48,33 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias:
     * [nunjucks](https://mozilla.github.io/nunjucks/)
 <br>
 
-## 🔽 Como baixar o projeto
+## 🔽 How to download the project
 
 ```bash
 $ git clone https://github.com/victorbadaro/foodfy.git
 ```
 <br>
 
-## 💻 Como executar o projeto
+## 💻 How to run the project
 
-Siga os passos abaixo:
+Follow the steps below:
 
-1. Entre no diretório do projeto
+1. Enter the project directory
     ```bash
     $ cd foodfy
     ```
 
-2. Instale as dependencias do projeto
+2. Install all the project dependencies
     ```bash
     $ npm install
     ```
 
-3. Abra o arquivo `database.sql` e execute todos os comandos que estão nele dentro do teu banco de dados (Steps: 1, 2, 3 e 4)
+3. Open the `database.sql` file and run all the commands that are in it within your database (Steps: 1, 2, 3 and 4)
 
-    >_Você deve ter o banco de dados [PostgreSQL](https://www.postgresql.org/download/) instalado na tua máquina_
+    >_You must have the [PostgreSQL](https://www.postgresql.org/download/) database installed on your machine_
 
-4. Preencha as variáveis de ambiente contidas no arquivo .env na raíz do projeto
-    Para ter usuário e senha da aplicação **Mailtrap** (utilizada para testar o envio de emails da aplicação Foodfy) você precisa criar uma conta em [https://mailtrap.io/](https://mailtrap.io/) e dentro de um dos teus **inboxes** selecionar a integração com o **Nodemailer** como na imagem abaixo:
+4. Fill in the environment variables contained in the .env file found at the project root
+    To have a **Mailtrap** username and password (**Mailtrap** is an application used to test the sending of emails from Foodfy app) you need to create an account at [https://mailtrap.io/](https://mailtrap.io/) and within one of your **inboxes** select the **Nodemailer** integration as in the image below:
     <img src="./mailtrap_integration.png">
 
     ```bash
@@ -91,13 +93,13 @@ Siga os passos abaixo:
     MAILTRAP_PASSWORD=
     ```
 
-5. No terminal execute o seguinte comando para popular o banco de dados:
+5. In your terminal run the following command to populate the database:
 
     ```bash
     $ node seed
     ```
     
-    Se tudo executar corretamente a seguinte mensagem será apresentada no terminal:
+    If everything runs correctly, the following message will be displayed on your terminal:
     ```bash
     Database is ready to be used now
     Run one of the following commands on your terminal (without quotes):
@@ -105,7 +107,7 @@ Siga os passos abaixo:
     "npm start" (if you want to run the app on production mode)
     ```
     ---
-    **Atenção**: especificamente para executar o `seed.js` você deve, antes de executá-lo, colocar os dados de conexão do banco de dados diretamente no arquivo `src/config/db.js`, pois as variáveis de ambiente (.env) só funcionarão com o servidor executando. Após a execução do `seed.js` você poderá retornar o código original no arquivo `src/config/db.js`:
+    **Warning**: specifically to run the `seed.js` file you must, before you running it, put the database connection data directly in the `src/config/db.js` file, since the environment variables (.env) only will work running the server. After running `seed.js` file you can return the original code in the `src/config/db.js` file:
 
     ```javascript
     const { Pool } = require('pg');
@@ -119,26 +121,26 @@ Siga os passos abaixo:
     });
     ```
 
-6. Execute um dos seguintes comandos no teu terminal<br><br>
-    Para somente executar o projeto
+6. Run one of the following commands on your terminal<br><br>
+    To run the project only
     
     ```bash
     $ npm start
 
-    # O endereço da tua aplicação estará disponível em http://localhost:3333
+    # Your application will be available in http://localhost:3333
     ```
     <br>
     
-    Para executar o projeto no mode desenvolvedor. Executando assim, o servidor reiniciará automaticamente quando alguma alteração for realizada no código do projeto e também já irá atualizar as páginas da aplicação quando alguma alteração for feita em sua estrutura ou estilização
+    To run the project on developer mode. Running the project this way, the server will automatically restart when any changes are made in the project code and will also update the application pages when any changes are made in its structure or styling
     ```bash
     $ npm run dev
 
-    # O endereço da tua aplicação estará disponível em http://localhost:3000
+    # Your application will be available in http://localhost:3000
     ```
 <br>
 
-✅ Pronto! Se você seguiu corretamente os passos acima o projeto já estará sendo executado localmente em tua máquina.
+✅ Nice! If you followed all the steps above correctly the project will be running locally on you machine already.
 <br>
 
 ---
-<p align="center">Desenvolvido com ❤ por <a href="https://github.com/victorbadaro">Victor Badaró</a></p>
+<p align="center">Developed with ❤ by <a href="https://github.com/victorbadaro">Victor Badaró</a></p>
