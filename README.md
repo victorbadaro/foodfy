@@ -77,7 +77,7 @@ Follow the steps below:
 
 4. Fill in the environment variables contained in the .env file found at the project root
     To have a **Mailtrap** username and password (**Mailtrap** is an application used to test the sending of emails from Foodfy app) you need to create an account at [https://mailtrap.io/](https://mailtrap.io/) and within one of your **inboxes** select the **Nodemailer** integration as in the image below:
-    <img src="./mailtrap_integration.png">
+    ![image](https://github.com/victorbadaro/foodfy/assets/9096344/ce136fe6-d28d-40cd-9018-a74d8d745bcf)
 
     ```bash
     # SERVER (optional)
